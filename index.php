@@ -31,12 +31,43 @@
     <input type="hidden" id="ids" name="ids">
 </div>
 
-
-<div class="container-lg">
+<!-- ESPACIO PARA LAS TABLAS DE AREAS -->
+<div class="container-lg" id='cuadro1'>
   <br>
-  <div class="areasxpais" id="areasxpais"></div>
+  <h3 class="text-primary mb-4">Seleccione su <span class="text-danger">*</span> tabla de escalación</h3>
+  <div class="areasxpais" id="areasxpais">
+    <table id="tablaContactos" class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>#</th>
+          <th>Nombre</th>
+          <th>Teléfono</th>
+          <th>Tiempo</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      </table>
+  </div>
 </div>
+
+<!-- ESPACIO PARA la tabla de esclacion ya seleciionada  -->
+  <div class="container-lg">
+    <br>
+    <h3> PRUEBA DE COMO SE MIRARIA LAS TABLAS  </h3>
+    <?php printtables(); ?>
+ </div>
+
 
 </body>
 </html>
 
+<script>
+    // Inicializar DataTable
+    $(document).ready(function () {
+        $('#tablaContactos').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            }
+        });
+    });
+</script>

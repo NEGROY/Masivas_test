@@ -11,11 +11,12 @@ function listarPaises() {
         echo "<option>Error en la consulta</option>";
         return;
     }
-
     echo '<option value="">Selecciona un país</option>';
-
     while ($fila = mysqli_fetch_array($resultado, MYSQLI_ASSOC)) {
         echo '<option value="' . $fila['id_pais'] .'">' . $fila['nombre_pais'] . ' ('.$fila['ext'] . ')</option>';
     }
 }
+
+
+
 ?>

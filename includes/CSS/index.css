@@ -1,0 +1,16 @@
+/* Estilos para los cuadros principales */
+.cuadro1 {
+    margin: 5px;
+    padding: 20px;
+    background-color: rgba(240, 240, 240, 0.8); /* Gris claro semitransparente */
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    transition: all 0.3s ease-in-out;
+}
+
+/* Hover para dar efecto */
+.cuadro:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px);
+}
