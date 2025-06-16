@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>masivas Prueba</title>
+    <script src="./includes/JS/index.js"></script>
 </head>
 <body>
 
@@ -23,15 +24,17 @@
 
 <div class="container">
     <label for="pais">País:</label>
-    <select id="pais" name="pais" class="form-control">
+    <select id="pais" name="pais" class="form-control" onchange="desig(this.value)" >
         <?php listarPaises(); ?>
     </select>
+    <input type="hidden" id="ids" name="ids">
 </div>
 
 
 <div class="container">
-  
+  <div class="areasxpais" id="areasxpais"></div>
 </div>
 
 </body>
 </html>
+

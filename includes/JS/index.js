@@ -1,16 +1,19 @@
 
 
 // funcion para que se muestre las diferentes areas 
-$(document).ready(function() {
-        $('#pais').on('change', function() {
-            const idPais = $(this).val();
-            alert(idPais);
-            /*if (idPais) {
-                $.post('ajax/consultar_areas.php', { pais: idPais }, function(data) {
-                    $('#resultado').html(data);
-                });
-            } else {
-                $('#resultado').html('');
-            }*/
-        });
-    });
+function seto(id) {
+    document.getElementById("ids").value = id;
+    alert("ID del país seleccionado: " + id);
+}
+
+// DESASIGNA EL VALOR DE UN SUSUARIO A UNA CAJA
+function desig(id){
+    condi = "tb_slct_areas"; 
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {id,condi},
+        success: function(data) {
+            $("#areasxpais").html(data);
+    } }) 
+}
