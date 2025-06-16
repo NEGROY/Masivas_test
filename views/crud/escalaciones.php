@@ -15,17 +15,17 @@ switch ($condi) {
         $resultado = mysqli_query($general, $consulta);
 
         if (mysqli_num_rows($resultado) > 0) {
-        echo "<table border='1' cellpadding='6'>
+        echo "<table border='1' cellpadding='6' class='table table-striped'>
                 <tr>
                     <th>ID Área</th>
                     <th>Nombre Área</th>
-                    <th>ID País</th>
+                    <th> Options</th>
                 </tr>";
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<tr>
                     <td>{$row['id_area']}</td>
                     <td>{$row['nombre_area']}</td>
-                    <td>{$row['id_pais']}</td>
+                    <td> <button type='button' class='btn btn-primary'> ver </button></td>
                 </tr>";
         }
         echo "</table>";

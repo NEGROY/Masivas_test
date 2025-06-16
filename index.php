@@ -22,7 +22,8 @@
   <?php listarHeader(); ?>
 </div>
 
-<div class="container">
+<div class="container-md mb-5">
+  <h2> Elige un pais</h2>
     <label for="pais">País:</label>
     <select id="pais" name="pais" class="form-control" onchange="desig(this.value)" >
         <?php listarPaises(); ?>
@@ -31,7 +32,8 @@
 </div>
 
 
-<div class="container">
+<div class="container-lg">
+  <br>
   <div class="areasxpais" id="areasxpais"></div>
 </div>
 
