@@ -1,9 +1,12 @@
 <?php 
-  require_once 'include/inclu.php'; 
+  require_once 'includes/phpFun/fun.php';
+  require_once './includes/incl.php'; 
+  require_once './views\miscelana\general.php';
+  
     date_default_timezone_set('America/Guatemala');  
     $fecha = date('m-d-Y');
     $hora  = date('H:i');
-?>  
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,10 +16,22 @@
     <title>masivas Prueba</title>
 </head>
 <body>
-    
+
+<div>
+  <?php listarHeader(); ?>
+</div>
+
+<div class="container">
+    <label for="pais">País:</label>
+    <select id="pais" name="pais" class="form-control">
+        <?php listarPaises(); ?>
+    </select>
+</div>
 
 
-
+<div class="container">
+  
+</div>
 
 </body>
 </html>
