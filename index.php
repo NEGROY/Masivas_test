@@ -22,33 +22,48 @@
   <?php listarHeader(); ?>
 </div>
 
-<div class="container-md mb-5">
-  <h2> Elige un pais</h2>
-    <label for="pais">País:</label>
-    <select id="pais" name="pais" class="form-control" onchange="desig(this.value)" >
-        <?php listarPaises(); ?>
-    </select>
-    <input type="hidden" id="ids" name="ids">
-</div>
+<!-- Documentos de pruewba -->
+<div class="container py-3">
+  <div class="row g-3">
+    
+  <!-- Columna de selección de país -->
+    <div class="col-md-3">
+      <div class="p-3 border rounded-3 shadow-sm bg-light ">
+        
+      <!-- Input Falla -->
+        <label for="falla" class="form-label">Falla ID:</label>
+        <input type="text" id="falla" name="falla" class="form-control mb-3" placeholder="Fxxxx">
 
-<!-- ESPACIO PARA LAS TABLAS DE AREAS -->
-<div class="container-lg" id='cuadro1'>
-  <br>
-  <h3 class="text-primary mb-4">Seleccione su <span class="text-danger">*</span> tabla de escalación</h3>
-  <div class="areasxpais" id="areasxpais">
-    <table id="tablaContactos" class="table table-bordered table-striped">
-      <thead class="table-dark">
-        <tr>
-          <th>#</th>
-          <th>Nombre</th>
-          <th>Teléfono</th>
-          <th>Tiempo</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      </table>
+      <!-- Select de país -->
+        <label for="pais" class="form-label">País:</label>
+        <select id="pais" name="pais" class="form-select" onchange="desig(this.value)">
+          <?php listarPaises(); ?>
+        </select>
+        <input type="hidden" id="ids" name="ids">
+
+      <!-- Botón de búsqueda -->
+        <br>
+        <button type="button" class="btn btn-primary w-100" onclick="buscarDatos()">
+        <i class="bi bi-search me-1"></i> Buscar </button>
+      </div>
+    </div>
+
+    <div class="col-9">
+  <div id="cuadro1" class="bg-white border rounded-4 shadow-sm p-4">
+    <h4 class="mb-4">Seleccione su tabla de escalación</h4>
+    
+    <div class="areasxpais" id="areasxpais">
+      <?php tbvoid(); ?>
+    </div>
   </div>
 </div>
+
+  </div>
+</div>
+
+
+<!-- ESPACIO PARA LAS TABLAS DE AREAS -->
+
 
 <!-- ESPACIO PARA la tabla de esclacion ya seleciionada  -->
   <div class="container-lg">
@@ -62,7 +77,7 @@
 </html>
 
 <script>
-    // Inicializar DataTable
+    /* Inicializar DataTable
     $(document).ready(function () {
         $('#tablaContactos').DataTable({
             language: {
@@ -70,4 +85,5 @@
             }
         });
     });
+    */
 </script>

@@ -56,3 +56,20 @@ function printtables() {
 </div>
     <?php
 }
+
+#imprime solo una tabla vacia 
+function tbvoid()  {
+    ?>
+    <table id="tablaContactos" class="table table-bordered table-striped">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Tiempo</th>
+                <th>Acción</th>
+              </tr>
+            </thead>
+          </table>
+    <?php
+}
