@@ -6,7 +6,7 @@ function seto(id) {
     alert("ID del país seleccionado: " + id);
 }
 
-// DESASIGNA EL VALOR DE UN SUSUARIO A UNA CAJA
+// Recibe el ID y muestra las areas de escalacion asociadas a ese PAIS
 function desig(id){
     condi = "tb_slct_areas"; 
     $.ajax({

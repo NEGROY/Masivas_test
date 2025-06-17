@@ -15,11 +15,14 @@ switch ($condi) {
         $resultado = mysqli_query($general, $consulta);
 
         if (mysqli_num_rows($resultado) > 0) {
-        echo "<table border='1' cellpadding='6' class='table table-striped'>
+        echo "<table border='1' cellpadding='1' class='table table-striped'>
+            <thead class='table-dark'>
                 <tr>
                     <th>Nombre Área</th>
-                    <th> Options</th>
-                </tr>";
+                    <th>Opcion</th>
+                </tr>
+            </thead>
+                    <tbody id='myTable'>";
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<tr>
                     <td>{$row['nombre_area']}</td>
@@ -27,7 +30,7 @@ switch ($condi) {
                     value='{$row['nombre_area']}'> Ver </button> </td>
                 </tr>";
         }
-        echo "</table>";
+        echo "  </tbody> </table>";
     } else {
         echo "<p>No se encontraron áreas para este país.</p>";
     }

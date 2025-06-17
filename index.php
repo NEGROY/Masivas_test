@@ -48,13 +48,21 @@
       </div>
     </div>
 
-    <div class="col-9">
+  <div class="col-9">
   <div id="cuadro1" class="bg-white border rounded-4 shadow-sm p-4">
-    <h4 class="mb-4">Seleccione su tabla de escalación</h4>
-    
+    <div class="row align-items-center mb-3">
+      <div class="col-md-6">
+        <h4 class="mb-0">Seleccione su tabla de escalación</h4>
+      </div>
+      <div class="col-md-6">
+        <input class="form-control" id="myInput" type="text" placeholder="Buscar">
+      </div>
+    </div>
+
     <div class="areasxpais" id="areasxpais">
       <?php tbvoid(); ?>
     </div>
+
   </div>
 </div>
 
@@ -77,6 +85,15 @@
 </html>
 
 <script>
+    $(document).ready(function(){
+      $("#myInput").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("#myTable tr").filter(function() {
+          $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+      });
+    });
+
     /* Inicializar DataTable
     $(document).ready(function () {
         $('#tablaContactos').DataTable({
@@ -86,4 +103,5 @@
         });
     });
     */
+
 </script>

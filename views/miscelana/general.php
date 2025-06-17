@@ -63,11 +63,8 @@ function tbvoid()  {
     <table id="tablaContactos" class="table table-bordered table-striped">
             <thead class="table-dark">
               <tr>
-                <th>#</th>
-                <th>Nombre</th>
-                <th>Teléfono</th>
-                <th>Tiempo</th>
-                <th>Acción</th>
+                <th>Nombre Área</th>
+                <th>opcion</th>
               </tr>
             </thead>
           </table>
