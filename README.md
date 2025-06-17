@@ -16,9 +16,10 @@ que traiga con la falla, el
 17/06/2025
 - paginar la tabla de las areas, de escalacion. 
 
-- aregar un select donde ()
+- aregar un select2 donde ( en vez de las tablas )
+https://select2.org/getting-started/installation
 
 - una falla solo puede tener una tabla de escalacion 
 - agrgar un icono si a escalacion es por WHAPP
 
--
+- w

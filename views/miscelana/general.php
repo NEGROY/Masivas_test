@@ -24,7 +24,7 @@ function printtables() {
     #realiza la consulta 
         $resultado = mysqli_query($general, $query);
     ?>
-    <div class="container mt-5">
+    <div class="container mt-8">
     <table id="TBescala" class="table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
@@ -32,25 +32,28 @@ function printtables() {
                 <th>Nombre</th>
                 <th>Teléfono</th>
                 <th>Tiempo</th>
-                <th>Acción</th>
+                <th>Caculadora</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            $contador = 1;
+            $contador = 1;  $hora=0; 
             while ($fila = mysqli_fetch_assoc($resultado)) {
                 // Alternar clases de color
                 $claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
+                $hora = ($fila['tiempo']) + $hora;
                 echo "<tr class='{$claseFila}'>";
                 echo "<td>{$contador}/4</td>";
                 echo "<td>{$fila['nombre']}</td>";
                 echo "<td>{$fila['telefono']}</td>";
-                echo "<td>{$fila['tiempo']}</td>";
-                echo "<td><button class='btn btn-primary btn-sm'>Mensaje</button></td>";
+                echo "<td>{$fila['tiempo']} Horas</td>";
+                echo "<td> <label class='form-label'> {$hora}:00:00 Hrs </label> </td>";
                 echo "</tr>";
                 $contador++;
             }
+        #<button class='btn btn-primary btn-sm'>Mensaje</button>
             ?>
+
         </tbody>
     </table>
 </div>
