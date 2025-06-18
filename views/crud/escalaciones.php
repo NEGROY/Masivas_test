@@ -5,6 +5,7 @@
 
 switch ($condi) {
 
+// FUNCION PARA IMPRIMIR LAS AREAS DENTRO DE LA tablas 
     case 'tb_slct_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
@@ -22,7 +23,7 @@ switch ($condi) {
                     <th>Opcion</th>
                 </tr>
             </thead>
-                    <tbody id='myTable'>";
+            <tbody id='myTable'>";
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<tr>
                     <td>{$row['nombre_area']}</td>
@@ -36,7 +37,26 @@ switch ($condi) {
     }
 break;
 
+// FUNCION PARA IMPRIMIR LAS AREAS DE ESCALACION DENTRO DEL SELECT 
+case 'tb_areas': #areas por pais 
+    $pais_id = $_POST["id"];
+    #consulta general para traer las areas 
+        $consulta = "SELECT id_area, nombre_area, id_pais
+        FROM pawsoyos_escalaciones_no_eliminar.tb_area_escalacion 
+        WHERE id_pais = $pais_id";
+        #se realiza la consulta 
+        $resultado = mysqli_query($general, $consulta);
+    if (mysqli_num_rows($resultado) > 0) {
+        while ($row = mysqli_fetch_assoc($resultado)) {
+            echo "<option value='{$row['nombre_area']}'>{$row['nombre_area']}</option>";
+            }
+    } else {
+        echo "<p>No se encontraron áreas para este país.</p>";
     }
+break;
+
+
+}
 
     /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 
     SELECT 

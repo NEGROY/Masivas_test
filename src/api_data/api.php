@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: application/json');
 
 $myObj = [
     [
@@ -41,8 +42,4 @@ $myObj = [
     ]
 ];
 
-$myJSON = json_encode($myObj, JSON_PRETTY_PRINT);
-echo $myJSON;
-
-?>
-    
+echo json_encode($myObj, JSON_PRETTY_PRINT);

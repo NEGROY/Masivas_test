@@ -73,3 +73,50 @@ function tbvoid()  {
           </table>
     <?php
 }
+
+
+# fila de los imputs para calcular las horas 
+function fila_hras() {
+?>
+<div class="container-lg ">
+  <div class="card shadow-sm border-0 rounded-3">
+    <div class="card-body">
+
+      <div class="row g-3 justify-content-center align-items-end">
+
+        <!-- HORA ACTUAL -->
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-text">Hora actual</span>
+            <input type="text" id="horaActual" class="form-control text-center"
+                   pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"
+                   placeholder="Ej. 14:00:00">
+          </div>
+        </div>
+
+        <!-- TIEMPO ACUMULADO -->
+        <div class="col-md-3">
+          <div class="input-group">
+            <span class="input-group-text">Acumulado</span>
+            <input type="text" id="tiempoAcumulado" class="form-control text-center"
+                   placeholder="Ej. 3h 15m">
+          </div>
+        </div>
+
+        <!-- BOTÓN -->
+        <div class="col-md-2 d-grid">
+          <button type="button" class="btn btn-secondary" onclick="calcularTiempos()">Calcular</button>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+<?php
+}
+
+
+
+
+?>

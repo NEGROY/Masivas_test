@@ -17,6 +17,20 @@ function listarPaises() {
     }
 }
 
+// prueba de mi funcion para que este sumando las horas y las imprima 23hrs formato 
+function calcu_hrs() {
+    $hora_actual = "21:00:00"; // hora base
+    $horas_a_sumar = [2, 3, 5, 8];
+
+    echo "Hora actual: $hora_actual<br><br>";
+
+    foreach ($horas_a_sumar as $hrs) {
+        $dt = new DateTime($hora_actual);
+        $dt->modify("+{$hrs} hours");
+        echo "Hora +$hrs hrs: " . $dt->format("H:i:s") . "<br>";
+    }
+
+}
 
 
 ?>

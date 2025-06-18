@@ -50,3 +50,48 @@ function buscarDatos() {
     alert(`Datos capturados:\nPaís: ${pais}\nFalla: ${falla} `);
 }
 
+// PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
+function calcularTiempos() {
+    const horaActual = document.getElementById('horaActual').value;
+    const tiempoAcumulado = document.getElementById('tiempoAcumulado').value;
+
+    console.log("Hora actual:", horaActual);
+    console.log("Tiempo acumulado:", tiempoAcumulado);
+
+}
+
+  // PSEUDO API PARA LA BUSQUEDA 
+function buscarDatos_api() {
+    const tk = document.getElementById('falla').value.trim();
+    const resultadoDiv = document.getElementById('resultado');
+
+    if (!tk) {
+        Swal.fire({
+        text: "Por favor, INGRESA una falla",
+        icon: "warning"
+        });
+    return;
+    }
+    
+
+    fetch('http://localhost/masiva_test/src/api_data/api.php')
+      .then(response => response.json())
+      .then(data => {
+        const encontrado = data.find(item => item.tk === tk);
+
+        if (encontrado) {
+          resultadoDiv.innerHTML = `
+            <div class="alert alert-success">
+              <strong>TK:</strong> ${encontrado.tk}<br>
+              <strong>Total menos cliente (horas):</strong> ${encontrado.total_menos_cliente_horas}
+            </div>
+          `;
+        } else {
+          resultadoDiv.innerHTML = '<div class="alert alert-warning">No se encontró el TK solicitado.</div>';
+        }
+      })
+      .catch(error => {
+        console.error('Error al consumir API:', error);
+        resultadoDiv.innerHTML = '<div class="alert alert-danger">Error al consultar la API.</div>';
+      });
+  }
