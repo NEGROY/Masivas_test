@@ -1,12 +1,12 @@
 
 
-// funcion para que se muestre las diferentes areas 
+// **************** funcion para que se muestre las diferentes areas 
 function seto(id) {
     document.getElementById("ids").value = id;
     alert("ID del país seleccionado: " + id);
 }
 
-// Recibe el ID y muestra las areas de escalacion asociadas a ese PAIS
+// **************** Recibe el ID y muestra las areas de escalacion asociadas a ese PAIS
 function desig(id){
     condi = "tb_areas"; 
     $.ajax({
@@ -18,37 +18,62 @@ function desig(id){
     } }) 
 }
 
-// CAPTURA DE DATOS POR UN BOTON A PETICION DEL MASTER 
-function buscarDatos() {
-    // Obtener valores del formulario
-    const pais = document.getElementById('pais').value;
-    let falla = document.getElementById('falla').value.trim();
-
-    // Validar entrada de falla vacía
+// **************** recibe datos de falla y lo formatea 
+function valdiaFAlla(falla) {
     if (!falla) {
         Swal.fire({
-        text: "Por favor, INGRESA una falla",
-        icon: "warning"
+            text: "Por favor, INGRESA una falla",
+            icon: "warning"
         });
-    return;
+        return null;
     }
-    
-    // Limpiar espacios y convertir a mayúsculas
     falla = falla.replace(/\s+/g, '').toUpperCase();
 
-     // Asegurarse que empieza con F
     if (!falla.startsWith('F')) {
-    falla = 'F' + falla;
+        falla = 'F' + falla;
     }
-
-    //actualizo la falla 
     document.getElementById('falla').value = falla;
-    // Mostrar resultados
-    console.log("País seleccionado:", pais);
-    console.log("Falla:", falla);
 
-    alert(`Datos capturados:\nPaís: ${pais}\nFalla: ${falla} `);
+    return falla; // Retorna el valor ya validado y formateado
 }
+
+// **************** PSEUDO API PARA LA BUSQUEDA 
+function buscarDatos_api() {
+    let tkEntrada = document.getElementById('falla').value.trim();
+    const resultadoDiv = document.getElementById('resultado');
+
+    // Validar y formatear
+    const tk = valdiaFAlla(tkEntrada);
+    if (!tk) return; // Si la validación falla, se detiene la función
+
+    fetch('http://localhost/masiva_test/src/api_data/api.php')
+        .then(response => response.json())
+        .then(data => {
+            const encontrado = data.find(item => item.tk === tk);
+
+            if (encontrado) {
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>TK:</strong> ${encontrado.tk}<br>
+                        <strong>Total menos cliente (horas):</strong> ${encontrado.total_menos_cliente_horas}<br>
+                        <strong>Total menos cliente (horas):</strong> ${encontrado.hh_mm_ss}
+                    </div>
+                `;
+                document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
+            } else {
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-warning">No se encontró el TK solicitado.</div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error al consumir API:', error);
+            resultadoDiv.innerHTML = `
+                <div class="alert alert-danger">Error al consultar la API.</div>
+            `;
+        });
+}
+
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
 function calcularTiempos() {
@@ -58,40 +83,4 @@ function calcularTiempos() {
     console.log("Hora actual:", horaActual);
     console.log("Tiempo acumulado:", tiempoAcumulado);
 
-}
-
-  // PSEUDO API PARA LA BUSQUEDA 
-function buscarDatos_api() {
-    const tk = document.getElementById('falla').value.trim();
-    const resultadoDiv = document.getElementById('resultado');
-
-    if (!tk) {
-        Swal.fire({
-        text: "Por favor, INGRESA una falla",
-        icon: "warning"
-        });
-    return;
-    }
-    
-
-    fetch('http://localhost/masiva_test/src/api_data/api.php')
-      .then(response => response.json())
-      .then(data => {
-        const encontrado = data.find(item => item.tk === tk);
-
-        if (encontrado) {
-          resultadoDiv.innerHTML = `
-            <div class="alert alert-success">
-              <strong>TK:</strong> ${encontrado.tk}<br>
-              <strong>Total menos cliente (horas):</strong> ${encontrado.total_menos_cliente_horas}
-            </div>
-          `;
-        } else {
-          resultadoDiv.innerHTML = '<div class="alert alert-warning">No se encontró el TK solicitado.</div>';
-        }
-      })
-      .catch(error => {
-        console.error('Error al consumir API:', error);
-        resultadoDiv.innerHTML = '<div class="alert alert-danger">Error al consultar la API.</div>';
-      });
 }

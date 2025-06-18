@@ -99,7 +99,7 @@ function fila_hras() {
           <div class="input-group">
             <span class="input-group-text">Acumulado</span>
             <input type="text" id="tiempoAcumulado" class="form-control text-center"
-                   placeholder="Ej. 3h 15m">
+              placeholder="Ej. 3h 15m" readonly>
           </div>
         </div>
 

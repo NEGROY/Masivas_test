@@ -59,6 +59,10 @@
   <!-- Columna de  TB escalación  -->
   <div class="col-9">
     <?php fila_hras(); ?>
+    <div class="container">
+      <br>
+      <?php printtables(); ?>
+  </div>
   </div>
 
   </div>
@@ -67,14 +71,6 @@
   <div id="resultado" class="mt-3"></div>
 
 <br>
-
-
-<!-- ESPACIO PARA la tabla de esclacion ya seleciionada  -->
-  <div class="container">
-    <h3> PRUEBA DE COMO SE MIRARIA LAS TABLAS  </h3>
-    <?php printtables(); ?>
-  </div>
-
 
 </body>
 </html>
