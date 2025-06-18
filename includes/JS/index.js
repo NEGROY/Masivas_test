@@ -77,10 +77,44 @@ function buscarDatos_api() {
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
 function calcularTiempos() {
-    const horaActual = document.getElementById('horaActual').value;
-    const tiempoAcumulado = document.getElementById('tiempoAcumulado').value;
+    const horaActual = document.getElementById('horaActual').value.trim();
+    const tiempoAcumulado = document.getElementById('tiempoAcumulado').value.trim();
+    const areaSeleccionada = document.getElementById('areasxpais').value;
+
+    const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
+
+    // Validaciones básicas no null 
+    if (!horaActual || !tiempoAcumulado || !areaSeleccionada) {
+        Swal.fire({
+            icon: 'warning',
+            title: 'Campos vacíos',
+            text: 'Por favor, completa todos los campos antes de continuar.'
+        });
+        return;
+    }
+
+    // validamos como esta la HORA PICO
+    if (!regexHora.test(horaActual)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Formato inválido',
+            text: 'La hora actual debe tener el formato HH:MM:SS.'
+        });
+        return;
+    }
 
     console.log("Hora actual:", horaActual);
     console.log("Tiempo acumulado:", tiempoAcumulado);
+    console.log("areaSeleccionada:", areaSeleccionada);
+
+    /*prueba para que imprima la tabla
+    condi = "tb_areas"; 
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {id,condi},
+        success: function(data) {
+            $("#areasxpais").html(data);
+    } }) */
 
 }

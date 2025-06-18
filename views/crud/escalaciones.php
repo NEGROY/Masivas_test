@@ -48,7 +48,7 @@ case 'tb_areas': #areas por pais
         $resultado = mysqli_query($general, $consulta);
     if (mysqli_num_rows($resultado) > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
-            echo "<option value='{$row['nombre_area']}'>{$row['nombre_area']}</option>";
+            echo "<option value='{$row['id_area']}'> {$row['nombre_area']}</option>";
             }
     } else {
         echo "<p>No se encontraron áreas para este país.</p>";
