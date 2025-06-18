@@ -6,7 +6,7 @@
 switch ($condi) {
 
 // FUNCION PARA IMPRIMIR LAS AREAS DENTRO DE LA tablas 
-    case 'tb_slct_areas': #areas por pais 
+case 'tb_slct_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
         $consulta = "SELECT id_area, nombre_area, id_pais

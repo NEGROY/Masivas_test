@@ -8,7 +8,7 @@ function seto(id) {
 
 // Recibe el ID y muestra las areas de escalacion asociadas a ese PAIS
 function desig(id){
-    condi = "tb_slct_areas"; 
+    condi = "tb_areas"; 
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
@@ -94,4 +94,4 @@ function buscarDatos_api() {
         console.error('Error al consumir API:', error);
         resultadoDiv.innerHTML = '<div class="alert alert-danger">Error al consultar la API.</div>';
       });
-  }
+}

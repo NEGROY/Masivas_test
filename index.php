@@ -43,12 +43,9 @@
 
       <!-- Select de Área de Escalación -->
           <br>
-        <label for="areaEscalacion" class="form-label">Áreas de Escalación:</label>
-        <select id="areaEscalacion" name="areaEscalacion" class="js-example-basic-single">
-          <option value="">Seleccione un área</option>
-          <option value="2">CNOC_CBO_REACTIVO</option>
-          <option value="2">GESTION N1_CBO</option>
-          <option value="2">MESA DE AYUDA</option>
+        <label for="areasxpais" class="form-label">Áreas de Escalación:</label>
+        <select id="areasxpais" name="areasxpais" class="js-example-basic-single">
+          <option value="">---Seleccione un Pais---</option>
         </select>
         <br>
 
