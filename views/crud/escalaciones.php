@@ -62,24 +62,34 @@ case 'TB_calculadora':
     $hrActual = $_POST["hrActual"];     $tmpAcumu = $_POST["tmpAcumu"];     $areaSlct = $_POST["areaSlct"];
     $pais_id = 2; // es temporal mientras se ingresa el restto a la BD
     // Consulta Para los contactos  
-        $query = "SELECT e.nivel, c.nombre, c.telefono, e.tiempo 
+        $query = "SELECT 
+        e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo  
         FROM tb_escalacion e
         INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        WHERE e.id_tipo_escalacion = 2";
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
+        WHERE e.id_area  = 2 ORDER by e.nivel ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);    
     # imprime el encabezado de la tabla
     echo '<table id="TBescala" class="table table-bordered table-striped">
         <thead class="table-dark"> <tr>
-        <th>#</th><th>Nombre</th> <th>Teléfono</th> <th>Tiempo</th>
+        <th>#</th><th>Nombre</th> <th>Medio</th> <th>Tiempo</th>
         <th>Caculadora</th> </tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
 
     while ($fila = mysqli_fetch_assoc($resultado)) {
-        // Alternar clases de color
+        // Alternar clases de color || MODIFICAR PARA VER EL HORARIO 
         $claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
+
+        // Badge si hay comentario
+        $comentarioBadge = !empty($fila['comentario']) 
+        ? "<span class='badge bg-light text-dark'>{$fila['comentario']}</span>" 
+        : "";
+
+        // Ícono según tipo
+        $iconoTipo = obtenerIconoTipo($fila['tipo']);
 
         // tiempo sumarlo a la hora actual acumulada
         $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
@@ -87,9 +97,9 @@ case 'TB_calculadora':
 
         //$hora = ($fila['tiempo']) + $hora;
         echo "<tr class='{$claseFila}'>";
-        echo "<td>{$contador}/4</td>";
-        echo "<td>{$fila['nombre']}</td>";
-        echo "<td>{$fila['telefono']}</td>";
+        echo "<td>{$fila['nivel']}</td>";
+        echo "<td >{$fila['nombre']} {$comentarioBadge}</td>";
+        echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
         echo "<td><label class='form-label'>" . $hora_acumulada->format("H:i:s") . " Hrs</label></td>";
         echo "</tr>";
@@ -111,4 +121,17 @@ FROM tb_escalacion e
 INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
 WHERE e.id_tipo_escalacion = 2;
          */
+
+    function obtenerIconoTipo($tipo) {
+    switch (strtolower($tipo)) {
+        case 'llamada':
+            return "<i class='fas fa-phone fa-xs text-primary'></i>";
+        case 'whatsapp':
+            return "<i class='fab fa-whatsapp fa-s text-success'></i>";
+        case 'correo':
+            return "<i class='fas fa-envelope fa-s text-danger'></i>";
+        default:
+            return ""; // Sin ícono si no hay coincidencia
+    }
+}
 ?>

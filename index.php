@@ -59,9 +59,13 @@
   <!-- Columna de  TB escalación  -->
   <div class="col-9">
     <?php fila_hras(); ?>
+    <div class="container">
+      <small class="text-muted d-block pr-2" id='titulos'> - </small>
+    </div>
+    
     <div class="container TB_calcu mt-9" id='TB_calcu'>
       <br>
-      <?php printtables(); ?>
+      <?php // printtables(); ?>
     </div>
   </div>
 

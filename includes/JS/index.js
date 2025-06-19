@@ -90,6 +90,9 @@ function calcularTiempos() {
             title: 'Campos vacíos',
             text: 'Por favor, completa todos los campos antes de continuar.'
         });
+            const select = document.getElementById('areasxpais');
+            const areaSlct = select.options[select.selectedIndex].text;
+            $("#titulos").html(areaSlct);
         return;
     }
 
@@ -102,6 +105,7 @@ function calcularTiempos() {
         });
         return;
     }
+
     /*console.log("Hora actual:", hrActual);
     console.log("Tiempo acumulado:", tmpAcumu);
     console.log("areaSeleccionada:", areaSlct);*/

@@ -17,11 +17,13 @@ function listarHeader() {
 function printtables() {
     include './includes/BD_con/db_con.php';
     #esta es la consulta de sql de pruebas esta
-        $query = "SELECT e.nivel, c.nombre, c.telefono, e.tiempo 
+        $query = "SELECT
+            e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo
         FROM tb_escalacion e
         INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        WHERE e.id_tipo_escalacion = 2";
-    #realiza la consulta 
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
+        WHERE e.id_area  = 2 ";
+        #realiza la consulta 
         $resultado = mysqli_query($general, $query);
     ?>
     <div class="container mt-8">
@@ -39,12 +41,17 @@ function printtables() {
             <?php
             $contador = 1;  $hora=0; 
             while ($fila = mysqli_fetch_assoc($resultado)) {
+               // Verifica si hay comentario
+              $comentarioBadge = '';
+              if (!empty($fila['comentario'])) {
+                $comentarioBadge = "<span class='badge bg-light text-dark'>{$fila['comentario']}</span>";
+              }
                 // Alternar clases de color
                 $claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
                 $hora = ($fila['tiempo']) + $hora;
                 echo "<tr class='{$claseFila}'>";
                 echo "<td>{$contador}/4</td>";
-                echo "<td>{$fila['nombre']}</td>";
+                echo "<td>{$fila['nombre']} {$comentarioBadge}</td>";
                 echo "<td>{$fila['telefono']}</td>";
                 echo "<td>{$fila['tiempo']} Horas</td>";
                 echo "<td> <label class='form-label'> {$hora}:00:00 Hrs </label> </td>";
