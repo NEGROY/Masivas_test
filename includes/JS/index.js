@@ -46,7 +46,7 @@ function buscarDatos_api() {
     const tk = valdiaFAlla(tkEntrada);
     if (!tk) return; // Si la validación falla, se detiene la función
 
-    fetch('http://localhost/masiva_test/src/api_data/api.php')
+    fetch('./src/api_data/api.php')
         .then(response => response.json())
         .then(data => {
             const encontrado = data.find(item => item.tk === tk);
