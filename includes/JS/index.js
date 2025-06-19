@@ -90,11 +90,12 @@ function calcularTiempos() {
             title: 'Campos vacíos',
             text: 'Por favor, completa todos los campos antes de continuar.'
         });
-            const select = document.getElementById('areasxpais');
-            const areaSlct = select.options[select.selectedIndex].text;
-            $("#titulos").html(areaSlct);
         return;
     }
+    
+    const select = document.getElementById('areasxpais');
+    const areaSlct2 = select.options[select.selectedIndex].text;
+    $("#titulos").html(areaSlct2);
 
     // validamos como esta la HORA PICO
     if (!regexHora.test(hrActual)) {
