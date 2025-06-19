@@ -56,6 +56,49 @@ case 'tb_areas': #areas por pais
 break;
 
 
+// # TABLA CON LOS TIEMPO BIEN CALCULADOS 
+case 'TB_calculadora':
+    // datos desde el AJAX
+    $hrActual = $_POST["hrActual"];     $tmpAcumu = $_POST["tmpAcumu"];     $areaSlct = $_POST["areaSlct"];
+    $pais_id = 2; // es temporal mientras se ingresa el restto a la BD
+    // Consulta Para los contactos  
+        $query = "SELECT e.nivel, c.nombre, c.telefono, e.tiempo 
+        FROM tb_escalacion e
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
+        WHERE e.id_tipo_escalacion = 2";
+        #realiza la consulta 
+        $resultado = mysqli_query($general, $query);    
+    # imprime el encabezado de la tabla
+    echo '<table id="TBescala" class="table table-bordered table-striped">
+        <thead class="table-dark"> <tr>
+        <th>#</th><th>Nombre</th> <th>Teléfono</th> <th>Tiempo</th>
+        <th>Caculadora</th> </tr> </thead> <tbody>';
+        
+    $contador = 1; // Asegúrate de inicializar el contador
+    $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
+
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        // Alternar clases de color
+        $claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
+
+        // tiempo sumarlo a la hora actual acumulada
+        $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
+        $hora_acumulada->modify("+{$tiempo_sumar} hours");
+
+        //$hora = ($fila['tiempo']) + $hora;
+        echo "<tr class='{$claseFila}'>";
+        echo "<td>{$contador}/4</td>";
+        echo "<td>{$fila['nombre']}</td>";
+        echo "<td>{$fila['telefono']}</td>";
+        echo "<td>{$fila['tiempo']} Horas</td>";
+        echo "<td><label class='form-label'>" . $hora_acumulada->format("H:i:s") . " Hrs</label></td>";
+        echo "</tr>";
+        $contador++;
+    }
+    echo '</tbody> </table> </div>';
+
+break;
+
 }
 
     /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 

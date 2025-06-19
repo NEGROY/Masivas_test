@@ -77,14 +77,14 @@ function buscarDatos_api() {
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
 function calcularTiempos() {
-    const horaActual = document.getElementById('horaActual').value.trim();
-    const tiempoAcumulado = document.getElementById('tiempoAcumulado').value.trim();
-    const areaSeleccionada = document.getElementById('areasxpais').value;
+    const hrActual = document.getElementById('horaActual').value.trim();
+    const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
+    const areaSlct = document.getElementById('areasxpais').value;
 
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
 
     // Validaciones básicas no null 
-    if (!horaActual || !tiempoAcumulado || !areaSeleccionada) {
+    if (!hrActual || !tmpAcumu || !areaSlct) {
         Swal.fire({
             icon: 'warning',
             title: 'Campos vacíos',
@@ -94,7 +94,7 @@ function calcularTiempos() {
     }
 
     // validamos como esta la HORA PICO
-    if (!regexHora.test(horaActual)) {
+    if (!regexHora.test(hrActual)) {
         Swal.fire({
             icon: 'error',
             title: 'Formato inválido',
@@ -102,19 +102,18 @@ function calcularTiempos() {
         });
         return;
     }
+    /*console.log("Hora actual:", hrActual);
+    console.log("Tiempo acumulado:", tmpAcumu);
+    console.log("areaSeleccionada:", areaSlct);*/
 
-    console.log("Hora actual:", horaActual);
-    console.log("Tiempo acumulado:", tiempoAcumulado);
-    console.log("areaSeleccionada:", areaSeleccionada);
-
-    /*prueba para que imprima la tabla
-    condi = "tb_areas"; 
+    // prueba para que imprima la tabla
+    condi = "TB_calculadora"; 
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {id,condi},
+        data: {hrActual,tmpAcumu,areaSlct,condi},
         success: function(data) {
-            $("#areasxpais").html(data);
-    } }) */
-
+            $("#TB_calcu").html(data);
+    } }) 
+        return;
 }
