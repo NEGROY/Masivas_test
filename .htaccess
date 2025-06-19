@@ -1,9 +1,0 @@
-# ErrorDocument 404 http://beta1.sotecprotech.com/microsystem/404.php
-
-# ErrorDocument 404 https://localhost/dashboard/1PROYECTOS/SOTECPRO_GIT/MicroSystem/404.php
-
-# ErrorDocument 404 https://localhost/dashboard/1PROYECTOS/SOTECPRO_GIT/MicroSystem/views/Creditos/cre_Indi.php
-# ErrorDocument 404 https://localhost/dashboard/1PROYECTOS/SOTECPRO_GIT/MicroSystem/views/Creditos/cre_Indi.php
-<FilesMatch "\.(js)$">
-    Header set Cache-Control "max-age=43200, public"
-</FilesMatch>
