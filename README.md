@@ -22,4 +22,17 @@ https://select2.org/getting-started/installation
 - una falla solo puede tener una tabla de escalacion 
 - agrgar un icono si a escalacion es por WHAPP
 
-- w
+
+-------------------------------------------------
+
+- UN BOTON para copiar los mensajes o un metodo para copiarlos. 
+- obtener la HORA ACTUAL DESDE LA API, "open_time" => "13-06-2025 14:31:55" Y PEGARLA EN EL INPUT
+- CREAR LA VISTA DEL TABLERO
+- AGREGAR TOOLTIP EN LOS BOTONES DE LAS TABLAS 
+- AGREGAR UN WIDTH AUTO EN LOS TEXT AREA
+- VALIDAR EL SEMAFORO PARA EL TABLERO DE (15 10 5 >MAYOR A LOS MINUTOS)
+- CREAR UNA VISTA PARA LLEVAR UN REGISTRO DE LA FALLA Y ALMACENAR DATOS DE LAS FALLAS ASOCIADAS 
+(PE, WAN, VRF, ID_SERVIVIO ) GUARDAR MANUALMENTE, 
+- VALIDAR CON EL ID SI PERTENCE AL MISMO PAIS (T, SV, ON, OH , CR, )
+
+- 
