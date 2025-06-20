@@ -53,28 +53,17 @@ function buscarDatos_api() {
             const encontrado = data.find(item => item.tk === tk);
 
             if (encontrado) {
-                resultadoDiv.innerHTML = `
-                    <div class="alert alert-success">
-                        <strong>TK:</strong> ${encontrado.tk}<br>
-                        <strong>Total menos cliente (horas):</strong> ${encontrado.total_menos_cliente_horas}<br>
-                        <strong>Total menos cliente (horas):</strong> ${encontrado.hh_mm_ss}
-                    </div>
-                `;
+            console.log(`TK encontrado: TK: ${encontrado.tk} Total menos cliente (horas): 
+                ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.hh_mm_ss}`);
                 document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
             } else {
-                resultadoDiv.innerHTML = `
-                    <div class="alert alert-warning">No se encontró el TK solicitado.</div>
-                `;
+            console.warn("⚠️ No se encontró el TK solicitado.");
             }
         })
         .catch(error => {
             console.error('Error al consumir API:', error);
-            resultadoDiv.innerHTML = `
-                <div class="alert alert-danger">Error al consultar la API.</div>
-            `;
         });
 }
-
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
 function calcularTiempos() {
@@ -122,4 +111,22 @@ function calcularTiempos() {
             $("#TB_calcu").html(data);
     } }) 
         return;
+}
+
+function mnsjEscala(data){
+    //console.log("Datos enviados:", data);
+    const escalacionActual = "1/5"; // Puedes ajustar esto según contexto o contador
+    const filaActual = "1/4";       // Igual, puede venir del backend
+    const horaActualFormateada = new Date().toLocaleTimeString('en-GB'); // hh:mm:ss
+
+    const mensaje = 
+    `## ESCALACION ${data.nivel} ##
+    ${data.nivel}\t${data.nombre}\t${data.telefono}\t${data.tiempo}Hrs\t${data.hrActual}
+    ${data.titulo}
+    SE INDICA TIEMPO Y CLIENTES`;
+
+    // Insertar mensaje en el input
+    document.getElementById('notaGenerada').value = mensaje;
+
+    console.log("Mensaje generado:\n", mensaje);    
 }

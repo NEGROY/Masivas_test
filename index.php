@@ -71,10 +71,16 @@
 
   </div>
 </div>
-
+  
   <div id="resultado" class="mt-3"></div>
 
-<br>
+<div class="input-group">
+  <span class="input-group-text bg-white border-end-0">
+    <i class="fas fa-comment-dots text-muted"></i>
+  </span>
+  <textarea id="notaGenerada" class="form-control border-start-0" rows="5" placeholder="Mensaje de escalación..."></textarea>
+</div>
+
 
 </body>
 </html>

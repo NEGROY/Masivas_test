@@ -71,17 +71,18 @@ case 'TB_calculadora':
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);    
     # imprime el encabezado de la tabla
-    echo '<table id="TBescala" class="table table-bordered table-striped">
+    echo '<table class="table table-striped table-hover table-bordered">
         <thead class="table-dark"> <tr>
         <th>#</th><th>Nombre</th> <th>Medio</th> <th>Tiempo</th>
-        <th>Caculadora</th> </tr> </thead> <tbody>';
+        <th>Caculadora</th>  <th>Mensaje</th> 
+        </tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
 
     while ($fila = mysqli_fetch_assoc($resultado)) {
         // Alternar clases de color || MODIFICAR PARA VER EL HORARIO 
-        $claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
+        $claseFila = ($contador % 2 == 0) ? 'bg-light' : 'bg-white';
 
         // Badge si hay comentario
         $comentarioBadge = !empty($fila['comentario']) 
@@ -91,7 +92,23 @@ case 'TB_calculadora':
         // Ícono según tipo
         $iconoTipo = obtenerIconoTipo($fila['tipo']);
 
-        // tiempo sumarlo a la hora actual acumulada
+        //OBTENER EL TITULO
+        $titulo = "CORTE DE ULTIMA MILLA || ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT";
+        // Crear objeto de datos
+        $datos = [
+        'hrActual'   => $hrActual,
+        'tmpAcumu'   => $tmpAcumu,
+        'areaSlct'   => $areaSlct,
+        'nivel'      => $fila['nivel'],
+        'nombre'     => $fila['nombre'],
+        'telefono'   => $fila['telefono'],
+        'tiempo'     => $fila['tiempo'],
+        'titulo'     => $titulo,
+        'comentario' => $fila['comentario']
+        ];
+        $jsonDatos = htmlspecialchars(json_encode($datos), ENT_QUOTES);
+
+        // **SUMATORIA DE TIEMPO CAMBIARLO**
         $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
         $hora_acumulada->modify("+{$tiempo_sumar} hours");
 
@@ -102,6 +119,10 @@ case 'TB_calculadora':
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
         echo "<td><label class='form-label'>" . $hora_acumulada->format("H:i:s") . " Hrs</label></td>";
+        echo "<td>
+                <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                    onclick='mnsjEscala({$jsonDatos})'>
+                <i class='fa-regular fa-message'></i> </button> </td>";
         echo "</tr>";
         $contador++;
     }

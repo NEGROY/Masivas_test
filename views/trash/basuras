@@ -10,7 +10,14 @@
     });
 </script>
 
+--------------------------------------------------
+<table id="TBescala" class="table table-bordered table-striped">
+--------------------------------------------------
+$claseFila = ($contador % 2 == 0) ? 'table-success' : 'table-danger';
+--------------------------------------------------
 
+
+----------------------------------------------------------------------------------------------------
 
 # +505 8272513*DETALLES DE LA ESCALACION DE FALLA MASIVA*
 SE ESCALA CON
@@ -31,3 +38,56 @@ SEGUIMIENTO:
 # ULTIMO SEGUIMIENTO ##
 # SEGUIMIENTO ##
 EL CASO SE ENCUENTRA CON EL DEPARTAMENTO JURIDICO Y NO CUENTA CON MAYORES AVANCES AUN SITIO CON PROBLEMAS CON LA MUNICIPALIDAD EN NEGOCIACIONES. SIN ETR.
+
+
+
+--------------------------------------------------
+## ESCALACION 1/5 ##
+1/4	LUIS SANDRES 	50489904245	2.5 HORAS	15:01:22
+|| CORTE DE ULTIMA MILLA|| ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT ||
+SE INDICA TIEMPO Y CLIENTES
+5C824013-ABA2-4030-BA19-62DED78131B3
+--------------------------------------------------
+DETALLES DE LA ESCALACION DE FALLA MASIVA
+se escala con @
+
+2/4	ALDO DIAZ    	58261057	3 HORAS	14:20:44	
+
+FALLA Masiva :  F5327279
+FALLA GENERAL : F5367722
+
+       
+TIEMPO DE LA FALLA MASIVA :
+02:43:15 | horas acumulativas
+|| CORTE DE ULTIMA MILLA|| ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT ||
+
+
+CLIENTE AFECTADO : 2
+F6081621 / 1136600001T / ROFRAMA,SOCIEDAD ANONIMA
+F6081728 / 929300001T / INDUSTRIA GUATEMALTECA DE GRANITO, S.A
+
+Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA PARA VALIDAR SI SE PUEDEN ESTRECHAR LOS CABLES,
+
+--------------------------------------------------
+
+          if (encontrado) {
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-success">
+                        <strong>TK:</strong> ${encontrado.tk}<br>
+                        <strong>Total menos cliente (horas):</strong> ${encontrado.total_menos_cliente_horas}<br>
+                        <strong>Total menos cliente (horas):</strong> ${encontrado.hh_mm_ss}
+                    </div>
+                `;
+                document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
+            } else {
+                resultadoDiv.innerHTML = `
+                    <div class="alert alert-warning">No se encontró el TK solicitado.</div>
+                `;
+            }
+        })
+        .catch(error => {
+            console.error('Error al consumir API:', error);
+            resultadoDiv.innerHTML = `
+                <div class="alert alert-danger">Error al consultar la API.</div>
+            `;
+        });

@@ -15,3 +15,13 @@
     transform: translateY(-2px);
 }
 
+
+/* - Estilos para la tabla - */
+.table td, .table th {
+  vertical-align: middle;
+  font-size: 0.9rem;
+}
+
+tr.bg-light:hover, tr.bg-white:hover {
+  background-color: #f1f1f1;
+}
