@@ -95,8 +95,8 @@ function fila_hras() {
           <div class="input-group">
             <span class="input-group-text">Hora actual</span>
             <input type="text" id="horaActual" class="form-control text-center"
-                   pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"
-                   placeholder="Ej. 14:00:00">
+              pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"
+              placeholder="Ej. 14:00:00">
           </div>
         </div>
 

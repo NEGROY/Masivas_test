@@ -56,7 +56,7 @@ case 'tb_areas': #areas por pais
 break;
 
 
-// # TABLA CON LOS TIEMPO BIEN CALCULADOS 
+// # TABLA CON LOS TIEMPO BIEN CALCULADOS
 case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];     $tmpAcumu = $_POST["tmpAcumu"];     $areaSlct = $_POST["areaSlct"];
@@ -97,6 +97,7 @@ case 'TB_calculadora':
             $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
             $hora_acumulada = new DateTime($hrActual);
             $hora_acumulada->modify("+{$tiempo_sumar} hours");
+            $hr_suma    = $hora_acumulada->format("H:i:s");
 
         // Crear objeto de datos
             $datos = [
@@ -110,25 +111,72 @@ case 'TB_calculadora':
             'titulo'     => $titulo,
             'comentario' => $fila['comentario'],
             'fallaID'    => $fallaID,
-            'hr_suma'    => $hora_acumulada
+            'hr_suma'    => $hr_suma
             ];
             $jsonDatos = htmlspecialchars(json_encode($datos), ENT_QUOTES);
 
-        //$hora = ($fila['tiempo']) + $hora;
+    // - YA IMPRIMO CONTENIDO DEL TB -
         echo "<tr class='{$claseFila}'>";
         echo "<td>{$fila['nivel']}</td>";
         echo "<td >{$fila['nombre']} {$comentarioBadge}</td>";
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
-        echo "<td><label class='form-label'>" . $hora_acumulada->format("H:i:s") . " Hrs</label></td>";
+        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>";
         echo "<td>
                 <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                     onclick='mnsjEscala({$jsonDatos})'>
-                <i class='fa-regular fa-message'></i> </button> </td>";
+                <i class='fa-regular fa-message'></i> </button> 
+                
+                <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
+                onclick='tablerosave({$jsonDatos})'>
+                <i class='fa-solid fa-right-long'></i> </button> 
+                
+                </td>";
         echo "</tr>";
         $contador++;
     }
     echo '</tbody> </table> </div>';
+
+break;
+
+// PARA INSERTAR EN LA TABLA DEL TABLERO
+case 'insertb':
+        $data_falla = $_POST["datos"];
+        $campos = [
+        'areaSlct', 'nivel', 'nombre', 'telefono', 'tiempo',
+        'hrActual', 'hr_suma', 'tmpAcumu', 'titulo', 'comentario', 'fallaID' ];
+    // Extraer y limpiar los valores
+        $valores = [];
+        foreach ($campos as $key) {
+        $valores[$key] = isset($data_falla[$key]) ? addslashes($data_falla[$key]) : ''; }
+
+    // Armar la consulta SQL de inserción (modo string)
+        $query_preview = "
+        INSERT INTO tb_escalaciones_registro (
+            area_id, nivel, nombre, telefono, tiempo, 
+            hora_actual, hora_sumada, tiempo_acumulado,
+            titulo, comentario, falla_id, estado
+        ) VALUES (
+            {$valores['areaSlct']},
+            '{$valores['nivel']}',
+            '{$valores['nombre']}',
+            '{$valores['telefono']}',
+            {$valores['tiempo']},
+            '{$valores['hrActual']}',
+            '{$valores['hr_suma']}',
+            '{$valores['tmpAcumu']}',
+            '{$valores['titulo']}',
+            '{$valores['comentario']}',
+            '{$valores['fallaID']}',
+            1
+        );";
+
+        echo json_encode([
+        "status" => "preview",
+        "sql" => $query_preview
+        ]);
+        // $resultado = mysqli_query($general, $query);
+
 
 break;
 

@@ -15,6 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>masivas Prueba</title>
     <script src="./includes/JS/index.js"></script>
+    <link rel="stylesheet" href="./includes\CSS\index.css">
 </head>
 <body>
 

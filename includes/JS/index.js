@@ -154,5 +154,85 @@ function mnsjEscala(data){
     document.getElementById('notaGenerada').value = mensaje;
     document.getElementById('wasapp').value = wasapp;
 
-    console.log("Mensaje generado:\n", mensaje);    
+    console.log("Mensaje generado:\n", data);    
+}
+
+
+// aestas super seguro de que quieres mandar esta falla al tablero 
+// falta validar si la falla ya esta en el tablero y en que escala esta y solo actualizarla 
+// que pasa si cambia de escalacion ? manejar un estado de cada una de las fallas, igual almacenar los datos 
+
+function confirmarEscalacion() {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¿Deseas tomar esta escalación?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, tomar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#198754',
+    cancelButtonColor: '#6c757d'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Escalación tomada',
+        showConfirmButton: false,
+        timer: 1500
+      }).then(() => {
+        // Recargar la página después de la confirmación
+        location.reload();
+      });
+    }
+  });
+}
+
+// verdadera funcion para mandar a guardar datos al tablero 
+function tablerosave(datos) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¿Deseas tomar esta escalación?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, tomar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#198754',
+    cancelButtonColor: '#6c757d'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Mostrar loading
+      Swal.fire({
+        title: 'Procesando...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
+      // Enviar datos por AJAX
+      $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {datos, condi: "insertb" },
+        success: function(response) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Escalación agregada',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            console.log("CONSULTA :\n", response);   
+           // location.reload();
+          });
+        },
+        error: function() {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo registrar la escalación.',
+          });
+        }
+      });
+    }
+  });
 }
