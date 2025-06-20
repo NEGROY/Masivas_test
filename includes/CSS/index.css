@@ -25,3 +25,9 @@
 tr.bg-light:hover, tr.bg-white:hover {
   background-color: #f1f1f1;
 }
+
+/* - mejoras al  los txt area de los mensajes  - */
+textarea.form-control {
+  font-size: 0.85rem;
+  line-height: 1.4;
+}

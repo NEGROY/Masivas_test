@@ -60,7 +60,9 @@ break;
 case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];     $tmpAcumu = $_POST["tmpAcumu"];     $areaSlct = $_POST["areaSlct"];
-    $pais_id = 2; // es temporal mientras se ingresa el restto a la BD
+    $fallaID = $_POST["fallaID"]; 
+    // falta titulo, ticket, #AFECTADOS, 
+    
     // Consulta Para los contactos  
         $query = "SELECT 
         e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo  
@@ -82,35 +84,35 @@ case 'TB_calculadora':
 
     while ($fila = mysqli_fetch_assoc($resultado)) {
         // Alternar clases de color || MODIFICAR PARA VER EL HORARIO 
-        $claseFila = ($contador % 2 == 0) ? 'bg-light' : 'bg-white';
-
+            $claseFila = ($contador % 2 == 0) ? 'bg-light' : 'bg-white';
         // Badge si hay comentario
-        $comentarioBadge = !empty($fila['comentario']) 
-        ? "<span class='badge bg-light text-dark'>{$fila['comentario']}</span>" 
-        : "";
-
+            $comentarioBadge = !empty($fila['comentario']) 
+            ? "<span class='badge bg-light text-dark'>{$fila['comentario']}</span>" 
+            : "";
         // Ícono según tipo
-        $iconoTipo = obtenerIconoTipo($fila['tipo']);
-
+            $iconoTipo = obtenerIconoTipo($fila['tipo']);
         //OBTENER EL TITULO
-        $titulo = "CORTE DE ULTIMA MILLA || ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT";
-        // Crear objeto de datos
-        $datos = [
-        'hrActual'   => $hrActual,
-        'tmpAcumu'   => $tmpAcumu,
-        'areaSlct'   => $areaSlct,
-        'nivel'      => $fila['nivel'],
-        'nombre'     => $fila['nombre'],
-        'telefono'   => $fila['telefono'],
-        'tiempo'     => $fila['tiempo'],
-        'titulo'     => $titulo,
-        'comentario' => $fila['comentario']
-        ];
-        $jsonDatos = htmlspecialchars(json_encode($datos), ENT_QUOTES);
+            $titulo = "CORTE DE ULTIMA MILLA || ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT";
+        // **SUMATORIA DE TIEMPO**
+            $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
+            $hora_acumulada = new DateTime($hrActual);
+            $hora_acumulada->modify("+{$tiempo_sumar} hours");
 
-        // **SUMATORIA DE TIEMPO CAMBIARLO**
-        $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
-        $hora_acumulada->modify("+{$tiempo_sumar} hours");
+        // Crear objeto de datos
+            $datos = [
+            'hrActual'   => $hrActual,
+            'tmpAcumu'   => $tmpAcumu,
+            'areaSlct'   => $areaSlct,
+            'nivel'      => $fila['nivel'],
+            'nombre'     => $fila['nombre'],
+            'telefono'   => $fila['telefono'],
+            'tiempo'     => $fila['tiempo'],
+            'titulo'     => $titulo,
+            'comentario' => $fila['comentario'],
+            'fallaID'    => $fallaID,
+            'hr_suma'    => $hora_acumulada
+            ];
+            $jsonDatos = htmlspecialchars(json_encode($datos), ENT_QUOTES);
 
         //$hora = ($fila['tiempo']) + $hora;
         echo "<tr class='{$claseFila}'>";

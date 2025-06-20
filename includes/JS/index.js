@@ -56,12 +56,21 @@ function buscarDatos_api() {
             console.log(`TK encontrado: TK: ${encontrado.tk} Total menos cliente (horas): 
                 ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.hh_mm_ss}`);
                 document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
+                Swal.fire({
+                text: "TK encontrado.",
+                icon: "success" });
             } else {
             console.warn("⚠️ No se encontró el TK solicitado.");
+            Swal.fire({
+            text: "No se encontró el TK solicitado.",
+            icon: "warning" });
             }
         })
         .catch(error => {
             console.error('Error al consumir API:', error);
+            Swal.fire({
+            text: "Error al consumir API.",
+            icon: "warning" });
         });
 }
 
@@ -70,6 +79,7 @@ function calcularTiempos() {
     const hrActual = document.getElementById('horaActual').value.trim();
     const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
+    const fallaID = document.getElementById('falla').value;
 
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
 
@@ -106,7 +116,7 @@ function calcularTiempos() {
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {hrActual,tmpAcumu,areaSlct,condi},
+        data: {fallaID,hrActual,tmpAcumu,areaSlct,condi},
         success: function(data) {
             $("#TB_calcu").html(data);
     } }) 
@@ -120,13 +130,29 @@ function mnsjEscala(data){
     const horaActualFormateada = new Date().toLocaleTimeString('en-GB'); // hh:mm:ss
 
     const mensaje = 
-    `## ESCALACION ${data.nivel} ##
-    ${data.nivel}\t${data.nombre}\t${data.telefono}\t${data.tiempo}Hrs\t${data.hrActual}
-    ${data.titulo}
+    `*## ESCALACION ${data.nivel} ##*
+    ${data.nivel}\t${data.nombre}\t${data.telefono}\t${data.tiempo}Hrs\t${data.hr_suma}\n
+    *${data.titulo}*
     SE INDICA TIEMPO Y CLIENTES`;
+
+
+    const wasapp = 
+    `*DETALLES DE LA ESCALACIÓN DE FALLA MASIVA*
+    Se escala con ${data.nombre}
+    ${data.nivel} ${data.nombre} ${data.telefono} ${data.tiempo}hrs ${data.hr_suma}\n
+    *FALLA Masiva* :  ${data.fallaID}
+    *FALLA General* : F- \n
+    *TIEMPO DE LA FALLA MASIVA*: ${data.tmpAcumu}
+    ${data.titulo} \n
+    *CLIENTES AFECTADOS*: -
+    • F6081621 / 1136600001T / ROFRAMA, SOCIEDAD ANÓNIMA
+    • F6081728 / 929300001T / INDUSTRIA GUATEMALTECA DE GRANITO, S.A.
+
+    *SEGUIMIENTO*:`;
 
     // Insertar mensaje en el input
     document.getElementById('notaGenerada').value = mensaje;
+    document.getElementById('wasapp').value = wasapp;
 
     console.log("Mensaje generado:\n", mensaje);    
 }

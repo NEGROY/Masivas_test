@@ -81,7 +81,6 @@ function tbvoid()  {
     <?php
 }
 
-
 # fila de los imputs para calcular las horas 
 function fila_hras() {
 ?>
@@ -123,6 +122,38 @@ function fila_hras() {
 <?php
 }
 
+
+#imprime los TEXT AREA PARA LOS MENSAJES 
+function mensajes(){
+  ?>
+  <div class="container my-3" style="max-width: inherit;">
+  <div class="row g-3 align-items-start ">
+    
+    <!-- Columna izquierda (7/12) -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fas fa-comment-dots text-muted"></i>
+        </span>
+        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="6" placeholder="Mensaje de escalación..."></textarea>
+      </div>
+    </div>
+
+    <!-- Columna derecha (5/12) -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fa-brands fa-whatsapp text-muted"></i>
+        </span>
+        <textarea id="wasapp" class="form-control border-start-0 small " rows="6" placeholder="Mensaje WhatsApp..."></textarea>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+  <?php
+}
 
 
 

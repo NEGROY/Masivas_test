@@ -65,21 +65,17 @@
     
     <div class="container TB_calcu mt-9" id='TB_calcu'>
       <br>
-      <?php // printtables(); ?>
+      
     </div>
   </div>
 
   </div>
 </div>
-  
+
   <div id="resultado" class="mt-3"></div>
 
-<div class="input-group">
-  <span class="input-group-text bg-white border-end-0">
-    <i class="fas fa-comment-dots text-muted"></i>
-  </span>
-  <textarea id="notaGenerada" class="form-control border-start-0" rows="5" placeholder="Mensaje de escalación..."></textarea>
-</div>
+
+<?php  mensajes(); ?>
 
 
 </body>

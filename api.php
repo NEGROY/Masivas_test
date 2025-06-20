@@ -39,7 +39,8 @@ $myObj = [
         "pending_customer" => 0,
         "pending_customer_1" => 0,
         "total_menos_cliente_horas" => 0.159,
-        "hh_mm_ss" => "0:09:32"
+        "hh_mm_ss" => "0:09:32",
+        "hora_apertura" => "13-06-2025 19:00:55"
     ]
 ];
 
