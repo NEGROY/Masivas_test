@@ -176,8 +176,6 @@ case 'insertb':
         "sql" => $query_preview
         ]);
         // $resultado = mysqli_query($general, $query);
-
-
 break;
 
 }
