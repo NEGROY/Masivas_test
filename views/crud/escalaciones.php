@@ -124,11 +124,11 @@ case 'TB_calculadora':
         echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>";
         echo "<td>
                 <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
-                    onclick='mnsjEscala({$jsonDatos})'>
+                onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button> 
                 
                 <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
-                onclick='tablerosave({$jsonDatos})'>
+                onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
                 <i class='fa-solid fa-right-long'></i> </button> 
                 
                 </td>";

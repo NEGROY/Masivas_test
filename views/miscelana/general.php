@@ -93,25 +93,25 @@ function fila_hras() {
         <!-- HORA ACTUAL -->
         <div class="col-md-3">
           <div class="input-group">
-            <span class="input-group-text">Hora actual</span>
-            <input type="text" id="horaActual" class="form-control text-center"
-              pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"
-              placeholder="Ej. 14:00:00">
+            <span class="input-group-text">Hora Apertura</span>
+            <input type="text" id="horaActual" class="form-control text-center" step="2" type="time"
+            placeholder="14:00:00">
           </div>
         </div>
 
         <!-- TIEMPO ACUMULADO -->
         <div class="col-md-3">
           <div class="input-group">
-            <span class="input-group-text">Acumulado</span>
-            <input type="text" id="tiempoAcumulado" class="form-control text-center"
-              placeholder="Ej. 3h 15m" readonly>
+            <span class="input-group-text">Tiempo Acumulado</span>
+            <input type="text" id="tiempoAcumulado" class="form-control text-center" 
+            placeholder="00:03:20" readonly data-bs-toggle="tooltip" title="tiempo acumulado del TK">
           </div>
         </div>
 
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
-          <button type="button" class="btn btn-secondary" onclick="calcularTiempos()">Calcular</button>
+          <button type="button" class="btn btn-secondary" onclick="calcularTiempos()"
+          data-bs-toggle="tooltip" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
       </div>
@@ -136,6 +136,10 @@ function mensajes(){
           <i class="fas fa-comment-dots text-muted"></i>
         </span>
         <textarea id="notaGenerada" class="form-control border-start-0 small " rows="6" placeholder="Mensaje de escalación..."></textarea>
+        <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada')"
+        data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
       </div>
     </div>
 
@@ -146,6 +150,10 @@ function mensajes(){
           <i class="fa-brands fa-whatsapp text-muted"></i>
         </span>
         <textarea id="wasapp" class="form-control border-start-0 small " rows="6" placeholder="Mensaje WhatsApp..."></textarea>
+          <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('wasapp')"
+          data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
       </div>
     </div>
 

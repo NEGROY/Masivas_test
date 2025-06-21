@@ -53,8 +53,11 @@ function buscarDatos_api() {
             const encontrado = data.find(item => item.tk === tk);
 
             if (encontrado) {
-            console.log(`TK encontrado: TK: ${encontrado.tk} Total menos cliente (horas): 
+                console.log(`TK encontrado: TK: ${encontrado.tk} Total menos cliente (horas): 
                 ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.hh_mm_ss}`);
+                //COLOCA LA HORA ACTUAL 
+                const hora = (encontrado.open_time.match(/\d{2}:\d{2}:\d{2}/) || [])[0] || '';
+                document.getElementById('horaActual').value = hora;
                 document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
                 Swal.fire({
                 text: "TK encontrado.",
@@ -236,3 +239,14 @@ function tablerosave(datos) {
     }
   });
 }
+
+
+
+/// FUNCION PARA COPIAR LOS TEXTOS GAYS
+function copiarTextoWhatsApp(id_areatxt) {
+    const texto = document.getElementById(id_areatxt);
+    texto.select();
+    texto.setSelectionRange(0, 99999); // Para móviles
+    document.execCommand("copy");
+    //alert("Texto copiado al portapapeles");
+  }

@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tablero test </title>
+
 </head>
 <body>
 
@@ -21,29 +22,34 @@
   <?php listarHeader(); ?>
 </div>
 
-<!-- TABLA PROXY PARA  -->
-<div class="container">
-  <table>
-    <thead>
-      <tr>
-        <th>area_id</th>
-        <th>nivel</th>
-        <th>nombre</th>
-        <th>telefono</th>
-        <th>tiempo</th>
-        <th>hora_actual</th>
-        <th>hora_sumada</th>
-        <th>tiempo_acumulado</th>
-        <th>titulo</th>
-        <th>comentario</th>
-        <th>falla_id</th>
-        <th>estado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Aquí irían los datos -->
-    </tbody>
-  </table>
+<div class="container mt-4">
+  <h4 class="mb-3">TABLERO DE Escalaciones</h4>
+</div>  
+
+<div class="container mt-4">
+  <div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover">
+      <thead class="table-dark">
+        <tr>
+          <th>area_id</th>
+          <th>nivel</th>
+          <th>nombre</th>
+          <th>telefono</th>
+          <th>tiempo</th>
+          <th>hora_actual</th>
+          <th>hora_sumada</th>
+          <th>tiempo_acumulado</th>
+          <th>titulo</th>
+          <th>comentario</th>
+          <th>falla_id</th>
+          <th>estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Aquí irán los registros dinámicos -->
+      </tbody>
+    </table>
+  </div>
 </div>
 
 

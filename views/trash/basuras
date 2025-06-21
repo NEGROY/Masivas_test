@@ -91,3 +91,7 @@ Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA
                 <div class="alert alert-danger">Error al consultar la API.</div>
             `;
         });
+
+
+
+        pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"

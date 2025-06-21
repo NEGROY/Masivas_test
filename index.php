@@ -75,9 +75,7 @@
 
   <div id="resultado" class="mt-3"></div>
 
-
-<?php  mensajes(); ?>
-
+<?php mensajes(); ?>
 
 </body>
 </html>
@@ -92,12 +90,11 @@
       });
     });
 
-
-    // FUNCION PARA QUE RELLENE LA HORA ACTUAL DE FORMA AUTOMATICA 
+    /* FUNCION PARA QUE RELLENE LA HORA ACTUAL DE FORMA AUTOMATICA 
     document.addEventListener("DOMContentLoaded", () => {
     const horaActual = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
     document.getElementById("horaActual").value = horaActual;
-    });
+    }); */
 
     // Select2 
     $(document).ready(function() {
