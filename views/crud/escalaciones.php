@@ -151,12 +151,11 @@ case 'insertb':
         $valores[$key] = isset($data_falla[$key]) ? addslashes($data_falla[$key]) : ''; }
 
     // Armar la consulta SQL de inserción (modo string)
-        $query_preview = "
-        INSERT INTO tb_escalaciones_registro (
+        $query_preview = "INSERT INTO tb_escalaciones_registro (
             area_id, nivel, nombre, telefono, tiempo, 
-            hora_actual, hora_sumada, tiempo_acumulado,
+            hora_apertura, hora_sumada, tiempo_acumulado,
             titulo, comentario, falla_id, estado
-        ) VALUES (
+            ) VALUES (
             {$valores['areaSlct']},
             '{$valores['nivel']}',
             '{$valores['nombre']}',
@@ -168,14 +167,20 @@ case 'insertb':
             '{$valores['titulo']}',
             '{$valores['comentario']}',
             '{$valores['fallaID']}',
-            1
-        );";
+            1 );";
 
-        echo json_encode([
+    // HOLAS 
+        $ok = mysqli_query($general, $query_preview);
+        echo json_encode($ok
+            ? ['status'=>'success','message'=>'Escalación registrada']
+            : ['status'=>'error','message'=>'Error en INSERT','error'=>mysqli_error($general)]
+        );
+        
+    /*  echo json_encode([
         "status" => "preview",
         "sql" => $query_preview
         ]);
-        // $resultado = mysqli_query($general, $query);
+        // $resultado = mysqli_query($general, $query); */
 break;
 
 }

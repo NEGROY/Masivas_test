@@ -23,7 +23,7 @@
 </div>
 
 <div class="container mt-4">
-  <h4 class="mb-3">TABLERO DE Escalaciones</h4>
+  <h4 class="mb-3">Tablero de Escalaciones</h4>
 </div>  
 
 <div class="container mt-4">
@@ -31,7 +31,7 @@
     <table class="table table-bordered table-striped table-hover">
       <thead class="table-dark">
         <tr>
-          <th>area_id</th>
+          <th>area</th>
           <th>nivel</th>
           <th>nombre</th>
           <th>telefono</th>

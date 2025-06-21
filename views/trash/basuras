@@ -95,3 +95,33 @@ Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA
 
 
         pattern="^(?:[01]\d|2[0-3]):[0-5]\d:[0-5]\d$"
+
+        --------------------------------------------
+
+        / Enviar datos por AJAX
+      $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {datos, condi: "insertb" },
+        success: function(response) {
+          Swal.fire({
+            icon: 'success',
+            title: 'Escalación agregada',
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            console.log("CONSULTA :\n", response);   
+           // location.reload();
+          });
+        },
+        error: function() {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'No se pudo registrar la escalación.',
+          });
+        }
+      });
+    }
+  });
+}

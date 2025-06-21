@@ -23,7 +23,8 @@ function valdiaFAlla(falla) {
     if (!falla) {
         Swal.fire({
             text: "Por favor, INGRESA una falla",
-            icon: "warning"
+            icon: "warning",
+            timer: 1500
         });
         return null;
     }
@@ -61,19 +62,22 @@ function buscarDatos_api() {
                 document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
                 Swal.fire({
                 text: "TK encontrado.",
-                icon: "success" });
+                icon: "success",
+                timer: 1500 });
             } else {
             console.warn("⚠️ No se encontró el TK solicitado.");
             Swal.fire({
             text: "No se encontró el TK solicitado.",
-            icon: "warning" });
+            icon: "warning",
+            timer: 2500 });
             }
         })
         .catch(error => {
             console.error('Error al consumir API:', error);
             Swal.fire({
             text: "Error al consumir API.",
-            icon: "warning" });
+            icon: "warning",
+            timer: 2500 });
         });
 }
 
@@ -91,7 +95,8 @@ function calcularTiempos() {
         Swal.fire({
             icon: 'warning',
             title: 'Campos vacíos',
-            text: 'Por favor, completa todos los campos antes de continuar.'
+            text: 'Por favor, completa todos los campos antes de continuar.',
+            timer: 1500
         });
         return;
     }
@@ -105,7 +110,8 @@ function calcularTiempos() {
         Swal.fire({
             icon: 'error',
             title: 'Formato inválido',
-            text: 'La hora actual debe tener el formato HH:MM:SS.'
+            text: 'La hora actual debe tener el formato HH:MM:SS.',
+            timer: 1500
         });
         return;
     }
@@ -217,26 +223,19 @@ function tablerosave(datos) {
         url: "./views/crud/escalaciones.php",
         method: "POST",
         data: {datos, condi: "insertb" },
-        success: function(response) {
+        success: function(res) {
+          res = JSON.parse(res);
+          console.log("CONSULTA :\n", res);   
           Swal.fire({
-            icon: 'success',
-            title: 'Escalación agregada',
-            showConfirmButton: false,
-            timer: 1500
+            icon: res.status,
+            title: res.message,
           }).then(() => {
-            console.log("CONSULTA :\n", response);   
-           // location.reload();
-          });
-        },
-        error: function() {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error',
-            text: 'No se pudo registrar la escalación.',
+          // location.reload();
           });
         }
       });
-    }
+
+    }  
   });
 }
 
