@@ -164,5 +164,61 @@ function mensajes(){
 }
 
 
+# - PRUEBAS PARA EL TABLERO  - 
+function tablero1(){
+include '../includes/BD_con/db_con.php';
+
+    $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
+    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
+    FROM tb_escalaciones_registro WHERE estado = 1" ;
+
+    $resultado = mysqli_query($general, $query);
+
+echo "
+<div class='kanban-container'>
+  <div class='kanban-column' id='verde'>
+    <h2>🟢 > 15 min</h2>
+  </div>
+  <div class='kanban-column' id='amarillo'>
+    <h2>🟡 10 - 15 min</h2>
+  </div>
+  <div class='kanban-column' id='rojo'>
+    <h2>🔴 < 10 min</h2>
+  </div>
+</div> ";
+
+// Crear tarjetas
+while ($fila = mysqli_fetch_assoc($resultado)) {
+    $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
+
+    // Clasificar por tiempo restante
+    if ($dif_segundos > 900) {
+        $columna = "verde";
+    } elseif ($dif_segundos > 600) {
+        $columna = "amarillo";
+    } else {
+        $columna = "rojo";
+    }
+
+    $card = "<div class='card $columna'>
+      <p><strong>ID:</strong> {$fila['falla_id']}  ||  <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
+      <p><strong>Título:</strong> {$fila['titulo']}</p>
+      <p><strong>Escalacion:</strong> {$fila['nombre']} ({$fila['telefono']})</p>
+    </div>";
+
+    echo "<script>document.getElementById('$columna').innerHTML += `" . $card . "`;</script>";
+}
+}
+
+// Función para convertir hora_sumada a timestamp
+function calcular_diferencia_segundos($hora_sumada) {
+    $ahora = strtotime(date("H:i:s"));
+    $target = strtotime($hora_sumada);
+    return $target - $ahora;
+}
+
+/*  apara colocar horas aleatorias 
+UPDATE tb_escalaciones_registro
+SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); */
 
 ?>
