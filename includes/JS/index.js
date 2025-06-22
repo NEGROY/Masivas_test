@@ -230,7 +230,7 @@ function tablerosave(datos) {
             icon: res.status,
             title: res.message,
           }).then(() => {
-          // location.reload();
+            location.reload();
           });
         }
       });

@@ -150,6 +150,14 @@ case 'insertb':
         foreach ($campos as $key) {
         $valores[$key] = isset($data_falla[$key]) ? addslashes($data_falla[$key]) : ''; }
 
+    // Validación: si hay otro ticket con el mismo fallaID, cambiar su estado a 0
+        $fallaID = $valores['fallaID'];
+        if (!empty($fallaID)) {
+            $queryUpdateEstado = "UPDATE tb_escalaciones_registro 
+                                SET estado = 0 
+                                WHERE falla_id = '$fallaID' AND estado = 1";
+            mysqli_query($general, $queryUpdateEstado);
+        }
     // Armar la consulta SQL de inserción (modo string)
         $query_preview = "INSERT INTO tb_escalaciones_registro (
             area_id, nivel, nombre, telefono, tiempo, 
@@ -185,17 +193,6 @@ break;
 
 }
 
-    /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 
-    SELECT 
-    e.nivel,
-    c.nombre,
-    c.telefono,
-    e.tiempo
-FROM tb_escalacion e
-INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-WHERE e.id_tipo_escalacion = 2;
-         */
-
     function obtenerIconoTipo($tipo) {
     switch (strtolower($tipo)) {
         case 'llamada':
@@ -208,4 +205,18 @@ WHERE e.id_tipo_escalacion = 2;
             return ""; // Sin ícono si no hay coincidencia
     }
 }
+
+
+    /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 
+    SELECT 
+    e.nivel,
+    c.nombre,
+    c.telefono,
+    e.tiempo
+FROM tb_escalacion e
+INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
+WHERE e.id_tipo_escalacion = 2;
+         */
+
+
 ?>
