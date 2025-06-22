@@ -19,7 +19,7 @@
 <body>
 
 <div>
-  <?php listarHeader(); ?>
+  <?php listarHeader('.'); ?>
 </div>
 
 <div>

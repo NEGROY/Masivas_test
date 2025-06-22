@@ -2,12 +2,12 @@
   #  include_once './includes/BD_con/db_con.php';
 
 #HEADER GENERICO PARA QUE SE VEA MAS BONITO 
-function listarHeader() {
+function listarHeader($url) {
     ?>
     <header class="bg-dark text-white p-3 mb-4">
     <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="h3 m-0">Mi Aplicación</h1>
-        <img src="src\img\logo_frt_1.png" alt="Logo" style="height: 40px;">
+      <h1 class="h3 m-0">Masivas Escalaciones</h1>
+      <img src="<?=$url?>./src/img/logo_frt_1.png" alt="Logo" style="height: 40px;">
     </div>
     </header>
     <?php
@@ -166,7 +166,7 @@ function mensajes(){
 
 # - PRUEBAS PARA EL TABLERO  - 
 function tablero1(){
-include '../includes/BD_con/db_con.php';
+  include '../includes/BD_con/db_con.php';
 
     $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
     hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
@@ -174,21 +174,21 @@ include '../includes/BD_con/db_con.php';
 
     $resultado = mysqli_query($general, $query);
 
-echo "
-<div class='kanban-container'>
-  <div class='kanban-column' id='verde'>
-    <h2>🟢 < 15 min</h2>
-  </div>
-  <div class='kanban-column' id='amarillo'>
-    <h2>🟡 15 - 10 min</h2>
-  </div>
-  <div class='kanban-column' id='rojo'>
-    <h2>🔴 > 10 min</h2>
-  </div>
-</div> ";
+    echo "
+    <div class='kanban-container'>
+      <div class='kanban-column' id='verde'>
+        <h2>🟢 < 15 min</h2>
+      </div>
+      <div class='kanban-column' id='amarillo'>
+        <h2>🟡 15 - 10 min</h2>
+      </div>
+      <div class='kanban-column' id='rojo'>
+        <h2>🔴 > 10 min</h2>
+      </div>
+    </div> ";
 
-// Crear tarjetas
-while ($fila = mysqli_fetch_assoc($resultado)) {
+  // Crear tarjetas
+  while ($fila = mysqli_fetch_assoc($resultado)) {
     $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
 
     // Clasificar por tiempo restante
@@ -214,7 +214,7 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
       <p><strong>Título:</strong> {$fila['titulo']}</p> </div>";
 
     echo "<script>document.getElementById('$columna').innerHTML += `" . $card . "`;</script>";
-}
+  }
 }
 
 // Función para convertir hora_sumada a timestamp
@@ -223,6 +223,8 @@ function calcular_diferencia_segundos($hora_sumada) {
     $target = strtotime($hora_sumada);
     return $target - $ahora;
 }
+
+
 
 /*  apara colocar horas aleatorias 
 UPDATE tb_escalaciones_registro
