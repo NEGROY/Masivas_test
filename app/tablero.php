@@ -30,3 +30,23 @@
     
 </body>
 </html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".card").forEach(function (card) {
+    card.addEventListener("click", function () {
+      const fallaID = card.dataset.fallaId;
+      const areaSlct = card.dataset.areaId;
+      const horaAper = card.dataset.horaApertura;
+      const tmpAcumu = card.dataset.tiempoAcumulado;
+
+      if (fallaID && areaSlct && horaAper && tmpAcumu) {
+        const url = `../index.php?Fid=${encodeURIComponent(fallaID)}&slct=${encodeURIComponent(areaSlct)}&horaAper=${encodeURIComponent(horaAper)}&tmpAcumu=${encodeURIComponent(tmpAcumu)}`;
+        window.location.href = url;
+      } else {
+        console.warn("Alguno de los datos no está definido");
+      }
+    });
+  });
+});
+</script>

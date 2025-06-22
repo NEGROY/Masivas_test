@@ -185,3 +185,7 @@ Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA
 </div>
 
 <br>
+
+
+
+<p><strong>Escalacion:</strong> {$fila['nombre']} ({$fila['telefono']})</p>

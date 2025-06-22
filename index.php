@@ -102,7 +102,35 @@
     });
 
 
+    
 
+window.onload = function () {
+  const params = new URLSearchParams(window.location.search);
+  const fallaID = params.get("fallaID");     const areaSlct = params.get("areaSlct");
+  const hrActual = params.get("horaAper");   const tmpAcumu = params.get("tmpAcumu");
+
+  // Validar fallaID únicamente para iniciar
+  if (fallaID && fallaID.trim() !== "") {
+    console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
+
+     // Asignar a los inputs
+    document.getElementById("falla").value = fallaID;
+    document.getElementById("horaActual").value = hrActual;
+    document.getElementById("tiempoAcumulado").value = tmpAcumu;
+    condi = "TB_calculadora"; 
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        success: function(data) {
+            $("#TB_calcu").html(data);
+    } }) 
+
+    // Aquí podrías llamar tu función AJAX o continuar con el flujo
+    } else {
+    console.warn("fallaID inválido o no proporcionado");
+    }
+};
     /* Inicializar DataTable
     $(document).ready(function () {
         $('#tablaContactos').DataTable({

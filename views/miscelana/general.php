@@ -177,13 +177,13 @@ include '../includes/BD_con/db_con.php';
 echo "
 <div class='kanban-container'>
   <div class='kanban-column' id='verde'>
-    <h2>🟢 > 15 min</h2>
+    <h2>🟢 < 15 min</h2>
   </div>
   <div class='kanban-column' id='amarillo'>
-    <h2>🟡 10 - 15 min</h2>
+    <h2>🟡 15 - 10 min</h2>
   </div>
   <div class='kanban-column' id='rojo'>
-    <h2>🔴 < 10 min</h2>
+    <h2>🔴 > 10 min</h2>
   </div>
 </div> ";
 
@@ -200,11 +200,18 @@ while ($fila = mysqli_fetch_assoc($resultado)) {
         $columna = "rojo";
     }
 
-    $card = "<div class='card $columna'>
-      <p><strong>ID:</strong> {$fila['falla_id']}  ||  <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
-      <p><strong>Título:</strong> {$fila['titulo']}</p>
-      <p><strong>Escalacion:</strong> {$fila['nombre']} ({$fila['telefono']})</p>
-    </div>";
+      $url = 'index.php?fallaID=' . urlencode($fila['falla_id']) .
+      '&areaSlct=' . urlencode($fila['area_id']) .
+      '&horaAper=' . urlencode($fila['hora_apertura']) .
+      '&tmpAcumu=' . urlencode($fila['tiempo_acumulado']);
+      
+      $card = "<div class='card $columna' 
+      data-falla-id='" . htmlspecialchars($fila['falla_id']) . "'
+      data-area-id='" . htmlspecialchars($fila['area_id']) . "'
+      data-hora-apertura='" . htmlspecialchars($fila['hora_apertura']) . "'
+      data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'>
+      <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
+      <p><strong>Título:</strong> {$fila['titulo']}</p> </div>";
 
     echo "<script>document.getElementById('$columna').innerHTML += `" . $card . "`;</script>";
 }
