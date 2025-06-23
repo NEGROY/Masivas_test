@@ -1,7 +1,7 @@
 <?php 
   require_once 'includes/phpFun/fun.php';
   require_once './includes/incl.php'; 
-  require_once './views\miscelana\general.php';
+  require_once './views/miscelana/general.php';
   
     date_default_timezone_set('America/Guatemala');  
     $fecha = date('m-d-Y');

@@ -4,7 +4,7 @@ $resultado = null;
 
 if ($tk_buscado !== '') {
     // URL absoluta para consumir API desde cualquier ruta
-    $url = './src\api_data\api.php';
+    $url = './src/api_data/api.php';
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, $url);

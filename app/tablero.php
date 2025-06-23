@@ -49,4 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+
+
+  // Recarga automática cada 60 segundos 
+  setInterval(() => {
+    location.reload(); // Recarga toda la página
+  }, 120000); // (60000 milisegundos)
+
 </script>
