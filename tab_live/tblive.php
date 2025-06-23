@@ -44,7 +44,7 @@ const source = new EventSource('./sse.php');
 
 source.onmessage = function(event) {
   const newId = parseInt(event.data);
-  if (newId !== lastId) {
+  if (newId !== lastId) {  
     lastId = newId;
     console.log(lastId);
     actualizarTablero(); // Llama a una función AJAX para refrescar el contenido
@@ -58,4 +58,15 @@ function actualizarTablero() {
       document.getElementById('contenedor-tablero').innerHTML = html;
     });
 }
+
+/*
+  en las validaciones para recargar el tablero, 
+  - no siempre se ingresara una masiva pueden haber intervalos de timepo sin uyn insert (newId > lastId)
+  - no puede ser diferente que ya que si actulizan una tabla simplemente mantien elk mismo numero de activos (newId !== lastId)
+  - no puede ser por el numeor de regutros totales
+  - ni por actualizaciones en la tabla. 
+  - podria validar el tiempo de cada una de las horas vencidas para validar cuando se vence una
+  - 
+*/
 </script>
+
