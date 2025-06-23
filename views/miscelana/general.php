@@ -170,7 +170,8 @@ function tablero1(){
 
     $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
     hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
-    FROM tb_escalaciones_registro WHERE estado = 1" ;
+    FROM tb_escalaciones_registro WHERE estado = 1
+    order by hora_sumada" ;
 
     $resultado = mysqli_query($general, $query);
 
