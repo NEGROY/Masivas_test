@@ -106,7 +106,7 @@
 
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const fallaID = params.get("fallaID");     const areaSlct = params.get("areaSlct");
+  const fallaID = params.get("Fid");     const areaSlct = params.get("slct");
   const hrActual = params.get("horaAper");   const tmpAcumu = params.get("tmpAcumu");
 
   // Validar fallaID únicamente para iniciar
