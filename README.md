@@ -40,4 +40,12 @@ https://select2.org/getting-started/installation
 (PE, WAN, VRF, ID_SERVIVIO ) GUARDAR MANUALMENTE, 
 - VALIDAR CON EL ID SI PERTENCE AL MISMO PAIS (T, SV, ON, OH , CR, )
 
-- 
+- ----------------------------------------------------
+
+ ESTE ES PARA LISTAR
+http://127.0.0.1:8000/masivas?token=masivas2025
+BUSCAR INFORMACION MASIVA
+http://127.0.0.1:8000/masivas/F6144046?token=masivas2025
+http://127.0.0.1:8000/masivas/list/F5875158?token=masivas2025
+http://127.0.0.1:8000/connection
+VALIDAR CONECXION
