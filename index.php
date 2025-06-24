@@ -30,7 +30,6 @@
   <!-- Columna de selección de país -->
     <div class="col-md-3">
       <div class="p-3 border rounded-3 shadow-sm bg-light ">
-        
       <!-- Input Falla -->
         <label for="falla" class="form-label">Falla ID:</label>
         <input type="text" id="falla" name="falla" class="form-control mb-3" value='F6131074' placeholder="Fxxxx">
@@ -59,6 +58,8 @@
 
   <!-- Columna de  TB escalación  -->
   <div class="col-9">
+    <small class="text-muted d-block pr-2" id='titulo'> - </small>  
+    
     <?php fila_hras(); ?>
     <div class="container">
       <small class="text-muted d-block pr-2" id='titulos'> - </small>

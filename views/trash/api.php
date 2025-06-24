@@ -65,7 +65,35 @@ foreach ($data as $item) {
     }
 }
 ?>
-
-
 */
+
+const tk = valdiaFAlla(tkEntrada);
+if (!tk) return; // Si la validación falla, se detiene la función
+
+// Validar conexión antes de continuar
+fetch('http://127.0.0.1:8000/connection')
+  .then(res => res.json())
+  .then(conexion => {
+    if (conexion.code === 200) {
+      // Conexión exitosa, ahora sí llamar a la API principal
+      return fetch('./api.php');
+    } else {
+      throw new Error('Conexión fallida al backend');
+    }
+  })
+  .then(res => res.json())
+  .then(data => {
+    const encontrado = data.find(item => item.tk === tk);
+    if (encontrado) {
+      // Lógica si se encuentra el TK
+      console.log('TK encontrado:', encontrado);
+    } else {
+      console.warn('TK no encontrado');
+    }
+  })
+  .catch(error => {
+    console.error('Error en conexión o en la API:', error.message);
+    alert('No se pudo conectar al servidor. Intente más tarde.');
+  });
+
 ?>

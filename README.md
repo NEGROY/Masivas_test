@@ -49,3 +49,32 @@ http://127.0.0.1:8000/masivas/F6144046?token=masivas2025
 http://127.0.0.1:8000/masivas/list/F5875158?token=masivas2025
 http://127.0.0.1:8000/connection
 VALIDAR CONECXION
+
+23/06/24
+- ----------------------------------------------------
+
+- en el tablero un boton para ir a ver la falla masiva. 
+- agregar un loader en index y en las fallas asociadas
+- UN INPUT HIDDEN, para quien actualizo de ultimo la falla
+
+- PRACTICAMENTE CAMBIAR TODO EL TABLERO, 
+UNA BARRA DONDE ESTEN TODAS LAS FALLAS, 
+15 MIN AHORA QUE SEAN EXCLUSIVAMNETE DE <15 MIN 
+DE 15 - 10 MIN 
+>10 MIN 
+
+- SEPARR LOS CUADROS PARA QUE SOLO SE RECARGUEN EN ELLOS 
+(FALLAS QUE ESTAN EN EL SEMAFORO Y LAS QUE NO  )
+
+-(En una de las vistas se debe de realizar las, recargar cada 2 min, ademas que se recargue al momento de un insert, puedes solo validar la hora mas peque;a, y si esta esta cerca de los 15 min para que se recargue la pagina )
+
+- SE REQUIERE QUE SIEMPRE SE TENGA ACTUALIZADA LA DB, 
+SOBRE QUIEN FUE EL ULTIMO EN ACTUALIZAR LA FALLAS, 
+Y QUE TIEMPO ACUMULADO LLEVA 
+
+
+PARA LAS FALLAS MASIVAS.
+- crear la BD de aociados.
+- al buscar la falla, que obtenga todas las asociadas.
+- validar una por una para realizar el insert
+- 

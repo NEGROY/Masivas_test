@@ -59,8 +59,8 @@ break;
 // # TABLA CON LOS TIEMPO BIEN CALCULADOS
 case 'TB_calculadora':
     // datos desde el AJAX
-    $hrActual = $_POST["hrActual"];     $tmpAcumu = $_POST["tmpAcumu"];     $areaSlct = $_POST["areaSlct"];
-    $fallaID = $_POST["fallaID"]; 
+    $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
+    $fallaID  = $_POST["fallaID"];    $titulo  = $_POST["titulo"]; 
     // falta titulo, ticket, #AFECTADOS, 
     
     // Consulta Para los contactos  
@@ -91,8 +91,6 @@ case 'TB_calculadora':
             : "";
         // Ícono según tipo
             $iconoTipo = obtenerIconoTipo($fila['tipo']);
-        //OBTENER EL TITULO
-            $titulo = "CORTE DE ULTIMA MILLA || ROBO DE CABLE MULTIPAR ZONA 9 || MASIVO_GT";
         // **SUMATORIA DE TIEMPO**
             $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
             $hora_acumulada = new DateTime($hrActual);

@@ -40,32 +40,34 @@ function valdiaFAlla(falla) {
 
 // **************** PSEUDO API PARA LA BUSQUEDA 
 function buscarDatos_api() {
-    let tkEntrada = document.getElementById('falla').value.trim();
-    const resultadoDiv = document.getElementById('resultado');
+  let tkEntrada = document.getElementById('falla').value.trim();
+  const resultadoDiv = document.getElementById('resultado');
 
-    // Validar y formatear
-    const tk = valdiaFAlla(tkEntrada);
-    if (!tk) return; // Si la validación falla, se detiene la función
+  // Validar y formatear
+    const TK = valdiaFAlla(tkEntrada);
+    if (!TK) return; // Si la validación falla, se detiene la función
 
-    fetch('./api.php')
-    //fetch('./src/api_data/api.php')
-        .then(response => response.json())
-        .then(data => {
-            const encontrado = data.find(item => item.tk === tk);
+    //fetch('http://127.0.0.1:8000/masivas/F6144046?token=masivas2025')
+    fetch('./src/api_data/busqueda.json') 
+      .then(response => response.json())
+      .then(data => {
+        const encontrado = data.data.find(item => item.TK === TK);
 
-            if (encontrado) {
-                console.log(`TK encontrado: TK: ${encontrado.tk} Total menos cliente (horas): 
-                ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.hh_mm_ss}`);
-                //COLOCA LA HORA ACTUAL 
-                const hora = (encontrado.open_time.match(/\d{2}:\d{2}:\d{2}/) || [])[0] || '';
-                document.getElementById('horaActual').value = hora;
-                document.getElementById('tiempoAcumulado').value = `${encontrado.hh_mm_ss}`;
-                Swal.fire({
-                text: "TK encontrado.",
-                icon: "success",
-                timer: 1500 });
-            } else {
-            console.warn("⚠️ No se encontró el TK solicitado.");
+        if (encontrado) {
+            console.log(`TK encontrado: TK: ${encontrado.TK} Total menos cliente (horas): 
+            ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.HH_MM_SS}`);
+            //COLOCA LA HORA ACTUAL 
+            //const hora = (encontrado.OPEN_TIME.match(/\d{2}:\d{2}:\d{2}/) || [])[0] || '';
+            const hora = encontrado.OPEN_TIME.split('T')[1]; 
+            document.getElementById('horaActual').value = hora;
+            document.getElementById('tiempoAcumulado').value = `${encontrado.HH_MM_SS}`;
+            document.getElementById('titulo').textContent = `${encontrado.TITULO}`;
+            Swal.fire({
+            text: "TK encontrado.",
+            icon: "success",
+            timer: 1500 });
+        } else {
+            console.warn("No se encontró el TK solicitado.");
             Swal.fire({
             text: "No se encontró el TK solicitado.",
             icon: "warning",
@@ -87,6 +89,8 @@ function calcularTiempos() {
     const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
     const fallaID = document.getElementById('falla').value;
+    const titulo = document.getElementById('titulo').textContent;
+
 
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
 
@@ -125,7 +129,7 @@ function calcularTiempos() {
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
         success: function(data) {
             $("#TB_calcu").html(data);
     } }) 
@@ -230,7 +234,8 @@ function tablerosave(datos) {
             icon: res.status,
             title: res.message,
           }).then(() => {
-            location.reload();
+            //location.reload();
+            window.location.href = window.location.href;
           });
         }
       });
