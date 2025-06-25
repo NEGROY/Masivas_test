@@ -209,13 +209,16 @@ function tablero1(){
       $url = 'index.php?fallaID=' . urlencode($fila['falla_id']) .
       '&areaSlct=' . urlencode($fila['area_id']) .
       '&horaAper=' . urlencode($fila['hora_apertura']) .
-      '&tmpAcumu=' . urlencode($fila['tiempo_acumulado']);
+      '&tmpAcumu=' . urlencode($fila['tiempo_acumulado']).
+      '&titulo=' . urlencode($fila['titulo']);
       
       $card = "<div class='card $columna' 
       data-falla-id='" . htmlspecialchars($fila['falla_id']) . "'
       data-area-id='" . htmlspecialchars($fila['area_id']) . "'
       data-hora-apertura='" . htmlspecialchars($fila['hora_apertura']) . "'
-      data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'>
+      data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'
+      data-titulo='".htmlspecialchars($fila['titulo'])." '>
+      
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
       <p><strong>Título:</strong> {$fila['titulo']}</p> </div>";
 

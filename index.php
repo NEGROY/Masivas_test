@@ -107,8 +107,9 @@
 
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const fallaID = params.get("Fid");     const areaSlct = params.get("slct");
+  const fallaID = params.get("Fid");         const areaSlct = params.get("slct");
   const hrActual = params.get("horaAper");   const tmpAcumu = params.get("tmpAcumu");
+  const titulo = params.get("titulo");
 
   // Validar fallaID únicamente para iniciar
   if (fallaID && fallaID.trim() !== "") {
@@ -118,11 +119,13 @@ window.onload = function () {
     document.getElementById("falla").value = fallaID;
     document.getElementById("horaActual").value = hrActual;
     document.getElementById("tiempoAcumulado").value = tmpAcumu;
+    document.getElementById('titulo').textContent = titulo;
+
     condi = "TB_calculadora"; 
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
         success: function(data) {
             $("#TB_calcu").html(data);
     } }) 

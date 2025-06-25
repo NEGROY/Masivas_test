@@ -60,7 +60,7 @@ break;
 case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
-    $fallaID  = $_POST["fallaID"];    $titulo  = $_POST["titulo"]; 
+    $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"]; 
     // falta titulo, ticket, #AFECTADOS, 
     
     // Consulta Para los contactos  
