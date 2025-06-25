@@ -33,7 +33,7 @@
           <label for="falla" class="form-label text-muted">Ingresar ID de Falla</label>
           <div class="input-group">
             <input type="text" id="falla" class="form-control" placeholder="F6131072">
-            <button class="btn btn-outline-primary" type="button" id="buscarFalla">Buscar</button>
+            <button class="btn btn-outline-primary" type="button" id="buscarFalla" onclick="valdiaFAlla()">Buscar</button>
           </div>
         </div>
 

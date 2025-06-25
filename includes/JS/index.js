@@ -244,8 +244,6 @@ function tablerosave(datos) {
   });
 }
 
-
-
 /// FUNCION PARA COPIAR LOS TEXTOS GAYS
 function copiarTextoWhatsApp(id_areatxt) {
     const texto = document.getElementById(id_areatxt);
@@ -254,3 +252,48 @@ function copiarTextoWhatsApp(id_areatxt) {
     document.execCommand("copy");
     //alert("Texto copiado al portapapeles");
   }
+
+// esta se JALA todas las APIS, 
+function apiasociados() {
+  let tkEntrada = document.getElementById('falla').value.trim();
+  const resultadoDiv = document.getElementById('resultado');
+
+  // Validar y formatear
+    const TK = valdiaFAlla(tkEntrada);
+    if (!TK) return; // Si la validación falla, se detiene la función
+
+    // http://127.0.0.1:8000/masivas/list/F5875158?token=masivas2025
+    fetch('./src/api_data/relacionadas.json') 
+      .then(response => response.json())
+      .then(data => {
+        const encontrado = data.data.find(item => item.TK === TK);
+
+        if (encontrado) {
+            console.log(`TK encontrado: TK: ${encontrado.TK} Total menos cliente (horas): 
+            ${encontrado.total_menos_cliente_horas} HH:MM:SS: ${encontrado.HH_MM_SS}`);
+            //COLOCA LA HORA ACTUAL 
+            //const hora = (encontrado.OPEN_TIME.match(/\d{2}:\d{2}:\d{2}/) || [])[0] || '';
+            const hora = encontrado.OPEN_TIME.split('T')[1]; 
+            document.getElementById('horaActual').value = hora;
+            document.getElementById('tiempoAcumulado').value = `${encontrado.HH_MM_SS}`;
+            document.getElementById('titulo').textContent = `${encontrado.TITULO}`;
+            Swal.fire({
+            text: "TK encontrado.",
+            icon: "success",
+            timer: 1500 });
+        } else {
+            console.warn("No se encontró el TK solicitado.");
+            Swal.fire({
+            text: "No se encontró el TK solicitado.",
+            icon: "warning",
+            timer: 2500 });
+            }
+        })
+        .catch(error => {
+            console.error('Error al consumir API:', error);
+            Swal.fire({
+            text: "Error al consumir API.",
+            icon: "warning",
+            timer: 2500 });
+        });
+}
