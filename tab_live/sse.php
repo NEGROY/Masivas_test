@@ -4,7 +4,7 @@ header('Cache-Control: no-cache');
 
 include '../includes/BD_con/db_con.php';
 
-$query = "SELECT MAX(id_registro) AS max_id FROM tb_escalaciones_registro WHERE estado = 1";
+$query = "SELECT COUNT(*) AS total FROM tb_escalaciones_registro WHERE estado = 1";
 $result = mysqli_query($general, $query);
 $data = mysqli_fetch_assoc($result);
 $maxId = $data['max_id'];

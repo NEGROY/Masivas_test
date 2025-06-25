@@ -23,19 +23,17 @@
 </div>
 
 <div id="contenedor-tablero">
-  <?php include './contenido_tablero.php'; ?>
+  <?php //   include './contenido_tablero.php'; ?>
 </div>
-
-
     
 </body>
 </html>
 
 <script>
-  /* Recarga automática cada 60 segundos 
+  //Recarga automática cada 60 segundos 
   setInterval(() => {
     location.reload(); // Recarga toda la página
-  }, 120000); // (60000 milisegundos) */
+  }, 120000); // (60000 milisegundos) 
 
 
 let lastId = 0;
@@ -46,18 +44,23 @@ source.onmessage = function(event) {
   const newId = parseInt(event.data);
   if (newId !== lastId) {  
     lastId = newId;
-    console.log(lastId);
-    actualizarTablero(); // Llama a una función AJAX para refrescar el contenido
+    //console.log(lastId);
+    updateTablas(lastId); // Llama a una función AJAX para refrescar el contenido
   }
 };
 
-function actualizarTablero() {
-  fetch('./contenido_tablero.php')
-    .then(response => response.text())
-    .then(html => {
-      document.getElementById('contenedor-tablero').innerHTML = html;
-    });
+//metodo con AJAX 
+function updateTablas(lastId) {
+  $.ajax({
+        url: "./contenido_tablero.php",
+        method: "POST",
+        data: {lastId},
+        success: function(data) {
+            $("#contenedor-tablero").html(data);
+    } })
 }
+
+
 
 /*
   en las validaciones para recargar el tablero, 
@@ -68,5 +71,14 @@ function actualizarTablero() {
   - podria validar el tiempo de cada una de las horas vencidas para validar cuando se vence una
   - 
 */
+
+/* funcion anterior 
+function actualizarTablero() {
+  fetch('./contenido_tablero.php')
+    .then(response => response.text())
+    .then(html => {
+      document.getElementById('contenedor-tablero').innerHTML = html;
+    });
+}*/
 </script>
 

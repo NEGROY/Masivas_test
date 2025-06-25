@@ -177,6 +177,9 @@ function tablero1(){
 
     echo "
     <div class='kanban-container'>
+      <div class='kanban-column' id='gris'>
+
+      </div>
       <div class='kanban-column' id='verde'>
         <h2>🟢 < 15 min</h2>
       </div>
@@ -193,7 +196,9 @@ function tablero1(){
     $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
 
     // Clasificar por tiempo restante
-    if ($dif_segundos > 900) {
+    if ($dif_segundos > 1200){
+      $columna = "gris";
+    } elseif ($dif_segundos > 900) {
         $columna = "verde";
     } elseif ($dif_segundos > 600) {
         $columna = "amarillo";
