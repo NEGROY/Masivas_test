@@ -53,19 +53,21 @@ VALIDAR CONECXION
 23/06/24
 - ----------------------------------------------------
 
-- en el tablero un boton para ir a ver la falla masiva. 
+- en el tablero un boton para ir a ver la falla masiva ASOCIADA. 
 - agregar un loader en index y en las fallas asociadas
 - UN INPUT HIDDEN, para quien actualizo de ultimo la falla
 
--AGREGAR UNA VALIDACION DE LA OPERATIVIDAD DE LA API 
-
-- ☑ PRACTICAMENTE CAMBIAR TODO EL TABLERO, UNA BARRA DONDE ESTEN TODAS LAS FALLAS, 15 MIN AHORA QUE SEAN EXCLUSIVAMNETE DE <15 MIN  DE 15 - 10 MIN >10 MIN 
-
-☑ (En una de las vistas se debe de realizar las, recargar cada 2 min, ademas que se recargue al momento de un insert, puedes solo validar la hora mas peque;a, y si esta esta cerca de los 15 min para que se recargue la pagina )
-
+- AGREGAR UNA VALIDACION DE LA OPERATIVIDAD DE LA API 
+- CRON JOB, (API) para actualizar info 
 - SE REQUIERE QUE SIEMPRE SE TENGA ACTUALIZADA LA DB, 
 SOBRE QUIEN FUE EL ULTIMO EN ACTUALIZAR LA FALLAS, 
 Y QUE TIEMPO ACUMULADO LLEVA 
+
+- reaLIZAR DESCARGAS DE EXCEL DE LAS FALLAS ASOCIADAS.   
+
+☑ PRACTICAMENTE CAMBIAR TODO EL TABLERO, UNA BARRA DONDE ESTEN TODAS LAS FALLAS, 15 MIN AHORA QUE SEAN EXCLUSIVAMNETE DE <15 MIN  DE 15 - 10 MIN >10 MIN 
+☑ (En una de las vistas se debe de realizar las, recargar cada 2 min, ademas que se recargue al momento de un insert, puedes solo validar la hora mas peque;a, y si esta esta cerca de los 15 min para que se recargue la pagina )
+
 
 
 PARA LAS FALLAS MASIVAS.

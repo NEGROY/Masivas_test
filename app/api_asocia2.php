@@ -4,7 +4,9 @@
     // SELECT COUNT(*) FROM TB_fallas_asociadas WHERE tk_masiva = 
     // INSERT INTO TB_fallas_asociadas (tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS) VALUES (?, ?, ?, ?, ?, ?)
     // Preparar consultas
+    
     $check = $conexion->prepare("SELECT COUNT(*) FROM TB_fallas_asociadas WHERE tk_masiva = ?");
+    // INSERT INTO table (id, name, age) VALUES(1, "A", 19) ON DUPLICATE KEY UPDATE name="A", age=19
     $insert = $conexion->prepare("INSERT INTO TB_fallas_asociadas (tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS)
                 VALUES (?, ?, ?, ?, ?, ?)");
 
@@ -31,7 +33,6 @@ if (!isset($data['code']) || $data['code'] !== 200) {
     exit;
 }
 
-
 // Recorrer los tickets
 foreach ($tickets as $ticket) {
     $tk         = $ticket['NUMBER'] ?? '';
@@ -40,6 +41,22 @@ foreach ($tickets as $ticket) {
     $close_time = $ticket['CLOSE_TIME'] ?? null;
     $desc       = $ticket['BRIEF_DESCRIPTION'] ?? null;
     $pais       = $ticket['PAIS'] ?? null;
+
+    // Validar si ya existe
+    $e->bind_param("s", $tk);
+    $check->execute();
+    $check->bind_result($existe);
+    $check->fetch();
+    $check->store_result();
+
+    if ($existe == 0) {
+        // Insertar si no existe
+        $insert->bind_param("ssssss", $tk, $enlace, $company, $close_time, $desc, $pais);
+        $insert->execute();
+        echo "Insertado: $tk<br>";
+    } else {
+        echo "Ya existe: $tk<br>";
+    }
 }
 
 
