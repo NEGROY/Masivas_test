@@ -1,4 +1,13 @@
 <?php
+    include './includes/BD_con/db_con.php';
+
+    // SELECT COUNT(*) FROM TB_fallas_asociadas WHERE tk_masiva = 
+    // INSERT INTO TB_fallas_asociadas (tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS) VALUES (?, ?, ?, ?, ?, ?)
+    // Preparar consultas
+    $check = $conexion->prepare("SELECT COUNT(*) FROM TB_fallas_asociadas WHERE tk_masiva = ?");
+    $insert = $conexion->prepare("INSERT INTO TB_fallas_asociadas (tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS)
+                VALUES (?, ?, ?, ?, ?, ?)");
+
 // URL de la API
     //$url = 'http://127.0.0.1:8000/masivas/F6144046?token=masivas2025'; // ← cambia esto a la URL real
     $url =('../src/api_data/relacionadas.json');
@@ -22,7 +31,30 @@ if (!isset($data['code']) || $data['code'] !== 200) {
     exit;
 }
 
+
+// Recorrer los tickets
+foreach ($tickets as $ticket) {
+    $tk         = $ticket['NUMBER'] ?? '';
+    $enlace     = $ticket['TG_ENLACE'] ?? null;
+    $company    = $ticket['COMPANY'] ?? null;
+    $close_time = $ticket['CLOSE_TIME'] ?? null;
+    $desc       = $ticket['BRIEF_DESCRIPTION'] ?? null;
+    $pais       = $ticket['PAIS'] ?? null;
+}
+
+
 // Extraer los tickets
 $tickets = $data['data'];
 $total = $data['total'];
+
+/* CREATE TABLE TB_fallas_asociadas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tk_masiva VARCHAR(20) NOT NULL,
+    ENLACE VARCHAR(50),
+    COMPANY VARCHAR(100),
+    CLOSE_TIME DATETIME,
+    DESCRIPTION TEXT,
+    PAIS VARCHAR(5),
+    fecha_ingreso TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+); */
 ?>
