@@ -93,4 +93,24 @@ function fallamasiva(){
         }
     });
 }
+
+// funcion para traer la ifgno 
+function guardarInputs(event) {
+  event.preventDefault(); // Detener el envío del formulario
+
+  const form = event.target;
+  const formData = new FormData(form);
+
+  // Convertir FormData en un objeto legible
+  const datos = Object.fromEntries(formData.entries());
+  console.log("Valores del formulario:", datos);
+
+  
+  /*return;
+  sleep(60000);/*/
+}
+
+
 </script>
+
+ 

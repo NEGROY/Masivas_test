@@ -52,7 +52,7 @@ foreach ($tickets as $ticket) {
     $check->store_result();*/
 
     // Generar uniqid como combinación de FALLA_MASIVA y TG_ENLACE
-    $uniqid = $tk_masiva . '' . $enlace;
+    $uniqid = $tk_masiva . '' . $tk;
 
     // Escapar todos los valores
     $tk         = safe_escape($general, $tk);
@@ -138,23 +138,24 @@ function mostrar_html($general, $fallaID) {
           </div>
         </div>
 
-        <form class="mt-3 row gx-2 gy-1 align-items-end" onsubmit="guardarInputs(event, '<?php echo $uniq; ?>')">
-          <div class="col-12 col-md-3">
-            <label for="wan_<?php echo $uniq; ?>" class="form-label mb-1 small">WAN</label>
-            <input type="text" class="form-control form-control-sm" id="wan_<?php echo $uniq; ?>" placeholder="WAN info">
-          </div>
-          <div class="col-12 col-md-3">
-            <label for="vrf_<?php echo $uniq; ?>" class="form-label mb-1 small">VRF</label>
-            <input type="text" class="form-control form-control-sm" id="vrf_<?php echo $uniq; ?>" placeholder="VRF info">
-          </div>
-          <div class="col-12 col-md-3">
-            <label for="pe_<?php echo $uniq; ?>" class="form-label mb-1 small">PE</label>
-            <input type="text" class="form-control form-control-sm" id="pe_<?php echo $uniq; ?>" placeholder="PE info">
-          </div>
-          <div class="col-12 col-md-3 d-grid">
-            <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
-          </div>
-        </form>
+    <form class="mt-3 row gx-2 gy-1 align-items-end" id="<?= $uniq ?>" onsubmit="guardarInputs(event)">
+  <div class="col-12 col-md-3">
+    <label for="wan_<?= $uniq ?>" class="form-label mb-1 small">WAN</label>
+    <input type="text" class="form-control form-control-sm" id="wan_<?= $uniq ?>" name="wan" placeholder="WAN info">
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="vrf_<?= $uniq ?>" class="form-label mb-1 small">VRF</label>
+    <input type="text" class="form-control form-control-sm" id="vrf_<?= $uniq ?>" name="vrf" placeholder="VRF info">
+  </div>
+  <div class="col-12 col-md-3">
+    <label for="pe_<?= $uniq ?>" class="form-label mb-1 small">PE</label>
+    <input type="text" class="form-control form-control-sm" id="pe_<?= $uniq ?>" name="pe" placeholder="PE info">
+  </div>
+  <div class="col-12 col-md-3 d-grid">
+    <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
+  </div>
+</form>
+
       </div>
     </div>
 <?php
@@ -163,63 +164,6 @@ function mostrar_html($general, $fallaID) {
 
     echo '</div></div>'; // Cierra .row y .card
 }
-
-
-function mostrar_html2($general, $fallaID) {
-    $fallaID = mysqli_real_escape_string($general, $fallaID);
-
-    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso
-            FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
-            WHERE tk_masiva = '$fallaID'
-            ORDER by PAIS ";
-
-    $result = mysqli_query($general, $query);
-
-    if (mysqli_num_rows($result) === 0) {
-        echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
-        return;
-    }
-
-    echo '<div class="card shadow-sm p-4">';
-    echo '<h5 class="mb-4">Fallas asociadas</h5>';
-    echo '<div class="row g-3">';
-
-    $contador = 1;
-    while ($row = mysqli_fetch_assoc($result)) {
-        // Determinar color de borde según país o empresa (opcional)
-        $borderClass = match ($row['PAIS']) {
-            'GT' => 'border-primary',
-            'HN' => 'border-success',
-            'NI' => 'border-warning',
-            'CR' => 'border-danger',
-            default => 'border-secondary',
-        };
-
-        // Texto y datos
-        $descripcion = $row['DESCRIPTION'] ?: 'Sin descripción';
-        $area = $row['COMPANY'] ?: 'Sin empresa';
-        $tiempo = date('d/m/Y H:i', strtotime($row['CLOSE_TIME'] ?? 'now')); // Formato legible
-
-        echo '
-        <div class="col-md-4">
-          <div class="border-start border-5 ' . $borderClass . ' ps-3 py-2 bg-light rounded h-100">
-            <p class="mb-1 fw-semibold">Falla #' . $contador . ': ' . htmlspecialchars($descripcion) . '</p>
-            <small class="text-muted">
-              TK: ' . htmlspecialchars($row['TK_id']) . '<br>
-              Enlace: ' . htmlspecialchars($row['ENLACE'] ?: 'Sin enlace') . '<br>
-              Área: ' . htmlspecialchars($area) . '<br>
-              País: ' . htmlspecialchars($row['PAIS']) . '<br>
-              Cierre: ' . $tiempo . '
-            </small>
-          </div>
-        </div>';
-
-        $contador++;
-    }
-
-    echo '</div></div>'; // Cierra .row y .card
-}
-
 
 
 /*/ Extraer los tickets/*

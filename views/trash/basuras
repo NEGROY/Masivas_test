@@ -288,3 +288,67 @@ function mostrar_html($general, $fallaID) {
             <span class="ms-2 text-muted">Buscando fallas asociadas...</span>
         </div>
     `);
+
+///////////////////////////////////////////////////////////////////////////////////////////
+
+
+function mostrar_html2($general, $fallaID) {
+    $fallaID = mysqli_real_escape_string($general, $fallaID);
+
+    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso
+            FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
+            WHERE tk_masiva = '$fallaID'
+            ORDER by PAIS ";
+
+    $result = mysqli_query($general, $query);
+
+    if (mysqli_num_rows($result) === 0) {
+        echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
+        return;
+    }
+
+    echo '<div class="card shadow-sm p-4">';
+    echo '<h5 class="mb-4">Fallas asociadas</h5>';
+    echo '<div class="row g-3">';
+
+    $contador = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        // Determinar color de borde según país o empresa (opcional)
+        $borderClass = match ($row['PAIS']) {
+            'GT' => 'border-primary',
+            'HN' => 'border-success',
+            'NI' => 'border-warning',
+            'CR' => 'border-danger',
+            default => 'border-secondary',
+        };
+
+        // Texto y datos
+        $descripcion = $row['DESCRIPTION'] ?: 'Sin descripción';
+        $area = $row['COMPANY'] ?: 'Sin empresa';
+        $tiempo = date('d/m/Y H:i', strtotime($row['CLOSE_TIME'] ?? 'now')); // Formato legible
+
+        echo '
+        <div class="col-md-4">
+          <div class="border-start border-5 ' . $borderClass . ' ps-3 py-2 bg-light rounded h-100">
+            <p class="mb-1 fw-semibold">Falla #' . $contador . ': ' . htmlspecialchars($descripcion) . '</p>
+            <small class="text-muted">
+              TK: ' . htmlspecialchars($row['TK_id']) . '<br>
+              Enlace: ' . htmlspecialchars($row['ENLACE'] ?: 'Sin enlace') . '<br>
+              Área: ' . htmlspecialchars($area) . '<br>
+              País: ' . htmlspecialchars($row['PAIS']) . '<br>
+              Cierre: ' . $tiempo . '
+            </small>
+          </div>
+        </div>';
+
+        $contador++;
+    }
+
+    echo '</div></div>'; // Cierra .row y .card
+}
+
+
+
+
+
+
