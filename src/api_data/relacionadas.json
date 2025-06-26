@@ -7,7 +7,7 @@
             "TG_ENLACE": "802900033T",
             "COMPANY": "TELEFONICA MOVILES GUATEMALA",
             "CLOSE_TIME": "2025-01-08T02:02:36",
-            "BRIEF_DESCRIPTION": "INTERMITENCIA - PRESENTA PROBLEMAS DE INESTABILIDAD",
+            "BRIEF_DESCRIPTION": "PRESENTA PROBLEMAS DE INESTABILIDAD",
             "PAIS": "GT",
             "FALLA_MASIVA": "F5875158"
         },
@@ -16,7 +16,7 @@
             "TG_ENLACE": "357500072T",
             "COMPANY": "JANAMA S.A.",
             "CLOSE_TIME": "2025-01-08T02:02:36",
-            "BRIEF_DESCRIPTION": "CAIDA TOTAL",
+            "BRIEF_DESCRIPTION": "CAIDA TOTAL *",
             "PAIS": "GT",
             "FALLA_MASIVA": "F5875158"
         },
@@ -25,13 +25,13 @@
             "TG_ENLACE": "38301269T",
             "COMPANY": "POLLO CAMPERO S.A.",
             "CLOSE_TIME": "2025-01-08T02:02:37",
-            "BRIEF_DESCRIPTION": "CAIDA TOTAL - SERVICIO QUE PRESENTA CAÍDA",
+            "BRIEF_DESCRIPTION": "CAIDA TOTAL - ",
             "PAIS": "GT",
             "FALLA_MASIVA": "F5875158"
         },
         {
             "NUMBER": "F5874726",
-            "TG_ENLACE": null,
+            "TG_ENLACE": "28301269T",
             "COMPANY": null,
             "CLOSE_TIME": "2025-01-08T01:06:52",
             "BRIEF_DESCRIPTION": "GT | Alarma: Link Down | Descripcion: Link Down | Equipo: IPBAGTPBN1D1A09A02YNT2 | Puerto: GigabitEthernet7/0/3 Interfaz Generica",

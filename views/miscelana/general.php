@@ -233,7 +233,20 @@ function calcular_diferencia_segundos($hora_sumada) {
     return $target - $ahora;
 }
 
-
+// CONTENIDO DEL LOADER 
+function loader() {
+  ?>
+  <!-- Loader en pantalla completa -->
+<div id="global-loader" style="display: none;">
+  <div class="loader-overlay">
+    <div class="spinner-border text-light" role="status">
+      <span class="visually-hidden">Cargando...</span>
+    </div>
+    <p class="mt-3 text-white">Procesando, por favor espere...</p>
+  </div>
+</div>
+<?php
+}
 
 /*  apara colocar horas aleatorias 
 UPDATE tb_escalaciones_registro

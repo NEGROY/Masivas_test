@@ -54,8 +54,8 @@ VALIDAR CONECXION
 - ----------------------------------------------------
 
 - en el tablero un boton para ir a ver la falla masiva ASOCIADA. 
-- agregar un loader en index y en las fallas asociadas
 - UN INPUT HIDDEN, para quien actualizo de ultimo la falla
+☑ agregar un loader en las fallas asociadas (FALTA EN EL en index )
 
 - AGREGAR UNA VALIDACION DE LA OPERATIVIDAD DE LA API 
 - CRON JOB, (API) para actualizar info 
@@ -71,7 +71,7 @@ Y QUE TIEMPO ACUMULADO LLEVA
 
 
 PARA LAS FALLAS MASIVAS.
-- crear la BD de aociados.
-- al buscar la falla, que obtenga todas las asociadas.
-- validar una por una para realizar el insert
-- 
+☑ crear la BD de aociados.
+☑ al buscar la falla, que obtenga todas las asociadas.
+☑ validar una por una para realizar el insert
+- AGREGAR LOS CAMPOS DE WAN, VRF Y PE. 

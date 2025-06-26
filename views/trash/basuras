@@ -189,3 +189,102 @@ Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA
 
 
 <p><strong>Escalacion:</strong> {$fila['nombre']} ({$fila['telefono']})</p>
+
+
+
+  <div class="row g-3">
+    <!-- Falla 1 -->
+    <div class="col-md-4">
+      <div class="border-start border-5 border-primary ps-3 py-2 bg-light rounded h-100">
+        <p class="mb-1 fw-semibold">Falla #1: Corte de energía en zona 5</p>
+        <small class="text-muted">Área: Soporte | Tiempo acumulado: 00:45:00</small>
+      </div>
+    </div>
+
+    <!-- Falla 2 -->
+    <div class="col-md-4">
+      <div class="border-start border-5 border-secondary ps-3 py-2 bg-white rounded h-100">
+        <p class="mb-1">Falla #2: Interrupción en enlace principal</p>
+        <small class="text-muted">Área: Redes | Tiempo acumulado: 01:15:00</small>
+      </div>
+    </div>
+
+    <!-- Falla 3 -->
+    <div class="col-md-4">
+      <div class="border-start border-5 border-warning ps-3 py-2 bg-white rounded h-100">
+        <p class="mb-1">Falla #3: Problema de DNS</p>
+        <small class="text-muted">Área: Infraestructura | Tiempo acumulado: 00:20:00</small>
+      </div>
+    </div>
+
+    <!-- Puedes seguir repitiendo más bloques en grupos de 3 -->
+  </div>
+
+---------------------------------------------------------------------------------
+      
+    $check = $conexion->prepare("SELECT COUNT(*) FROM TB_fallas_asociadas WHERE tk_masiva = ?");
+    // INSERT INTO table (id, name, age) VALUES(1, "A", 19) ON DUPLICATE KEY UPDATE name="A", age=19
+    $insert = $conexion->prepare("INSERT INTO TB_fallas_asociadas (tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS)
+                VALUES (?, ?, ?, ?, ?, ?)");
+
+---------------------------------------------------------------------------------
+                
+function mostrar_html($general, $fallaID) {
+    //$resultados traerr $tkMasiva
+    
+    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso
+        FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
+        WHERE tk_masiva = '$fallaID'";
+
+    $result = mysqli_query($general, $query);
+
+    if (mysqli_num_rows($result) === 0) {
+        echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
+        return;
+    }
+
+    echo '<div class="card shadow-sm p-4">';
+    echo '<h5 class="mb-4">Fallas asociadas</h5>';
+    echo '<div class="row g-3">';
+
+    $colores = ['primary', 'secondary', 'warning', 'danger', 'info', 'success'];
+    $i = 0;
+
+    while ($row = mysqli_fetch_assoc($result)) {
+        $color = $colores[$i % count($colores)];
+        $i++;
+
+        $descripcion = htmlspecialchars($row['DESCRIPTION']);
+        $area        = htmlspecialchars($row['COMPANY']);
+        $tiempo      = htmlspecialchars($row['CLOSE_TIME']);
+        $tk          = htmlspecialchars($row['TK_id']);
+        $masiva      = htmlspecialchars($row['tk_masiva']);
+        $enlace      = htmlspecialchars($row['ENLACE']);
+        $pais        = htmlspecialchars($row['PAIS']);
+
+        echo '<div class="col-md-4">';
+        echo '  <div class="border-start border-5 border-' . $color . ' ps-3 py-2 bg-white rounded h-100">';
+        echo '    <p class="mb-1 fw-semibold">TK: ' . $tk . ' | Masiva: ' . $masiva . '</p>';
+        echo '    <p class="mb-1">' . $descripcion . '</p>';
+        echo '    <small class="text-muted">Enlace: ' . $enlace . ' | País: ' . $pais . '</small><br>';
+        echo '    <small class="text-muted">Empresa: ' . $area . ' | Cierre: ' . $tiempo . '</small>';
+        echo '  </div>';
+        echo '</div>';
+    }
+
+    echo '</div>'; // .row
+    echo '</div>'; // .card
+}\
+
+
+
+---------------------------------------------------------------------------------
+    // Mostrar spinner mientras carga
+    $(".fallas").html(`
+        <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Cargando...</span>
+            </div>
+            <span class="ms-2 text-muted">Buscando fallas asociadas...</span>
+        </div>
+    `);
