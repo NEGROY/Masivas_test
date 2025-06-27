@@ -6,7 +6,6 @@ function safe_escape($general, $value) {
     return mysqli_real_escape_string($general, $value ?? '');
 }
 
-
     $fallaID = $_POST["fallaID"];
     //echo $fallaID;
     // URL de la API
@@ -55,14 +54,14 @@ foreach ($tickets as $ticket) {
     $uniqid = $tk_masiva . '' . $tk;
 
     // Escapar todos los valores
-    $tk         = safe_escape($general, $tk);
+    //$tk         = safe_escape($general, $tk);
     $enlace     = safe_escape($general, $enlace);
     $company    = safe_escape($general, $company);
-    $close_time = safe_escape($general, $close_time);
     $desc       = safe_escape($general, $desc);
-    $pais       = safe_escape($general, $pais);
-    $tk_masiva  = safe_escape($general, $tk_masiva);
-    $uniqid     = safe_escape($general, $uniqid);
+    //$close_time = safe_escape($general, $close_time);
+    //$pais       = safe_escape($general, $pais);
+    //$tk_masiva  = safe_escape($general, $tk_masiva);
+    //$uniqid     = safe_escape($general, $uniqid);
 
     // Ejecutar el insert con ON DUPLICATE KEY UPDATE
     $sql = "
@@ -70,13 +69,10 @@ foreach ($tickets as $ticket) {
         (uniqid, tk_id, tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso)
         VALUES ('$uniqid', '$tk', '$tk_masiva', '$enlace', '$company', '$close_time', '$desc', '$pais', current_timestamp())
         ON DUPLICATE KEY UPDATE
-            tk_id = '$tk',
             COMPANY = '$company',
             CLOSE_TIME = '$close_time',
-            DESCRIPTION = '$desc',
-            PAIS = '$pais',
-            fecha_ingreso = current_timestamp() ";
-    
+            DESCRIPTION = '$desc' ";
+    // ?? enserio cambiaria la compa;ia ? 
     mysqli_query($general, $sql);
     
     //echo $sql;
@@ -88,10 +84,11 @@ mostrar_html($general, $fallaID);
 
 $general->close();
 
+
 function mostrar_html($general, $fallaID) {
     $fallaID = mysqli_real_escape_string($general, $fallaID);
 
-    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso
+    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, PE, WAN, VRF,  DESCRIPTION, PAIS, fecha_ingreso
               FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
               WHERE tk_masiva = '$fallaID'
               ORDER by PAIS";
@@ -99,8 +96,8 @@ function mostrar_html($general, $fallaID) {
     $result = mysqli_query($general, $query);
 
     if (mysqli_num_rows($result) === 0) {
-        echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
-        return;
+      echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
+      return;
     }
 
     echo '<div class="card shadow-sm p-4">';
@@ -120,37 +117,56 @@ function mostrar_html($general, $fallaID) {
         $descripcion = $row['DESCRIPTION'] ?: 'Sin descripción';
         $area = $row['COMPANY'] ?: 'Sin empresa';
         $tiempo = date('d/m/Y H:i', strtotime($row['CLOSE_TIME'] ?? 'now'));
-
         $uniq = htmlspecialchars($row['uniqID']); // identificador único
+
+        //datos PARA EL ARK 
+        $PE = $row['PE'] ?: ' ';
+        $WAN = $row['WAN'] ?: ' ';
+        $VRF = $row['VRF'] ?: ' ';
 ?>
     <div class="col-12 mb-3">
-      <div class="border-start border-4 <?php echo $borderClass; ?> ps-3 py-3 px-3 bg-white rounded shadow-sm">
+      <div class="border-start border-4 <?= $borderClass; ?> ps-3 py-3 px-3 bg-white rounded shadow-sm">
         <div class="d-flex justify-content-between align-items-start">
           <div class="flex-grow-1">
-            <p class="mb-1 fw-semibold text-dark">Falla #<?php echo $contador; ?>: <?php echo htmlspecialchars($descripcion); ?></p>
+            <p class="mb-1 fw-semibold text-dark">Falla #<?= htmlspecialchars($row['TK_id']) ?>: <?= htmlspecialchars($descripcion); ?></p>
             <small class="text-muted">
-              TK: <?php echo htmlspecialchars($row['TK_id']); ?> |
-              Enlace: <?php echo htmlspecialchars($row['ENLACE'] ?: 'Sin enlace'); ?> |
-              Área: <?php echo htmlspecialchars($area); ?> |
-              País: <?php echo htmlspecialchars($row['PAIS']); ?> |
-              Cierre: <?php echo $tiempo; ?>
+              TK: <?= $row['TK_id']; ?> |
+              Enlace: <?= htmlspecialchars($row['ENLACE'] ?: 'Sin enlace'); ?> |
+              Área: <?= $area; ?> |
+              País: <?= $row['PAIS']; ?> |
+              Cierre: <?= $tiempo; ?>
             </small>
           </div>
+
+
+
         </div>
 
-    <form class="mt-3 row gx-2 gy-1 align-items-end" id="<?= $uniq ?>" onsubmit="guardarInputs(event)">
-  <div class="col-12 col-md-3">
-    <label for="wan_<?= $uniq ?>" class="form-label mb-1 small">WAN</label>
-    <input type="text" class="form-control form-control-sm" id="wan_<?= $uniq ?>" name="wan" placeholder="WAN info">
-  </div>
-  <div class="col-12 col-md-3">
-    <label for="vrf_<?= $uniq ?>" class="form-label mb-1 small">VRF</label>
-    <input type="text" class="form-control form-control-sm" id="vrf_<?= $uniq ?>" name="vrf" placeholder="VRF info">
-  </div>
-  <div class="col-12 col-md-3">
-    <label for="pe_<?= $uniq ?>" class="form-label mb-1 small">PE</label>
-    <input type="text" class="form-control form-control-sm" id="pe_<?= $uniq ?>" name="pe" placeholder="PE info">
-  </div>
+  <form class="mt-3 row gx-2 gy-1 align-items-end" id="<?= $uniq ?>" onsubmit="guardarInputs(event)">
+  
+    <input hidden id="pe_<?= $uniq ?>" value="<?=$uniq?>" name="pe" >
+
+    <div class="col-12 col-md-3">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text">PE</span>
+        <input type="text" class="form-control" id="pe_<?= $uniq ?>" value="<?=$PE?>" name="pe" >
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text">VRF</span>
+        <input type="text" class="form-control" id="vrf_<?= $uniq ?>" value="<?=$VRF?>" name="vrf" >
+      </div>
+    </div>
+
+    <div class="col-12 col-md-3">
+      <div class="input-group input-group-sm">
+        <span class="input-group-text">WAN</span>
+        <input type="text" class="form-control" id="wan_<?= $uniq ?>" value="<?=$WAN?>" name="wan" >
+      </div>
+    </div>
+
   <div class="col-12 col-md-3 d-grid">
     <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
   </div>

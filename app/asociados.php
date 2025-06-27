@@ -100,17 +100,32 @@ function guardarInputs(event) {
 
   const form = event.target;
   const formData = new FormData(form);
+  const tkid = event.target.id;
 
   // Convertir FormData en un objeto legible
   const datos = Object.fromEntries(formData.entries());
-  console.log("Valores del formulario:", datos);
+  console.log("Valores del formulario:", tkid , datos);
 
-  
+  $.ajax({
+    url: "../views/miscelana/asoc_insert.php",
+    method: "POST",
+    data: {tkid , datos },
+    success: function(data) {
+      //$(".fallas").html(data);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: data,
+        showConfirmButton: false,
+        timer: 1000
+      });
+      console.log(data);
+    }
+  });
+
   /*return;
-  sleep(60000);/*/
+  sleep(60000);*/
 }
 
 
 </script>
-
- 
