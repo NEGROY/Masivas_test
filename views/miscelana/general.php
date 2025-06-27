@@ -4,13 +4,46 @@
 #HEADER GENERICO PARA QUE SE VEA MAS BONITO 
 function listarHeader($url) {
     ?>
-    <header class="bg-dark text-white p-3 mb-4">
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1 class="h3 m-0">Masivas Escalaciones</h1>
-      <img src="<?=$url?>./src/img/logo_frt_1.png" alt="Logo" style="height: 40px;">
+  <header class="shadow-sm mb-4">
+    <!-- Top Bar -->
+    <div class="bg-dark text-white py-3">
+      <div class="container d-flex justify-content-between align-items-center">
+        <h1 class="h4 fw-bold m-0">Masivas Escalaciones</h1>
+        <div>
+        <!-- Navigation Bar -->
+        <nav class="bg-light border-top border-bottom" style="border-radius: 20px;">
+          <div class="container">
+            <ul class="nav justify-content-start py-2">
+              
+              <li class="nav-item">
+                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./index.php">
+                  <i class="bi bi-upload me-1"></i> Ingreso de Masiva
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./app/tablero.php">
+                  <i class="bi bi-kanban me-1"></i> Tablero
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./app/asociados.php">
+                  <i class="bi bi-exclamation-triangle me-1"></i> Fallas Asociadas
+                </a>
+              </li>
+
+            </ul>
+          </div>
+        </nav>
+        </div>
+
+        <img src="<?= $url ?>./src/img/logo_frt_1.png" alt="Logo" style="height: 40px;">
+      </div>
     </div>
-    </header>
-    <?php
+
+  </header>
+<?php
 }
 
 #PRUEBA como se veria la tablas
