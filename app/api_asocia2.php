@@ -137,9 +137,9 @@ function mostrar_html($general, $fallaID) {
               Cierre: <?= $tiempo; ?>
             </small>
           </div>
-
-
-
+          <div class="order-2 p-2">
+          <button class="btn btn-outline-danger btn-sm" onclick="deletetk('<?= $uniq ?>')">Eliminar</button>
+          </div>
         </div>
 
   <form class="mt-3 row gx-2 gy-1 align-items-end" id="<?= $uniq ?>" onsubmit="guardarInputs(event)">
@@ -171,7 +171,6 @@ function mostrar_html($general, $fallaID) {
     <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
   </div>
 </form>
-
       </div>
     </div>
 <?php

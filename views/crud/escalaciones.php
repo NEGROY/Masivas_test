@@ -189,6 +189,25 @@ case 'insertb':
         // $resultado = mysqli_query($general, $query); */
 break;
 
+// eliminar un registro relacionado 
+case 'deletetk' :
+    //include '../includes/BD_con/db_con.php';
+    $uniqID = $_POST["tk"];
+
+    // Preparar y ejecutar la consulta segura
+    $stmt = $general->prepare("DELETE FROM tb_fallas_asociadas WHERE uniqID = ?");
+    $stmt->bind_param("s", $uniqID);
+
+    if ($stmt->execute()) {
+        echo "Registros eliminados correctamente.";
+    } else {
+        echo "Error al eliminar: " . $stmt->error;
+    }
+
+    $stmt->close();
+    $general->close();
+break;
+
 }
 
     function obtenerIconoTipo($tipo) {
@@ -203,6 +222,8 @@ break;
             return ""; // Sin ícono si no hay coincidencia
     }
 }
+
+
 
 
     /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 

@@ -22,9 +22,9 @@
   <?php listarHeader('.'); ?>
 </div>
 
-<div class="container my-4">
+<div class="container my-3">
   <!-- Sección de entrada -->
-<div class="container my-4">
+<div class="container my-3">
   <div class="card border-0 shadow mb-4">
     <div class="card-body bg-light rounded p-4">
       <div class="row g-3 align-items-center">
@@ -36,7 +36,7 @@
           <form id="formExport" method="POST" action="./expot.php" target="_blank"  >
             <input type="text" name="tkid" id="fallaIDInput" class="form-control" placeholder="F6144046" value="F5875158">
           </form>
-            <button class="btn btn-outline-primary" type="button" id="buscarFalla" onclick="fallamasiva()">Buscar</button>
+            <button class="btn btn-outline-primary" type="button" id="buscarFalla" onclick="fallamasiva()" style="height: min-content;">Buscar</button>
           </div>
         </div>
 
@@ -144,4 +144,35 @@ function guardarInputs(event) {
       document.getElementById("formExport").submit();
 }
 
+// elimanar un registro 
+function deletetk(tk) {
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¿Deseas Eliminar este TK?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, Eliminar',
+    cancelButtonText: 'Cancelar',
+    confirmButtonColor: '#198754',
+    cancelButtonColor: '#6c757d'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        url: "../views/crud/escalaciones.php",
+        method: "POST",
+        data: {tk, condi: "deletetk" },
+        success: function(res) {
+            Swal.fire({
+              icon: 'success',
+              title: res,
+              showConfirmButton: false,
+              timer: 1500
+            }).then(() => {
+              document.getElementById(tk).hidden = true;
+            });
+        }
+      }); /* ajax fin/*/
+    }
+  });
+}
 </script>
