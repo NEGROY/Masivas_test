@@ -270,15 +270,52 @@ function calcular_diferencia_segundos($hora_sumada) {
 function loader() {
   ?>
   <!-- Loader en pantalla completa -->
-<div id="global-loader" style="display: none;">
-  <div class="loader-overlay">
-    <div class="spinner-border text-light" role="status">
-      <span class="visually-hidden">Cargando...</span>
+  <div id="global-loader" style="display: none;">
+    <div class="loader-overlay">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Cargando...</span>
+      </div>
+      <p class="mt-3 text-white">Procesando, por favor espere...</p>
     </div>
-    <p class="mt-3 text-white">Procesando, por favor espere...</p>
   </div>
-</div>
 <?php
+}
+
+// tablero copia 
+function tablerohueco() {
+  ?>
+    <table id="tablaIncidencias" class="table table-bordered table-striped table-hover dt-responsive nowrap" style="width:100%">
+      <thead>
+        <tr>
+          <th colspan="5">Detalle</th>
+          <th colspan="5">NOC</th>
+          <th colspan="5">Gerencia Técnica</th>
+          <th>CNOC</th>
+        </tr>
+
+        <tr>
+            <th>País</th>
+            <th>Ticket</th>
+            <th>Área</th>
+            <th>Hora Total</th>
+            <th>Afectación</th>
+
+            <th>n1</th>
+            <th>n2</th>
+            <th>n3</th>
+            <th>n4</th>
+            <th>n5</th>
+
+            <th>n1</th>
+            <th>n2</th>
+            <th>n3</th>
+            <th>n4</th>
+            <th>n5</th>
+
+          <th>NX</th>
+        </tr>
+    </thead>
+  <?php
 }
 
 /*  apara colocar horas aleatorias 

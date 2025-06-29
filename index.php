@@ -101,8 +101,6 @@
     $(document).ready(function() {
     $('.js-example-basic-single').select2();
     });
-
-
     
 
 window.onload = function () {
@@ -112,10 +110,10 @@ window.onload = function () {
   const titulo = params.get("titulo");
 
   // Validar fallaID únicamente para iniciar
-  if (fallaID && fallaID.trim() !== "") {
+    if (fallaID && fallaID.trim() !== "") {
     console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
 
-     // Asignar a los inputs
+    // Asignar a los inputs
     document.getElementById("falla").value = fallaID;
     document.getElementById("horaActual").value = hrActual;
     document.getElementById("tiempoAcumulado").value = tmpAcumu;
