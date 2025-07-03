@@ -704,15 +704,7 @@
             "PAIS": "GT",
             "FALLA_MASIVA": "F5875158"
         },
-        {
-            "NUMBER": "F5875720",
-            "TG_ENLACE": "CONTR0003910522OC",
-            "COMPANY": "DHL CUSTOMS (COSTA RICA) S. A.",
-            "CLOSE_TIME": "2025-01-08T02:03:05",
-            "BRIEF_DESCRIPTION": "ALTA LATENCIA HACIA SALIDAS INTERNACIONALES",
-            "PAIS": "CR",
-            "FALLA_MASIVA": "F5875158"
-        },
+
         {
             "NUMBER": "F5875723",
             "TG_ENLACE": "317200009T",

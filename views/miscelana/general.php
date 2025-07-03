@@ -137,7 +137,7 @@ function fila_hras() {
           <div class="input-group">
             <span class="input-group-text">Tiempo Acumulado</span>
             <input type="text" id="tiempoAcumulado" class="form-control text-center" 
-            placeholder="00:03:20" readonly data-bs-toggle="tooltip" title="tiempo acumulado del TK">
+            placeholder="00:00:00" data-bs-toggle="tooltip" title="Tiempo acumulado del TK">
           </div>
         </div>
 

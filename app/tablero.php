@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
       const titulo = card.dataset.titulo;
 
       if (fallaID && areaSlct && horaAper && tmpAcumu) {
-        const url = `../index.php?Fid=${encodeURIComponent(fallaID)}&slct=${encodeURIComponent(areaSlct)}&horaAper=${encodeURIComponent(horaAper)}&tmpAcumu=${encodeURIComponent(tmpAcumu)}&titulo=${encodeURIComponent(titulo)}`;
+        //const url = `../index.php?Fid=${encodeURIComponent(fallaID)}&slct=${encodeURIComponent(areaSlct)}&horaAper=${encodeURIComponent(horaAper)}&tmpAcumu=${encodeURIComponent(tmpAcumu)}&titulo=${encodeURIComponent(titulo)}`;
+        const url = `../index.php?Fid=${encodeURIComponent(fallaID)}`;
         window.location.href = url;
       } else {
         console.warn("Alguno de los datos no está definido");

@@ -208,6 +208,64 @@ case 'deletetk' :
     $general->close();
 break;
 
+// FUNCION PARA RECARGAR 
+case 'recargash':
+    $uniqID = $_POST["fallaID"];
+
+    //AGRAGRA LA CONSULTA HACIA LA API E IMPRIMIR // falta  la url 
+    //fetch('http://127.0.0.1:8000/masivas/F6144046?token=masivas2025')
+    $url =('../src/api_data/busqueda.json');
+    // Consumir la API con file_get_contents
+    $response = file_get_contents($url);
+    // se debera de validar con / la concexion el marlon  
+    if ($response === false) {
+        echo "Error al consumir la API.";
+    exit; }
+    // Decodificar el JSON
+    $data = json_decode($response, true);
+    $tickets = $data['data'] ?? [];
+    // RECORRE LAS 
+    foreach ($tickets as $ticket) {
+      $tk  = $ticket['TK'] ?? '';
+      hora_sumada
+      TITULO
+    }
+    
+
+
+
+    //--- CONSULTA SQL 
+    $sql = 'SELECT 
+    r.id_registro,  r.falla_id,  r.area_id, r.titulo, r.nivel,
+    r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
+    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id_pais, p.nombre_pais
+    FROM tb_escalaciones_registro r
+    INNER JOIN tb_area_escalacion a ON r.area_id = a.id_area
+    INNER JOIN tb_pais p ON a.id_pais = p.id_pais
+    WHERE r.falla_id = ? ;';
+
+    $stmt = $general->prepare($sql);
+    $stmt->bind_param("s", $uniqID);
+
+    
+    if ($stmt->execute()) {
+        $result = $stmt->get_result();
+        $data = $result->fetch_all(MYSQLI_ASSOC);
+
+        echo json_encode([
+            'success' => true,
+            'data' => $data
+        ]);
+    } else {
+        echo json_encode([
+            'success' => false,
+            'error' => $stmt->error
+        ]);
+    }
+
+break;
+
+
 }
 
     function obtenerIconoTipo($tipo) {

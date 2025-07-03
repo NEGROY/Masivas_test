@@ -32,7 +32,7 @@
       <div class="p-3 border rounded-3 shadow-sm bg-light ">
       <!-- Input Falla -->
         <label for="falla" class="form-label">Falla ID:</label>
-        <input type="text" id="falla" name="falla" class="form-control mb-3" value='F6131074' placeholder="Fxxxx">
+        <input type="text" id="falla" name="falla" class="form-control mb-3" value='F6144046' placeholder="Fxxxx">
 
       <!-- Select de país -->
         <label for="pais" class="form-label">País:</label>
@@ -105,15 +105,16 @@
 
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
-  const fallaID = params.get("Fid");         const areaSlct = params.get("slct");
-  const hrActual = params.get("horaAper");   const tmpAcumu = params.get("tmpAcumu");
-  const titulo = params.get("titulo");
+  const fallaID = params.get("Fid"); 
+  /* const areaSlct = params.get("slct"); const hrActual = params.get("horaAper"); const tmpAcumu = params.get("tmpAcumu"); const titulo = params.get("titulo");*/
 
   // Validar fallaID únicamente para iniciar
     if (fallaID && fallaID.trim() !== "") {
-    console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
+    // console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
 
-    // Asignar a los inputs
+    recarga(fallaID);
+
+    /* // Asignar a los inputs
     document.getElementById("falla").value = fallaID;
     document.getElementById("horaActual").value = hrActual;
     document.getElementById("tiempoAcumulado").value = tmpAcumu;
@@ -128,11 +129,39 @@ window.onload = function () {
             $("#TB_calcu").html(data);
     } }) 
 
-    // Aquí podrías llamar tu función AJAX o continuar con el flujo
+    // Aquí podrías llamar tu función AJAX o continuar con el flujo*/
     } else {
-    console.warn("fallaID inválido o no proporcionado");
+    console.warn("fallaID inválido o no proporcionado");  
     }
 };
+
+function recarga(fallaID){
+
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {fallaID: fallaID, condi:'recargash'},
+        success: function(data) {
+          //console.log("Respuesta del servidor:", data);
+          const json = JSON.parse(data);
+          //console.log("Objeto JSON:", json);
+          const info = json.data[0]; // Primer objeto del array
+           // Asignar valores a inputs o elementos HTML
+          document.getElementById("falla").value = info.falla_id;
+          document.getElementById("horaActual").value = info.hora_apertura;
+          document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
+          document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
+
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.error("Error AJAX:", textStatus, errorThrown);
+    }
+  }) 
+
+}
+
+
     /* Inicializar DataTable
     $(document).ready(function () {
         $('#tablaContactos').DataTable({
