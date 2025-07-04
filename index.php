@@ -142,7 +142,7 @@ function recarga(fallaID){
         method: "POST",
         data: {fallaID: fallaID, condi:'recargash'},
         success: function(data) {
-          //console.log("Respuesta del servidor:", data);
+          console.log("Respuesta del servidor:", data);
           const json = JSON.parse(data);
           //console.log("Objeto JSON:", json);
           const info = json.data[0]; // Primer objeto del array
