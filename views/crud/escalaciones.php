@@ -235,7 +235,7 @@ case 'recargash':
 
     if (!empty($tk)) {
         $query = "UPDATE tb_escalaciones_registro 
-                  SET titulo = '$titulo', hora_sumada = '$horaSumada' 
+                  SET titulo = '$titulo', tiempo_acumulado = '$horaSumada' 
                   WHERE falla_id = '$tk' AND estado = 1";
         mysqli_query($general, $query);
     }

@@ -78,6 +78,8 @@
 
 <?php mensajes(); ?>
 
+<div><?php loader()?></div>
+
 </body>
 </html>
 
@@ -106,37 +108,25 @@
 window.onload = function () {
   const params = new URLSearchParams(window.location.search);
   const fallaID = params.get("Fid"); 
-  /* const areaSlct = params.get("slct"); const hrActual = params.get("horaAper"); const tmpAcumu = params.get("tmpAcumu"); const titulo = params.get("titulo");*/
-
   // Validar fallaID únicamente para iniciar
     if (fallaID && fallaID.trim() !== "") {
+    // Mostrar loader global
+    document.getElementById('global-loader').style.display = 'flex';
     // console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
-
     recarga(fallaID);
-
-    /* // Asignar a los inputs
-    document.getElementById("falla").value = fallaID;
-    document.getElementById("horaActual").value = hrActual;
-    document.getElementById("tiempoAcumulado").value = tmpAcumu;
-    document.getElementById('titulo').textContent = titulo;
-
-    condi = "TB_calculadora"; 
-    $.ajax({
-        url: "./views/crud/escalaciones.php",
-        method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
-        success: function(data) {
-            $("#TB_calcu").html(data);
-    } }) 
-
+    /* recarga(fallaID).then(() => {
+      calcularTiempos(); }); */
     // Aquí podrías llamar tu función AJAX o continuar con el flujo*/
     } else {
-    console.warn("fallaID inválido o no proporcionado");  
+      console.warn("fallaID inválido o no proporcionado");  
+      // Ocultar loader global después de la petición
+      document.getElementById('global-loader').style.display = 'none';
     }
+    // Ocultar loader global después de la petición
+    document.getElementById('global-loader').style.display = 'none';
 };
 
 function recarga(fallaID){
-
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
@@ -151,14 +141,30 @@ function recarga(fallaID){
           document.getElementById("horaActual").value = info.hora_apertura;
           document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
           document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
+          // select 
+          desig(info.id_pais);
+          document.getElementById("pais").value = info.id_pais;
+          document.getElementById("areasxpais").value = info.area_id;
 
-
+          calcularTiempos2(info.titulo, info.falla_id, info.hora_apertura, info.tiempo_acumulado, info.area_id);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error AJAX:", textStatus, errorThrown);
+            
     }
   }) 
 
+}
+
+function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
+condi = "TB_calculadora"; 
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        success: function(data) {
+            $("#TB_calcu").html(data);
+    } })
 }
 
 
