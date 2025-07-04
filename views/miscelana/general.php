@@ -227,7 +227,7 @@ function tablero1(){
   // Crear tarjetas
   while ($fila = mysqli_fetch_assoc($resultado)) {
     $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
-
+     $quemado = '';
     // Clasificar por tiempo restante
     if ($dif_segundos > 1200){
       $columna = "gris";
@@ -235,9 +235,12 @@ function tablero1(){
         $columna = "verde";
     } elseif ($dif_segundos > 600) {
         $columna = "amarillo";
-    } else {
+    } elseif ($dif_segundos > 0) {
         $columna = "rojo";
-    }
+    } else {
+        $quemado = "quemado";
+        $columna = "rojo";
+    } 
 
       $url = 'index.php?fallaID=' . urlencode($fila['falla_id']) .
       '&areaSlct=' . urlencode($fila['area_id']) .
@@ -245,7 +248,7 @@ function tablero1(){
       '&tmpAcumu=' . urlencode($fila['tiempo_acumulado']).
       '&titulo=' . urlencode($fila['titulo']);
       
-      $card = "<div class='card $columna' 
+      $card = "<div class='card $columna' id='$quemado' 
       data-falla-id='" . htmlspecialchars($fila['falla_id']) . "'
       data-area-id='" . htmlspecialchars($fila['area_id']) . "'
       data-hora-apertura='" . htmlspecialchars($fila['hora_apertura']) . "'
@@ -253,7 +256,7 @@ function tablero1(){
       data-titulo='".htmlspecialchars($fila['titulo'])." '>
       
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
-      <p><strong>Título:</strong> {$fila['titulo']}</p> </div>";
+      <p><strong>Título:</strong> {$fila['titulo']} </p> </div>";
 
     echo "<script>document.getElementById('$columna').innerHTML += `" . $card . "`;</script>";
   }

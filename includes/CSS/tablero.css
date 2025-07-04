@@ -37,4 +37,17 @@ body {
   .verde { border-left: 5px solid #28a745; }
   .amarillo { border-left: 5px solid #ffc107; }
   .rojo { border-left: 5px solid #dc3545; }
+#quemado {
+  border: 2px solid #d40a0a !important;
+  animation-name: bordeCambio;
+  animation-duration: 15s;
+}
+
+@keyframes bordeCambio {
+  0%   {color: red;}
+  25%  {color: black;}
+  50%  {color: red;}
+  75% {color: black;}
+  100%  {color: red;}
+}
 
