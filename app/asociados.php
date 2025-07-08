@@ -33,7 +33,7 @@
         <div class="col-lg-6">
           <label for="falla" class="form-label text-muted">Ingresar ID de Falla</label>
           <div class="input-group">
-          <form id="formExport" method="POST" action="./expot.php" target="_blank"  >
+          <form id="formExport" method="POST" action="./expot2.php" target="_blank"  >
             <input type="text" name="tkid" id="fallaIDInput" class="form-control" placeholder="F6144046" value="F5875158">
           </form>
             <button class="btn btn-outline-primary" type="button" id="buscarFalla" onclick="fallamasiva()" style="height: min-content;">Buscar</button>

@@ -141,21 +141,22 @@ function mnsjEscala(data){
     const escalacionActual = "1/5"; // Puedes ajustar esto según contexto o contador
     const filaActual = "1/4";       // Igual, puede venir del backend
     const horaActualFormateada = new Date().toLocaleTimeString('en-GB'); // hh:mm:ss
+    const tiempo = document.getElementById("tiempoAcumulado").value;
 
     const mensaje = 
     `*## ESCALACION ${data.nivel} ##*
-    ${data.nivel}\t${data.nombre}\t${data.telefono}\t${data.tiempo}Hrs\t${data.hr_suma}\n
+    ${data.nivel}\t${data.nombre}\t${data.telefono}\t${data.tiempo}Hrs\t${data.hr_suma} Hrs\n
     *${data.titulo}*
-    SE INDICA TIEMPO Y CLIENTES`;
+    SE INDICA TIEMPO Y CLIENTES  `;
 
 
     const wasapp = 
     `*DETALLES DE LA ESCALACIÓN DE FALLA MASIVA*
     Se escala con ${data.nombre}
-    ${data.nivel} ${data.nombre} ${data.telefono} ${data.tiempo}hrs ${data.hr_suma}\n
+    ${data.nivel} ${data.nombre} ${data.telefono} ${data.tiempo}hrs ${data.hr_suma}Hrs \n
     *FALLA Masiva* :  ${data.fallaID}
     *FALLA General* : F- \n
-    *TIEMPO DE LA FALLA MASIVA*: ${data.tmpAcumu}
+    *TIEMPO DE LA FALLA MASIVA*: ${tiempo}
     ${data.titulo} \n
     *CLIENTES AFECTADOS*: -
     • F6081621 / 1136600001T / ROFRAMA, SOCIEDAD ANÓNIMA
@@ -297,3 +298,10 @@ function apiasociados() {
             timer: 2500 });
         });
 }
+
+
+// -----
+  function ajustarAltura(elemento) {
+    elemento.style.height = 'auto';
+    elemento.style.height = (elemento.scrollHeight) + 'px';
+  }

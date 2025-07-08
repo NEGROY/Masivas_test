@@ -75,3 +75,10 @@ textarea.form-control {
     .nav-link:hover .nav-link-hover {
         width: 100%;
     }
+
+
+  .auto-ajuste-textarea {
+    resize: none;
+    overflow-y: hidden;
+    min-height: 50px; /* Altura estándar del input */
+  }

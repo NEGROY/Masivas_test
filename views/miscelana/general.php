@@ -128,7 +128,7 @@ function fila_hras() {
           <div class="input-group">
             <span class="input-group-text">Hora Apertura</span>
             <input type="text" id="horaActual" class="form-control text-center" step="2" type="time"
-            placeholder="14:00:00">
+            placeholder="14:00:00" readonly>
           </div>
         </div>
 
@@ -177,18 +177,22 @@ function mensajes(){
     </div>
 
     <!-- Columna derecha (5/12) -->
-    <div class="col-md-6">
-      <div class="input-group">
-        <span class="input-group-text bg-light border-end-2">
-          <i class="fa-brands fa-whatsapp text-muted"></i>
-        </span>
-        <textarea id="wasapp" class="form-control border-start-0 small " rows="6" placeholder="Mensaje WhatsApp..."></textarea>
-          <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('wasapp')"
-          data-bs-toggle="tooltip" title="copialo tu mensaje!">
-          <i class="fa-solid fa-copy"></i>
-          </button>
-      </div>
+  <div class="col-md-6">
+    <div class="input-group">
+      <span class="input-group-text bg-light border-end-2">
+        <i class="fa-brands fa-whatsapp text-muted"></i>
+      </span>
+      <textarea id="wasapp" 
+              class="form-control border-start-0 small auto-ajuste-textarea" 
+              rows="1" 
+              placeholder="Mensaje WhatsApp..."
+              oninput="ajustarAltura(this)"></textarea>
+      <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('wasapp')"
+        data-bs-toggle="tooltip" title="¡Copia tu mensaje!">
+        <i class="fa-solid fa-copy"></i>
+      </button>
     </div>
+  </div>
 
   </div>
 </div>
