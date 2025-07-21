@@ -67,14 +67,14 @@ function buscarDatos_api() {
             document.getElementById('titulo').textContent = `${encontrado.TITULO}`;
             
             // IMPLEMENTACION DEL CIERRE AL BUSCAR 
-            if (encontrado.CLOSE_TIME === null) {
+            if (!encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "") {
               // Falla abierta
               botonCalcular.disabled = false;
               campoCierre.value = "FALLA ABIERTA";
             } else {
               // Falla cerrada
               botonCalcular.disabled = true;
-              campoCierre.value = encontrado.CLOSE_TIME.split('T')[1]; // solo hora
+              campoCierre.value = encontrado.CLOSE_TIME; // solo hora
             }
 
             Swal.fire({

@@ -36,7 +36,7 @@
 
       <!-- Input Falla -->
         <label for="falla" class="form-label">HORA DE CIERRE</label>
-        <input type="text" id="CIERRE" class="form-control mb-3"  placeholder="-"    disabled>
+        <input type="text" id="CIERRE" class="form-control mb-3"  placeholder="-" disabled>
 
       <!-- Select de país -->
         <label for="pais" class="form-label">País:</label>
