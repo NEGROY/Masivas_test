@@ -42,6 +42,9 @@ function valdiaFAlla(falla) {
 function buscarDatos_api() {
   let tkEntrada = document.getElementById('falla').value.trim();
   const resultadoDiv = document.getElementById('resultado');
+  // PARA VALIDAR EL CIERRE 
+  const botonCalcular = document.getElementById('btnCalcular');
+  const campoCierre = document.getElementById('CIERRE');
 
   // Validar y formatear
     const TK = valdiaFAlla(tkEntrada);
@@ -62,6 +65,18 @@ function buscarDatos_api() {
             document.getElementById('horaActual').value = hora;
             document.getElementById('tiempoAcumulado').value = `${encontrado.HH_MM_SS}`;
             document.getElementById('titulo').textContent = `${encontrado.TITULO}`;
+            
+            // IMPLEMENTACION DEL CIERRE AL BUSCAR 
+            if (encontrado.CLOSE_TIME === null) {
+              // Falla abierta
+              botonCalcular.disabled = false;
+              campoCierre.value = "FALLA ABIERTA";
+            } else {
+              // Falla cerrada
+              botonCalcular.disabled = true;
+              campoCierre.value = encontrado.CLOSE_TIME.split('T')[1]; // solo hora
+            }
+
             Swal.fire({
             text: "TK encontrado.",
             icon: "success",

@@ -144,7 +144,7 @@ function fila_hras() {
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
           <button type="button" class="btn btn-secondary" onclick="calcularTiempos()"
-          data-bs-toggle="tooltip" title="Muestra la tabla de escalación." >Calcular</button>
+          data-bs-toggle="tooltip" id="btnCalcular" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
         <div class="col-md-2 d-grid">
