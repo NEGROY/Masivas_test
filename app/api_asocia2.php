@@ -10,12 +10,18 @@ function safe_escape($general, $value) {
     //echo $fallaID;
     // URL de la API
     //$url = 'http://127.0.0.1:8000/masivas/F5875158?token=masivas2025'; // ← cambia esto a la URL real
-    $url =('../src/api_data/relacionadas.json');
+    $url =   ('../src/api_data/relacionadas.json');
+    $arkurl= ('../src/api_data/ark.json');
 
 // Consumir la API con file_get_contents
 $response = file_get_contents($url);
 
-// Verificar si hubo respuesta 
+  /* Verificar si la respuesta es válida
+  if (!isset($data['code']) || $data['code'] !== 200) {
+      echo "Error en la respuesta de la API.";
+      exit;
+  }*/
+
 // se debera de validar con / la concexion el marlon  
 if ($response === false) {
     echo "Error al consumir la API.";
@@ -24,12 +30,6 @@ if ($response === false) {
 
 // Decodificar el JSON
 $data = json_decode($response, true);
-
-/* Verificar si la respuesta es válida
-if (!isset($data['code']) || $data['code'] !== 200) {
-    echo "Error en la respuesta de la API.";
-    exit;
-}*/
 
 $tickets = $data['data'] ?? [];
 
@@ -43,25 +43,22 @@ foreach ($tickets as $ticket) {
     $pais       = $ticket['PAIS'] ?? null;
     $tk_masiva  = $ticket['FALLA_MASIVA'] ?? null; 
 
-    /* Validar si ya existe
-    $e->bind_param("s", $tk);
-    $check->execute();
-    $check->bind_result($existe);
-    $check->fetch();
-    $check->store_result();*/
+    //aqui se agrega la validacion de los datos de ark
+    /* $arkurl = "http://172.10.0.1/masivas/$tk";
+      //consumir la API de ark (también puede ser un archivo si está en local)
+      $ark_response = file_get_contents($arkurl);
+      // Verificar si la respuesta es válida
+      if ($ark_response !== false) {
+        $ark_data = json_decode($ark_response, true);
+        // Procesar los datos de ark (ejemplo de valores)
+        $pe   = $ark_data['pe'] ?? null;
+        $vrf  = $ark_data['vrf'] ?? null;
+        $wan  = $ark_data['wan'] ?? null;
+      }
+    */
 
     // Generar uniqid como combinación de FALLA_MASIVA y TG_ENLACE
     $uniqid = $tk_masiva . '' . $tk;
-
-    // Escapar todos los valores
-    //$tk         = safe_escape($general, $tk);
-    $enlace     = safe_escape($general, $enlace);
-    $company    = safe_escape($general, $company);
-    $desc       = safe_escape($general, $desc);
-    //$close_time = safe_escape($general, $close_time);
-    //$pais       = safe_escape($general, $pais);
-    //$tk_masiva  = safe_escape($general, $tk_masiva);
-    //$uniqid     = safe_escape($general, $uniqid);
 
     // Ejecutar el insert con ON DUPLICATE KEY UPDATE
     $sql = "
@@ -196,5 +193,12 @@ $total = $data['total'];
     DESCRIPTION TEXT,
     PAIS VARCHAR(5),
     fecha_ingreso TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+        // Escapar todos los valores
+    //$tk         = safe_escape($general, $tk);
+    $enlace     = safe_escape($general, $enlace);
+    $company    = safe_escape($general, $company);
+    $desc       = safe_escape($general, $desc);
+
 ); */
 ?>
