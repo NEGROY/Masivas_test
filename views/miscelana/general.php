@@ -147,6 +147,11 @@ function fila_hras() {
           data-bs-toggle="tooltip" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
+        <div class="col-md-2 d-grid">
+          <button type="button" class="btn btn-danger" onclick="cerrarMasiva()"
+          data-bs-toggle="tooltip" title="Cierra seguimiento Masiva" >Terminar </button>
+        </div>
+
       </div>
 
     </div>

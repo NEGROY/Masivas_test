@@ -239,7 +239,7 @@ case 'recargash':
                   WHERE falla_id = '$tk' AND estado = 1";
         mysqli_query($general, $query);
     }
-}
+    }
     
     //--- CONSULTA SQL 
     $sql = 'SELECT 
@@ -272,11 +272,30 @@ case 'recargash':
 
 break;
 
+// FUNCION PARA CERRAR LAS FALLAS 
+case 'cerrarmasiva':
+    $uniqID = $_POST["fallaID"];
 
-}
+    if (!empty($uniqID)) {
+        $sql = "UPDATE tb_escalaciones_registro SET estado = 0 WHERE falla_id = ? ";
+        $stmt = $general->prepare($sql);
+        $result = $stmt->execute([$uniqID]);
+
+        if ($result) {
+            echo "<div class='alert alert-success'>Falla cerrada exitosamente (ID: $uniqID)</div>";
+        } else {
+            echo "<div class='alert alert-danger'>Error al cerrar la falla (ID: $uniqID)</div>";
+        }
+    } else {
+        echo "<div class='alert alert-warning'>ID de falla no recibido.</div>";
+    }
+
+break;
+
+} // SWITCH DEL CONDI 
 
     function obtenerIconoTipo($tipo) {
-    switch (strtolower($tipo)) {
+        switch (strtolower($tipo)) {
         case 'llamada':
             return "<i class='fas fa-phone fa-xs text-primary'></i>";
         case 'whatsapp':

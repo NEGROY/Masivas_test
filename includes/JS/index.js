@@ -91,7 +91,6 @@ function calcularTiempos() {
     const fallaID = document.getElementById('falla').value;
     const titulo = document.getElementById('titulo').textContent;
 
-
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
 
     // Validaciones básicas no null 
@@ -131,9 +130,46 @@ function calcularTiempos() {
         method: "POST",
         data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
         success: function(data) {
-            $("#TB_calcu").html(data);
+        $("#TB_calcu").html(data);
     } }) 
-        return;
+    return;
+}
+
+// FUNCION PARA CERRAR LAS FALLAS, ACTUALMENTE MANUAL 
+function cerrarMasiva() {
+  const fallaID = document.getElementById('falla').value;
+  const condi = "cerrarmasiva";
+  //VALIDA VACIO
+  if (!fallaID) {
+    Swal.fire('Error', 'Debes ingresar un ID de falla.', 'warning');
+    return;
+  }
+
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: `¿Deseas cerrar la falla con ID: ${fallaID}?`,
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, cerrar',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    // envia ajax 
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: { fallaID, condi },
+        success: function (data) {
+          $("#TB_calcu").html(data);
+          Swal.fire('Cerrado', 'La falla fue cerrada correctamente.', 'success').then(() => {
+              location.reload(); // Se ejecuta después de cerrar el mensaje
+          });
+        },
+        error: function () {
+          Swal.fire('Error', 'Hubo un problema al cerrar la falla.', 'error');
+        }
+    });
+  });
+
 }
 
 function mnsjEscala(data){
