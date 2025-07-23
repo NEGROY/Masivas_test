@@ -1,0 +1,1396 @@
+[
+ {
+  "numero": 0,
+  "id": 263,
+  "nombre": "ADAN MORALES",
+  "correo": "morales.adan@claro.com.ni"
+ },
+ {
+  "numero": "+57 312 4569 654",
+  "id": 216,
+  "nombre": "NOC LATAM SUPERVISOR"
+ },
+ {
+  "numero": "50322717084",
+  "id": 134,
+  "nombre": "GERENTE COMERCIAL (REGINA BENNET)"
+ },
+ {
+  "numero": "50322717378",
+  "id": 133,
+  "nombre": "SUBGERENTE COMERCIAL (MILENA MURCIA)"
+ },
+ {
+  "numero": "8990XXXX",
+  "id": 132,
+  "nombre": "JEFE DE EJECUTIVO (PENDIENTE DEFINIR)"
+ },
+ {
+  "numero": "8990XXXX",
+  "id": 131,
+  "nombre": "EJECUTIVO DE CLIENTE"
+ },
+ {
+  "numero": "8990XXXX",
+  "id": 166,
+  "nombre": "SUBGERENTE COMERCIAL"
+ },
+ {
+  "numero": "8990XXXX",
+  "id": 167,
+  "nombre": "GERENTE COMERCIAL"
+ },
+ {
+  "numero": "+50586150004",
+  "id": 44,
+  "nombre": "RENÉ MARTÍNEZ \/ LUVY MARTÍNEZ"
+ },
+ {
+  "numero": "50379504201",
+  "id": 126,
+  "nombre": "SV_INGENIERIA_CLIENTES@CLARO.COM.SV"
+ },
+ {
+  "numero": "50258261061",
+  "id": 20,
+  "nombre": "FERNANDO MEJÍA"
+ },
+ {
+  "numero": "50258261061",
+  "id": 28,
+  "nombre": "Ever Linares"
+ },
+ {
+  "numero": "50258261043",
+  "id": 19,
+  "nombre": "LUIS TORRENTO"
+ },
+ {
+  "numero": "50258261043",
+  "id": 27,
+  "nombre": "Christian Rivas"
+ },
+ {
+  "numero": "50224719005",
+  "id": 272,
+  "nombre": "AGENTES OPERATIVOS"
+ },
+ {
+  "numero": "50258269515",
+  "id": 259,
+  "nombre": "SERGIO ALFREDO CALVILLO AVILA"
+ },
+ {
+  "numero": "50255799571",
+  "id": 262,
+  "nombre": "KAREN PASCUAL"
+ },
+ {
+  "numero": "50233900136",
+  "id": 261,
+  "nombre": "JULIO LOPEZ"
+ },
+ {
+  "numero": "502 42025740",
+  "id": 26,
+  "nombre": "Walter Alfaro"
+ },
+ {
+  "numero": "+57 322 8845 165",
+  "id": 217,
+  "nombre": "CNOC LATAM MANAGER"
+ },
+ {
+  "numero": "+57 311 352 9184",
+  "id": 219,
+  "nombre": "CTO DIRECTOR"
+ },
+ {
+  "numero": "+57 311 4351490",
+  "id": 220,
+  "nombre": "CTO LATAM"
+ },
+ {
+  "numero": "+34 917 697 640",
+  "id": 266,
+  "nombre": "SMC EMEA RECOVERY"
+ },
+ {
+  "numero": "+34 910 553 441",
+  "id": 267,
+  "nombre": "SMC EMEA RECOVERY MANAGER"
+ },
+ {
+  "numero": "+34 696 860 032",
+  "id": 269,
+  "nombre": "ROBERTO FRAILE"
+ },
+ {
+  "numero": "+34 690 246 750",
+  "id": 271,
+  "nombre": "GUSTAVO CARVALHO DOMINGOS"
+ },
+ {
+  "numero": "+34 676 715 959",
+  "id": 268,
+  "nombre": "MARIO MOYA ANDRÉS"
+ },
+ {
+  "numero": "+34 630 057 120",
+  "id": 270,
+  "nombre": "CÉSAR LÓPEZ"
+ },
+ {
+  "numero": " +502 5908 1617",
+  "id": 218,
+  "nombre": "O&M LOCAL MANAGER"
+ },
+ {
+  "numero": "+502 2317 3333",
+  "id": 215,
+  "nombre": "NOC LATAM"
+ },
+ {
+  "numero": 5055058547011,
+  "id": 144,
+  "nombre": "LUIS ALBERTO SALGUERA"
+ },
+ {
+  "numero": 525551745299,
+  "id": 209,
+  "nombre": "TECNICO DE TURNO"
+ },
+ {
+  "numero": 525551745298,
+  "id": 210,
+  "nombre": "SUPERVISOR DE TURNO"
+ },
+ {
+  "numero": 525551745245,
+  "id": 213,
+  "nombre": "ROBERTO CARLOS TURRUBIARTES GARCIA"
+ },
+ {
+  "numero": 525551745201,
+  "id": 211,
+  "nombre": "MARIANO ALVAREZ HERNÁNDEZ"
+ },
+ {
+  "numero": 525539015904,
+  "id": 214,
+  "nombre": "NORI IZTZAJAYA PÁEZ GARCÍA"
+ },
+ {
+  "numero": 50769839535,
+  "id": 194,
+  "nombre": "ORIEL.MOJICA@CWPANAMA.COM"
+ },
+ {
+  "numero": 50769825896,
+  "id": 193,
+  "nombre": "AGUSTIN.DIAZ@CWPANAMA.COM"
+ },
+ {
+  "numero": 50766705589,
+  "id": 195,
+  "nombre": "MOHAMED.PATEL@CWPANAMA.COM"
+ },
+ {
+  "numero": 50766700706,
+  "id": 196,
+  "nombre": "DIEGO.LAU@CWPANAMA.COM"
+ },
+ {
+  "numero": 50763791825,
+  "id": 192,
+  "nombre": "JOSE.VEGA@CWPANAMA.COM"
+ },
+ {
+  "numero": 50762847270,
+  "id": 191,
+  "nombre": "LUIS MADRID"
+ },
+ {
+  "numero": 50762828251,
+  "id": 188,
+  "nombre": "LUISMIGUEL.DELAROSA@CWPANAMA.COM"
+ },
+ {
+  "numero": 50762384057,
+  "id": 187,
+  "nombre": "JORGE.ALVAREZ@CWPANAMA.COM"
+ },
+ {
+  "numero": 50762284529,
+  "id": 190,
+  "nombre": "JUAN CARLOS SAMANIEGO"
+ },
+ {
+  "numero": 50762284496,
+  "id": 189,
+  "nombre": "LUISCARLOS.YAU@CWPANAMA.COM"
+ },
+ {
+  "numero": 50670451995,
+  "id": 182,
+  "nombre": "JOSE DAVID"
+ },
+ {
+  "numero": 50670029493,
+  "id": 49,
+  "nombre": "JORGE DÍAZ"
+ },
+ {
+  "numero": 50670029441,
+  "id": 180,
+  "nombre": "GILBERTO FERNANDEZ"
+ },
+ {
+  "numero": 50670028795,
+  "id": 186,
+  "nombre": "EMILSE GOMEZ GIRON"
+ },
+ {
+  "numero": 50670028570,
+  "id": 177,
+  "nombre": "LUIS DIEGO BOLAÑOS"
+ },
+ {
+  "numero": 50670027584,
+  "id": 185,
+  "nombre": "EMMANUEL GONZALEZ ARCE"
+ },
+ {
+  "numero": 50670026253,
+  "id": 48,
+  "nombre": "RAFAEL CORTES"
+ },
+ {
+  "numero": 50670025268,
+  "id": 181,
+  "nombre": "LUIS IVAN ORTIZ"
+ },
+ {
+  "numero": 50670024807,
+  "id": 183,
+  "nombre": "YEISON JOSE QUIROS PRENDAS"
+ },
+ {
+  "numero": 50670024595,
+  "id": 184,
+  "nombre": "KEITLYN XIOAMARA MORA ORDOÑEZ"
+ },
+ {
+  "numero": 50670020778,
+  "id": 179,
+  "nombre": "MARCO SALAZAR"
+ },
+ {
+  "numero": 50670020192,
+  "id": 50,
+  "nombre": "CELSO ROJAS"
+ },
+ {
+  "numero": 50644007878,
+  "id": 176,
+  "nombre": "CCR CR"
+ },
+ {
+  "numero": 50644007840,
+  "id": 178,
+  "nombre": "INGENIERO IM"
+ },
+ {
+  "numero": 50589304959,
+  "id": 141,
+  "nombre": "WILFREDO ARAUZ"
+ },
+ {
+  "numero": 50588561050,
+  "id": 138,
+  "nombre": "NORMAN SELVA"
+ },
+ {
+  "numero": 50588559599,
+  "id": 46,
+  "nombre": "MILTON OBANDO"
+ },
+ {
+  "numero": 50588538938,
+  "id": 139,
+  "nombre": "MARIO HURTADO"
+ },
+ {
+  "numero": 50588524472,
+  "id": 140,
+  "nombre": "DIESTER LIRA"
+ },
+ {
+  "numero": 50588524398,
+  "id": 143,
+  "nombre": "ROBERTO MATAMOROS"
+ },
+ {
+  "numero": 50588501214,
+  "id": 142,
+  "nombre": "GADDY ZEPEDA"
+ },
+ {
+  "numero": 50588500463,
+  "id": 47,
+  "nombre": "MAURICIO LACAYO"
+ },
+ {
+  "numero": 50588500414,
+  "id": 137,
+  "nombre": "MARLON JAIME"
+ },
+ {
+  "numero": 50583606975,
+  "id": 45,
+  "nombre": "MAURICIO SÁNCHEZ"
+ },
+ {
+  "numero": 50498327538,
+  "id": 175,
+  "nombre": "JORGE PINEDA"
+ },
+ {
+  "numero": 50489904245,
+  "id": 146,
+  "nombre": "LUIS SANDRES"
+ },
+ {
+  "numero": 50489904208,
+  "id": 147,
+  "nombre": "FRANKLIN BUESO"
+ },
+ {
+  "numero": 50442155024,
+  "id": 174,
+  "nombre": "LUIS CASTAÑEDA"
+ },
+ {
+  "numero": 50433915357,
+  "id": 153,
+  "nombre": "SAUL PASTOR (GERENTE PLANTA EXTERNA)"
+ },
+ {
+  "numero": 50433914984,
+  "id": 43,
+  "nombre": "JORGE FONSECA"
+ },
+ {
+  "numero": 50433913565,
+  "id": 171,
+  "nombre": "LUIS MAIRENA O&M DATOS"
+ },
+ {
+  "numero": 50433910016,
+  "id": 149,
+  "nombre": "PASTOR RAMIREZ"
+ },
+ {
+  "numero": 50433907944,
+  "id": 152,
+  "nombre": "MAREL AVILA (JEFE PLANTA EXTERNA)"
+ },
+ {
+  "numero": 50433907792,
+  "id": 154,
+  "nombre": "CARLOS MARADIAGA "
+ },
+ {
+  "numero": 50433906474,
+  "id": 40,
+  "nombre": "FANINA PINEL"
+ },
+ {
+  "numero": 50433905723,
+  "id": 156,
+  "nombre": "ERICK ROMERO"
+ },
+ {
+  "numero": 50433904103,
+  "id": 42,
+  "nombre": "WENDY FLORES"
+ },
+ {
+  "numero": 50433900136,
+  "id": 265,
+  "nombre": "JULIO LOPEZ"
+ },
+ {
+  "numero": 50433413085,
+  "id": 169,
+  "nombre": "ERICK REYES"
+ },
+ {
+  "numero": 50433020251,
+  "id": 168,
+  "nombre": "GARY"
+ },
+ {
+  "numero": 50432806261,
+  "id": 157,
+  "nombre": "BRYAN FERNANDO SALMERON CARBAJAL"
+ },
+ {
+  "numero": 50432677372,
+  "id": 41,
+  "nombre": "VICTOR MONCADA"
+ },
+ {
+  "numero": 50431921638,
+  "id": 148,
+  "nombre": "MANUEL LARIOS"
+ },
+ {
+  "numero": 50431915628,
+  "id": 151,
+  "nombre": "JUAN CARLOS PERDOMO (SUP ZONA CENTRO, SUR Y ORIENTE)"
+ },
+ {
+  "numero": 50431904892,
+  "id": 155,
+  "nombre": "ROBERTO AGUILERA "
+ },
+ {
+  "numero": 50431739466,
+  "id": 172,
+  "nombre": "CARLOS SERRANO O&M DATOS"
+ },
+ {
+  "numero": 50431704941,
+  "id": 173,
+  "nombre": "LUIS YAÑEZ"
+ },
+ {
+  "numero": 50431703162,
+  "id": 150,
+  "nombre": "JUAN CARLOS RAMIREZ (SUP ZONA NORTE, LITORAL, OCCIDENTE)"
+ },
+ {
+  "numero": 50431564904,
+  "id": 170,
+  "nombre": "MIGUEL PINEDA O&M DATOS"
+ },
+ {
+  "numero": 50422429922,
+  "id": 161,
+  "nombre": "YURI GERARDO CARDONA SANTOS"
+ },
+ {
+  "numero": 50422429921,
+  "id": 162,
+  "nombre": "DARWIN ARIEL CANALES SANCHEZ"
+ },
+ {
+  "numero": 50422429865,
+  "id": 165,
+  "nombre": "IVAN ERNESTO HERNANDEZ ORDOÑEZ"
+ },
+ {
+  "numero": 50422429805,
+  "id": 158,
+  "nombre": "GUSTAVO ENRIQUE MENDOZA DÍAZ"
+ },
+ {
+  "numero": 50422054514,
+  "id": 160,
+  "nombre": "OSCAR BALVINO GONZALES"
+ },
+ {
+  "numero": 50422054514,
+  "id": 164,
+  "nombre": "JOSUE LEONARDO CERRATO HERNANDEZ"
+ },
+ {
+  "numero": 50422054427,
+  "id": 163,
+  "nombre": "ERICKSON JAVIER NUNEZ ANDINO"
+ },
+ {
+  "numero": 50422054426,
+  "id": 159,
+  "nombre": "OSCAR MAURICIO SANTOS FUNES"
+ },
+ {
+  "numero": 50379544238,
+  "id": 121,
+  "nombre": "WILMAR ESCOBAR"
+ },
+ {
+  "numero": 50379504201,
+  "id": 127,
+  "nombre": "SORAYA CORLETO"
+ },
+ {
+  "numero": 50378680314,
+  "id": 123,
+  "nombre": "JAIRO ORTIZ"
+ },
+ {
+  "numero": 50378680027,
+  "id": 130,
+  "nombre": "NELIA GRANADOS"
+ },
+ {
+  "numero": 50378680025,
+  "id": 129,
+  "nombre": "MAUDIEL QUINTANILLA"
+ },
+ {
+  "numero": 50378664767,
+  "id": 122,
+  "nombre": "INMER COREAS"
+ },
+ {
+  "numero": 50378554483,
+  "id": 125,
+  "nombre": "EDUARDO GONZALEZ"
+ },
+ {
+  "numero": 50378554438,
+  "id": 136,
+  "nombre": "SALVADOR MARTIR"
+ },
+ {
+  "numero": 50378550164,
+  "id": 118,
+  "nombre": "OSCAR HERNANDEZ"
+ },
+ {
+  "numero": 50378438930,
+  "id": 128,
+  "nombre": "AMILCAR ULISES GIRON"
+ },
+ {
+  "numero": 50378432633,
+  "id": 116,
+  "nombre": "RICARDO DE PAZ"
+ },
+ {
+  "numero": 50377600008,
+  "id": 119,
+  "nombre": "SAUL DE LEON"
+ },
+ {
+  "numero": 50377469254,
+  "id": 120,
+  "nombre": "CHARLY GALLEGOS"
+ },
+ {
+  "numero": 50377420135,
+  "id": 117,
+  "nombre": "LUIS UZIEL QUIÑONEZ NUILA"
+ },
+ {
+  "numero": 50376017516,
+  "id": 124,
+  "nombre": "JIMMY ZELAYA"
+ },
+ {
+  "numero": 50370978447,
+  "id": 135,
+  "nombre": "ERICK OSWALDO NAGERA"
+ },
+ {
+  "numero": 50370887097,
+  "id": 23,
+  "nombre": "OSCAR BLANCO"
+ },
+ {
+  "numero": 50322503737,
+  "id": 115,
+  "nombre": "DESPACHO LOCAL"
+ },
+ {
+  "numero": 50258269736,
+  "id": 107,
+  "nombre": "CARLOS SAGASTUME"
+ },
+ {
+  "numero": 50258269736,
+  "id": 250,
+  "nombre": "EMERSON TORTOLA -JALAPA \/ CHIQUIMULA"
+ },
+ {
+  "numero": 50258269494,
+  "id": 34,
+  "nombre": "HECTOR FLORES"
+ },
+ {
+  "numero": 50258269356,
+  "id": 102,
+  "nombre": "MARCO PACAY"
+ },
+ {
+  "numero": 50258269336,
+  "id": 60,
+  "nombre": "AXEL ALDANA"
+ },
+ {
+  "numero": 50258267947,
+  "id": 198,
+  "nombre": "AARON MURGA"
+ },
+ {
+  "numero": 50258266793,
+  "id": 199,
+  "nombre": "SUPERVISOR DE TURNO"
+ },
+ {
+  "numero": 50258265358,
+  "id": 32,
+  "nombre": "ALEJANDRO URIZAR"
+ },
+ {
+  "numero": 50258265122,
+  "id": 278,
+  "nombre": "MARVIN CHUM"
+ },
+ {
+  "numero": 50258264856,
+  "id": 66,
+  "nombre": "JOSE LUIS BORRAYO"
+ },
+ {
+  "numero": 50258264685,
+  "id": 59,
+  "nombre": "OSCAR GONZALEZ"
+ },
+ {
+  "numero": 50258264617,
+  "id": 11,
+  "nombre": "ELDER ORDOÑEZ"
+ },
+ {
+  "numero": 50258264615,
+  "id": 14,
+  "nombre": "JOSUE MORALES"
+ },
+ {
+  "numero": 50258264601,
+  "id": 15,
+  "nombre": "CHRISTIAN ALBEÑO"
+ },
+ {
+  "numero": 50258264555,
+  "id": 56,
+  "nombre": "FRANCISCO MENDEZ"
+ },
+ {
+  "numero": 50258264059,
+  "id": 9,
+  "nombre": "MARIO LOPEZ"
+ },
+ {
+  "numero": 50258263857,
+  "id": 73,
+  "nombre": "ALVARO DEL CID"
+ },
+ {
+  "numero": 50258263734,
+  "id": 58,
+  "nombre": "RONALD VELASQUEZ"
+ },
+ {
+  "numero": 50258263654,
+  "id": 22,
+  "nombre": "BERSAI ROBLERO"
+ },
+ {
+  "numero": 50258263619,
+  "id": 85,
+  "nombre": "JORGE MARIO DÍAZ"
+ },
+ {
+  "numero": 50258263096,
+  "id": 25,
+  "nombre": "LILY DE LEON"
+ },
+ {
+  "numero": 50258262789,
+  "id": 229,
+  "nombre": "GUSTAVO MARROQUIN"
+ },
+ {
+  "numero": 50258262767,
+  "id": 200,
+  "nombre": "LUIS CORDON"
+ },
+ {
+  "numero": 50258262767,
+  "id": 202,
+  "nombre": "EUGENER VELASQUEZ"
+ },
+ {
+  "numero": 50258262356,
+  "id": 77,
+  "nombre": "ABASAI MANCILLA"
+ },
+ {
+  "numero": 50258262339,
+  "id": 30,
+  "nombre": "LUIS BARRIENTOS"
+ },
+ {
+  "numero": 50258262336,
+  "id": 97,
+  "nombre": "JUAN PABLO GONZALEZ"
+ },
+ {
+  "numero": 50258262336,
+  "id": 232,
+  "nombre": "JUAN PABLO GONZALEZ"
+ },
+ {
+  "numero": 50258262336,
+  "id": 244,
+  "nombre": "JUAN PABLO GONZALEZ"
+ },
+ {
+  "numero": 50258261896,
+  "id": 79,
+  "nombre": "CHRISTIAN PINTO"
+ },
+ {
+  "numero": 50258261870,
+  "id": 98,
+  "nombre": "RAFAEL MOLINA"
+ },
+ {
+  "numero": 50258261859,
+  "id": 74,
+  "nombre": "ROBINSON"
+ },
+ {
+  "numero": 50258261770,
+  "id": 71,
+  "nombre": "DAENNERS FABIAN BELTRAN ALONZO"
+ },
+ {
+  "numero": 50258261768,
+  "id": 70,
+  "nombre": "HUGO LEONEL MENENDEZ ALVARADO"
+ },
+ {
+  "numero": 50258261764,
+  "id": 63,
+  "nombre": "MANUEL FRANCISCO HERRARTE PAZ"
+ },
+ {
+  "numero": 50258261734,
+  "id": 100,
+  "nombre": "OSCAR GALLARDO"
+ },
+ {
+  "numero": 50258261642,
+  "id": 6,
+  "nombre": "MIGUEL ALVAREZ"
+ },
+ {
+  "numero": 50258261642,
+  "id": 7,
+  "nombre": "CARLOS YAC"
+ },
+ {
+  "numero": 50258261641,
+  "id": 204,
+  "nombre": "OMAR HERRERA"
+ },
+ {
+  "numero": 50258261630,
+  "id": 113,
+  "nombre": "ERICK MORALES"
+ },
+ {
+  "numero": 50258261630,
+  "id": 238,
+  "nombre": "ADOLFO CRUZ"
+ },
+ {
+  "numero": 50258261609,
+  "id": 35,
+  "nombre": "RODOLFO MORALES"
+ },
+ {
+  "numero": 50258261609,
+  "id": 241,
+  "nombre": "MANUEL MAZARIEGOS"
+ },
+ {
+  "numero": 50258261609,
+  "id": 243,
+  "nombre": "SERGIO NIMATUJ"
+ },
+ {
+  "numero": 50258261609,
+  "id": 256,
+  "nombre": "MANUEL MAZARIEGOS"
+ },
+ {
+  "numero": 50258261609,
+  "id": 257,
+  "nombre": "SERGIO NIMATUJ"
+ },
+ {
+  "numero": 50258261606,
+  "id": 212,
+  "nombre": "JOSE RODOLFO ESTRADA"
+ },
+ {
+  "numero": 50258261602,
+  "id": 221,
+  "nombre": "JULIO NAVARIJO"
+ },
+ {
+  "numero": 50258261602,
+  "id": 273,
+  "nombre": "JULIO NAVARIJO"
+ },
+ {
+  "numero": 50258261592,
+  "id": 31,
+  "nombre": "INES VAZQUEZ"
+ },
+ {
+  "numero": 50258261583,
+  "id": 94,
+  "nombre": "OSCAR CASTILLO"
+ },
+ {
+  "numero": 50258261581,
+  "id": 276,
+  "nombre": "EMERIO ARROYO"
+ },
+ {
+  "numero": 50258261580,
+  "id": 274,
+  "nombre": "JORGE MONTERROSO"
+ },
+ {
+  "numero": 50258261579,
+  "id": 72,
+  "nombre": "JOAQUIN GONZALO PAZ COLOCHO"
+ },
+ {
+  "numero": 50258261579,
+  "id": 227,
+  "nombre": "JOAQUIN GONZALO PAZ COLOCHO"
+ },
+ {
+  "numero": 50258261574,
+  "id": 114,
+  "nombre": "SERGIO NIMATUJ"
+ },
+ {
+  "numero": 50258261574,
+  "id": 239,
+  "nombre": "EDGAR MATUL"
+ },
+ {
+  "numero": 50258261574,
+  "id": 255,
+  "nombre": "EDGAR MATUL"
+ },
+ {
+  "numero": 50258261568,
+  "id": 231,
+  "nombre": "DONATO LUCAS GOMEZ"
+ },
+ {
+  "numero": 50258261566,
+  "id": 233,
+  "nombre": "FABRICIO RAMIREZ"
+ },
+ {
+  "numero": 50258261566,
+  "id": 235,
+  "nombre": "JORGE MERLOS"
+ },
+ {
+  "numero": 50258261566,
+  "id": 246,
+  "nombre": "FABRICIO RAMIREZ"
+ },
+ {
+  "numero": 50258261564,
+  "id": 110,
+  "nombre": "EDGAR MATUL"
+ },
+ {
+  "numero": 50258261564,
+  "id": 253,
+  "nombre": "FABRICIO RAMIREZ"
+ },
+ {
+  "numero": 50258261563,
+  "id": 279,
+  "nombre": "ALVARO CAMPOS"
+ },
+ {
+  "numero": 50258261562,
+  "id": 88,
+  "nombre": "EDWIN HERNANDEZ DUQUE"
+ },
+ {
+  "numero": 50258261561,
+  "id": 111,
+  "nombre": "ERICK TRUJILLO"
+ },
+ {
+  "numero": 50258261561,
+  "id": 254,
+  "nombre": "RODOLFO MORALES"
+ },
+ {
+  "numero": 50258261560,
+  "id": 106,
+  "nombre": "MAURICIO GOMEZ"
+ },
+ {
+  "numero": 50258261560,
+  "id": 249,
+  "nombre": "JORGE ROMERO - EL PROGRESO"
+ },
+ {
+  "numero": 50258261558,
+  "id": 55,
+  "nombre": "MIGUEL ANGEL CALDERON"
+ },
+ {
+  "numero": 50258261556,
+  "id": 78,
+  "nombre": "JUAN FIDEL DE JESUS LEPE"
+ },
+ {
+  "numero": 50258261555,
+  "id": 62,
+  "nombre": "JUAN LUIS ORLANDO GONZALEZ QUEZADA (YA SOLO VALIDA FALLAS MASIVAS )"
+ },
+ {
+  "numero": 50258261554,
+  "id": 65,
+  "nombre": "JUAN CARLOS LOPEZ RODAS"
+ },
+ {
+  "numero": 50258261547,
+  "id": 109,
+  "nombre": "ADOLFO CRUZ"
+ },
+ {
+  "numero": 50258261547,
+  "id": 252,
+  "nombre": "CARLOS SAGASTUME"
+ },
+ {
+  "numero": 50258261545,
+  "id": 90,
+  "nombre": "MANUEL EDUARDO PINEDA PAIZ"
+ },
+ {
+  "numero": 50258261545,
+  "id": 91,
+  "nombre": " MANUEL PINEDA PAIZ"
+ },
+ {
+  "numero": 50258261541,
+  "id": 80,
+  "nombre": "JULIO SANDOVAL"
+ },
+ {
+  "numero": 50258261540,
+  "id": 36,
+  "nombre": "EMILIO HERNANDEZ"
+ },
+ {
+  "numero": 50258261529,
+  "id": 67,
+  "nombre": "CARLOS EDUARDO POLANCO"
+ },
+ {
+  "numero": 50258261521,
+  "id": 112,
+  "nombre": "MANUEL MAZARIEGOS"
+ },
+ {
+  "numero": 50258261521,
+  "id": 237,
+  "nombre": "LUIS RECINOS"
+ },
+ {
+  "numero": 50258261499,
+  "id": 275,
+  "nombre": "SERGIO DOMINGUEZ"
+ },
+ {
+  "numero": 50258261494,
+  "id": 101,
+  "nombre": "NESTOR CANO"
+ },
+ {
+  "numero": 50258261494,
+  "id": 245,
+  "nombre": "NESTOR CANO"
+ },
+ {
+  "numero": 50258261485,
+  "id": 38,
+  "nombre": "JULIO DIAZ"
+ },
+ {
+  "numero": 50258261481,
+  "id": 105,
+  "nombre": "EMERSON TORTOLA"
+ },
+ {
+  "numero": 50258261481,
+  "id": 248,
+  "nombre": "GABRIEL MORALES - ALTA VERAPAZ\/BAJA VERAPAZ"
+ },
+ {
+  "numero": 50258261474,
+  "id": 108,
+  "nombre": "LUIS RECINOS"
+ },
+ {
+  "numero": 50258261474,
+  "id": 251,
+  "nombre": "MAURICIO GOMEZ - PETEN"
+ },
+ {
+  "numero": 50258261317,
+  "id": 277,
+  "nombre": "SERGIO ROMAN"
+ },
+ {
+  "numero": 50258261213,
+  "id": 96,
+  "nombre": "FABRICIO RAMIREZ"
+ },
+ {
+  "numero": 50258261213,
+  "id": 240,
+  "nombre": "ERICK TRUJILLO"
+ },
+ {
+  "numero": 50258261213,
+  "id": 242,
+  "nombre": "ERICK MORALES"
+ },
+ {
+  "numero": 50258261212,
+  "id": 33,
+  "nombre": "GUSTAVO ADOLFO SIERRA"
+ },
+ {
+  "numero": 50258261208,
+  "id": 86,
+  "nombre": "CESAR MENDIA"
+ },
+ {
+  "numero": 50258261207,
+  "id": 87,
+  "nombre": "EDY HAROLDO CORDON ORELLANA"
+ },
+ {
+  "numero": 50258261205,
+  "id": 51,
+  "nombre": "MANUEL RAMIREZ"
+ },
+ {
+  "numero": 50258261203,
+  "id": 225,
+  "nombre": "EDGAR FERNANDO PAZ ROSAS"
+ },
+ {
+  "numero": 50258261201,
+  "id": 61,
+  "nombre": "LUDIN RUBEN CRUZ VALENZUELA"
+ },
+ {
+  "numero": 50258261199,
+  "id": 222,
+  "nombre": "JORGE FINGADO"
+ },
+ {
+  "numero": 50258261195,
+  "id": 234,
+  "nombre": "RODOLFO MORALES"
+ },
+ {
+  "numero": 50258261195,
+  "id": 236,
+  "nombre": "GABRIEL MORALES - ALTA VERAPAZ\/BAJA VERAPAZ"
+ },
+ {
+  "numero": 50258261191,
+  "id": 99,
+  "nombre": "ESTUARDO LÓPEZ"
+ },
+ {
+  "numero": 50258261191,
+  "id": 103,
+  "nombre": "GABRIEL MORALES"
+ },
+ {
+  "numero": 50258261188,
+  "id": 89,
+  "nombre": "FRANCISCO ROSALES"
+ },
+ {
+  "numero": 50258261186,
+  "id": 69,
+  "nombre": "RUDY SIPAQUE "
+ },
+ {
+  "numero": 50258261186,
+  "id": 226
+ },
+ {
+  "numero": 50258261184,
+  "id": 75,
+  "nombre": "MAYRO ORLANDO TAMBITO CARDONA"
+ },
+ {
+  "numero": 50258261183,
+  "id": 52,
+  "nombre": "RENE AGUSTIN"
+ },
+ {
+  "numero": 50258261183,
+  "id": 93,
+  "nombre": "RENE AGUSTIN"
+ },
+ {
+  "numero": 50258261155,
+  "id": 230,
+  "nombre": "ALEX PEREZ"
+ },
+ {
+  "numero": 50258261129,
+  "id": 57,
+  "nombre": "LEONEL CHAMO"
+ },
+ {
+  "numero": 50258261129,
+  "id": 223,
+  "nombre": "LEONEL CHAMO"
+ },
+ {
+  "numero": 50258261097,
+  "id": 64,
+  "nombre": "JAVIER OSWALDO BUSTAMANTE VALLE"
+ },
+ {
+  "numero": 50258261074,
+  "id": 2,
+  "nombre": "LUISA FERNANDA"
+ },
+ {
+  "numero": 50258261058,
+  "id": 21,
+  "nombre": "ALEX CHAFOYA"
+ },
+ {
+  "numero": 50258261058,
+  "id": 29,
+  "nombre": "Pedro Pablo"
+ },
+ {
+  "numero": 50258261057,
+  "id": 54,
+  "nombre": "ALDO DIAZ"
+ },
+ {
+  "numero": 50258261055,
+  "id": 84,
+  "nombre": "JORGE SALAZAR"
+ },
+ {
+  "numero": 50258261053,
+  "id": 258,
+  "nombre": "HUGO GEOVANNY RODRIGUEZ GARCIA"
+ },
+ {
+  "numero": 50258260989,
+  "id": 12,
+  "nombre": "EDWIN MARTINEZ"
+ },
+ {
+  "numero": 50258260977,
+  "id": 76,
+  "nombre": "EDIN SAUL OROZCO SALAZAR"
+ },
+ {
+  "numero": 50258260888,
+  "id": 53,
+  "nombre": "ELMER FLORES"
+ },
+ {
+  "numero": 50258260848,
+  "id": 17,
+  "nombre": "GUSTAVO GUERRA"
+ },
+ {
+  "numero": 50258260842,
+  "id": 3,
+  "nombre": "LENIN DÍAZ"
+ },
+ {
+  "numero": 50258260702,
+  "id": 104,
+  "nombre": "JORGE ROMERO"
+ },
+ {
+  "numero": 50258260702,
+  "id": 247,
+  "nombre": "JORGE MERLOS"
+ },
+ {
+  "numero": 50258260656,
+  "id": 81,
+  "nombre": "DARWIN CARMELO AGUSTIN"
+ },
+ {
+  "numero": 50258260595,
+  "id": 92,
+  "nombre": "ELMER MATA"
+ },
+ {
+  "numero": 50258260465,
+  "id": 16,
+  "nombre": "MOISES SALAZAR"
+ },
+ {
+  "numero": 50258260364,
+  "id": 68,
+  "nombre": "MANUEL EDUARDO ESPAÑA BARRIOS"
+ },
+ {
+  "numero": 50258260348,
+  "id": 83,
+  "nombre": "NELSON LOPEZ"
+ },
+ {
+  "numero": 50258260287,
+  "id": 264,
+  "nombre": "VICTOR SAMAYOA"
+ },
+ {
+  "numero": 50258260179,
+  "id": 82,
+  "nombre": "WILLI DE LEON"
+ },
+ {
+  "numero": 50258260117,
+  "id": 224,
+  "nombre": "HENRRY DAVID OVANDO ALVAREZ"
+ },
+ {
+  "numero": 50256083287,
+  "id": 206,
+  "nombre": "ULISES"
+ },
+ {
+  "numero": 50255799571,
+  "id": 260,
+  "nombre": "KAREN ELIZABETH PASCUAL ARROYO"
+ },
+ {
+  "numero": 50255552009,
+  "id": 205,
+  "nombre": "HECTOR ROBLES"
+ },
+ {
+  "numero": 50255551962,
+  "id": 95,
+  "nombre": "EDGAR WIRTZ"
+ },
+ {
+  "numero": 50255310029,
+  "id": 24,
+  "nombre": "SERGIO DUBON"
+ },
+ {
+  "numero": 50255100006,
+  "id": 4,
+  "nombre": "EUGENER VELASQUEZ"
+ },
+ {
+  "numero": 50255100006,
+  "id": 201,
+  "nombre": "EUGENER VELASQUEZ"
+ },
+ {
+  "numero": 50254100105,
+  "id": 228
+ },
+ {
+  "numero": 50254010333,
+  "id": 280,
+  "nombre": "JULIO GARCIA"
+ },
+ {
+  "numero": 50242025740,
+  "id": 18,
+  "nombre": "ARÍSTIDES HIDALGO"
+ },
+ {
+  "numero": 50234588318,
+  "id": 208,
+  "nombre": "JORGE"
+ },
+ {
+  "numero": 50225098099,
+  "id": 39,
+  "nombre": "N2 CONFIGURACIONES"
+ },
+ {
+  "numero": 50225028862,
+  "id": 203,
+  "nombre": "AGENTE CCR"
+ },
+ {
+  "numero": 50224596905,
+  "id": 207,
+  "nombre": "JUAN CARLOS"
+ },
+ {
+  "numero": 50224217643,
+  "id": 8,
+  "nombre": "INGRID BURBANO"
+ },
+ {
+  "numero": 50224217641,
+  "id": 37,
+  "nombre": "INGRID BURBANO"
+ },
+ {
+  "numero": 50224217634,
+  "id": 5,
+  "nombre": "INGENIERO BOACCESO"
+ },
+ {
+  "numero": 50224206059,
+  "id": 10,
+  "nombre": "INGENIERO BOTX"
+ },
+ {
+  "numero": 50224148940,
+  "id": 13,
+  "nombre": "AGENTES OPERATIVOS"
+ },
+ {
+  "numero": 50224148940,
+  "id": 197,
+  "nombre": "AGENTES OPERATIVOS"
+ },
+ {
+  "numero": 50222760341,
+  "id": 145,
+  "nombre": "INGE DE TURNO"
+ }
+]

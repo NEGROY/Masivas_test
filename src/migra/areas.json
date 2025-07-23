@@ -1,0 +1,362 @@
+[
+ {
+  "id": 1,
+  "area": "BOIP",
+  "pais": 2
+ },
+ {
+  "id": 2,
+  "area": "BO ACCESOS",
+  "pais": 2
+ },
+ {
+  "id": 3,
+  "area": "BO SVA",
+  "pais": 2
+ },
+ {
+  "id": 4,
+  "area": "BO TX",
+  "pais": 2
+ },
+ {
+  "id": 5,
+  "area": "WO INMEDIATO",
+  "pais": 2
+ },
+ {
+  "id": 6,
+  "area": "AVI SV",
+  "pais": 2
+ },
+ {
+  "id": 7,
+  "area": "AVI GT",
+  "pais": 2
+ },
+ {
+  "id": 8,
+  "area": "CONMUTACIÓN",
+  "pais": 2
+ },
+ {
+  "id": 9,
+  "area": "INGENIERIA GT",
+  "pais": 2
+ },
+ {
+  "id": 10,
+  "area": "INGENIERIA INSTALACIÓN OYM",
+  "pais": 2
+ },
+ {
+  "id": 11,
+  "area": "BO CORE",
+  "pais": 2
+ },
+ {
+  "id": 12,
+  "area": "AVI HN NUEVA",
+  "pais": 2
+ },
+ {
+  "id": 13,
+  "area": "AVI NI NUEVA",
+  "pais": 2
+ },
+ {
+  "id": 14,
+  "area": "AVI CR NUEVA ",
+  "pais": 2
+ },
+ {
+  "id": 15,
+  "area": "CCR GT",
+  "pais": 2
+ },
+ {
+  "id": 16,
+  "area": "REGION CENTRAL",
+  "pais": 2
+ },
+ {
+  "id": 17,
+  "area": "REGION ORIENTE",
+  "pais": 2
+ },
+ {
+  "id": 18,
+  "area": "REGION OCCIDENTE",
+  "pais": 2
+ },
+ {
+  "id": 19,
+  "area": "METRO PLANTA EXTERNA METRO NORTE",
+  "pais": 2
+ },
+ {
+  "id": 20,
+  "area": "METRO PLANTA EXTERNA METRO SUR",
+  "pais": 2
+ },
+ {
+  "id": 21,
+  "area": "METRO PLANTA EXTERNA METRO CENTRAL",
+  "pais": 2
+ },
+ {
+  "id": 22,
+  "area": "METRO PLANTA EXTERNA METRO OCCIDENTE",
+  "pais": 2
+ },
+ {
+  "id": 23,
+  "area": "METRO PLANTA EXTERNA METRO ORIENTE",
+  "pais": 2
+ },
+ {
+  "id": 24,
+  "area": "VIA WHATSAPP METRONORTE",
+  "pais": 2
+ },
+ {
+  "id": 25,
+  "area": "VIA WHATSAPP METRO SUR",
+  "pais": 2
+ },
+ {
+  "id": 26,
+  "area": "VIA WHATSAPP CENTRAL",
+  "pais": 2
+ },
+ {
+  "id": 27,
+  "area": "VIA WHATSAPP OCCIDENTE",
+  "pais": 2
+ },
+ {
+  "id": 28,
+  "area": "VIA WHATSAPP ORIENTE",
+  "pais": 2
+ },
+ {
+  "id": 29,
+  "area": "DESPACHO SV",
+  "pais": 3
+ },
+ {
+  "id": 30,
+  "area": "EL SALVADOR PLANTA EXTERNA REGION CENTRAL",
+  "pais": 3
+ },
+ {
+  "id": 31,
+  "area": "EL SALVADOR PLANTA EXTERNA REGION OCCIDENTAL",
+  "pais": 3
+ },
+ {
+  "id": 32,
+  "area": "EL SALVADOR PLANTA EXTERNA REGION ORIENTAL",
+  "pais": 3
+ },
+ {
+  "id": 33,
+  "area": "INGENIERIA SV",
+  "pais": 3
+ },
+ {
+  "id": 34,
+  "area": "CCR SV",
+  "pais": 3
+ },
+ {
+  "id": 35,
+  "area": "COMERCIAL SV",
+  "pais": 3
+ },
+ {
+  "id": 36,
+  "area": "CNOC SV",
+  "pais": 3
+ },
+ {
+  "id": 37,
+  "area": "CCR NI",
+  "pais": 5
+ },
+ {
+  "id": 38,
+  "area": "PLEX NI",
+  "pais": 5
+ },
+ {
+  "id": 39,
+  "area": "NICARAGUA PLEX CU",
+  "pais": 5
+ },
+ {
+  "id": 40,
+  "area": "INGENIERIA NI",
+  "pais": 5
+ },
+ {
+  "id": 41,
+  "area": "CCR-HN",
+  "pais": 4
+ },
+ {
+  "id": 42,
+  "area": "PLANTA EXTERNA HN",
+  "pais": 4
+ },
+ {
+  "id": 43,
+  "area": "INGENIERIA HONDURAS ",
+  "pais": 4
+ },
+ {
+  "id": 44,
+  "area": "CONTACTOS CCR HN",
+  "pais": 4
+ },
+ {
+  "id": 45,
+  "area": "COMERCIAL HN ",
+  "pais": 4
+ },
+ {
+  "id": 46,
+  "area": "CCR COSTA RICA",
+  "pais": 6
+ },
+ {
+  "id": 47,
+  "area": "SERVICIO AL CLIENTE SAC CR",
+  "pais": 6
+ },
+ {
+  "id": 48,
+  "area": "CCR CLARO PANAMA",
+  "pais": 7
+ },
+ {
+  "id": 49,
+  "area": "PANAMA PLANTA EXTERNA",
+  "pais": 7
+ },
+ {
+  "id": 50,
+  "area": "PANAMA TRANSPORTE",
+  "pais": 7
+ },
+ {
+  "id": 51,
+  "area": "SOC",
+  "pais": 1
+ },
+ {
+  "id": 52,
+  "area": "FRONT OFFICE",
+  "pais": 1
+ },
+ {
+  "id": 53,
+  "area": "TICKET REMEDY",
+  "pais": 1
+ },
+ {
+  "id": 54,
+  "area": "CCR XT",
+  "pais": 1
+ },
+ {
+  "id": 55,
+  "area": "TELMEX",
+  "pais": 1
+ },
+ {
+  "id": 56,
+  "area": "TELMEX - GESTION Y SOPORTE B (SECTOR FINANCIERO E INDUSTRIAL)",
+  "pais": 1
+ },
+ {
+  "id": 57,
+  "area": "TELMEX INTERNACIONAL - ABC CONFIGURACIONES E INTERVENCIONES - TODOS LOS CLIENTES",
+  "pais": 1
+ },
+ {
+  "id": 58,
+  "area": "UFINET REGIONAL ",
+  "pais": 1
+ },
+ {
+  "id": 59,
+  "area": "Tabla de Escalamiento Metro Planta Externa METRO NORTE",
+  "pais": 2
+ },
+ {
+  "id": 60,
+  "area": "REGION METRO SUR DATOS ",
+  "pais": 2
+ },
+ {
+  "id": 61,
+  "area": "REGION CENTRAL DATOS",
+  "pais": 2
+ },
+ {
+  "id": 62,
+  "area": "REGION OCCIDENTE DATOS",
+  "pais": 2
+ },
+ {
+  "id": 63,
+  "area": "REGION ORIENTE DATOS",
+  "pais": 2
+ },
+ {
+  "id": 64,
+  "area": "VIA WHATSAPP TIVOLI",
+  "pais": 2
+ },
+ {
+  "id": 65,
+  "area": "VIA WHATSAPP CENTRO",
+  "pais": 2
+ },
+ {
+  "id": 66,
+  "area": "TABLA DE ESCALAMIENTO REGION CENTRAL PLANTA INTERNA",
+  "pais": 2
+ },
+ {
+  "id": 67,
+  "area": "TABLA DE ESCALAMIENTO REGION OCCIDENTE PLANTA INTERNA",
+  "pais": 2
+ },
+ {
+  "id": 68,
+  "area": "SEGURIDAD PERIMETRAL",
+  "pais": 2
+ },
+ {
+  "id": 69,
+  "area": "VOC",
+  "pais": 2
+ },
+ {
+  "id": 70,
+  "area": "ESCALAMIENTO SISTEMAS CLARO (DNS)",
+  "pais": 2
+ },
+ {
+  "id": 71,
+  "area": "ESCALAMIENTO SISTEMAS CLARO (DNS) DNS@CLARO.COM.SV",
+  "pais": 3
+ },
+ {
+  "id": 72,
+  "area": "TABLA DE ESCALAMIENTO TIWS INTERNACIONAL",
+  "pais": 2
+ }
+]
