@@ -6,6 +6,10 @@
     date_default_timezone_set('America/Guatemala');
     $fecha = date('m-d-Y');
     $hora  = date('H:i');
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 ?>
 
 <!DOCTYPE html>
