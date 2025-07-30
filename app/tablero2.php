@@ -1,6 +1,6 @@
 <?php
     require_once '../includes/phpFun/fun.php';
-    require_once '../includes/incl.php';
+    require_once '../includes/2incl.php';
     require_once '../views/miscelana/general.php';
 
     date_default_timezone_set('America/Guatemala');
