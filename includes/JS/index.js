@@ -48,10 +48,11 @@ function buscarDatos_api() {
 
   // Validar y formatear
     const TK = valdiaFAlla(tkEntrada);
-    if (!TK) return; // Si la validación falla, se detiene la función
+    if (!TK) return; // Si la validación falla, se detiene la función 
 
-    //fetch('http://127.0.0.1:8000/masivas/F6144046?token=masivas2025')
-    fetch('./src/api_data/busqueda.json') 
+      let url = `http://127.0.0.1:8000/masivas/${tkEntrada}?token=masivas2025`;
+      fetch(url)
+      //fetch('./src/api_data/busqueda.json') 
       .then(response => response.json())
       .then(data => {
         const encontrado = data.data.find(item => item.TK === TK);

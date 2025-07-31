@@ -278,12 +278,14 @@ case 'cerrarmasiva':
     $uniqID = $_POST["fallaID"];
 
     if (!empty($uniqID)) {
-        $sql = "UPDATE tb_escalaciones_registro SET estado = 0 WHERE falla_id = ? ";
+        $sql = "UPDATE tb_escalaciones_registro SET estado = 0 WHERE falla_id = ?";
         $stmt = $general->prepare($sql);
-        $result = $stmt->execute([$uniqID]);
-
+        
+        $stmt->bind_param("s", $uniqID);
+        // Execute without arguments
+        $result = $stmt->execute();
         if ($result) {
-            echo "<div class='alert alert-success'>Falla cerrada exitosamente (ID: $uniqID)</div>";
+            echo "<div class='alert alert-success'>Falla cerrada exitosamente (ID: $uniqID )</div>";
         } else {
             echo "<div class='alert alert-danger'>Error al cerrar la falla (ID: $uniqID)</div>";
         }
