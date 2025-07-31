@@ -47,6 +47,7 @@ case 'tb_areas': #areas por pais
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
     if (mysqli_num_rows($resultado) > 0) {
+        echo "<option selected> - </option>";
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<option value='{$row['id_area']}'> {$row['nombre_area']}</option>";
             }

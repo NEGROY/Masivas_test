@@ -65,22 +65,30 @@ function buscarDatos_api() {
             document.getElementById('horaActual').value = hora;
             document.getElementById('tiempoAcumulado').value = `${encontrado.HH_MM_SS}`;
             document.getElementById('titulo').textContent = `${encontrado.TITULO}`;
-            
+              let esFallaAbierta = false; // apoyos
             // IMPLEMENTACION DEL CIERRE AL BUSCAR 
             if (!encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "") {
               // Falla abierta
               botonCalcular.disabled = false;
               campoCierre.value = "FALLA ABIERTA";
+              esFallaAbierta = true;
             } else {
               // Falla cerrada
               botonCalcular.disabled = true;
               campoCierre.value = encontrado.CLOSE_TIME; // solo hora
             }
-
+              //calcularTiempos();
             Swal.fire({
             text: "TK encontrado.",
             icon: "success",
-            timer: 1500 });
+            timer: 1500,
+            showConfirmButton: false
+            }).then(() => {
+          if (esFallaAbierta) {
+            calcularTiempos();
+          }
+        });
+
         } else {
             console.warn("No se encontró el TK solicitado.");
             Swal.fire({
@@ -355,4 +363,13 @@ function apiasociados() {
   function ajustarAltura(elemento) {
     elemento.style.height = 'auto';
     elemento.style.height = (elemento.scrollHeight) + 'px';
+  }
+
+
+  // PARA HABILITAR LOS BTN 
+  function habilitarBuscar() {
+    const select = document.getElementById('areasxpais');
+    const boton = document.getElementById('btnBuscar');
+    boton.disabled = (select.value === '');
+    //document.getElementById('btnBuscar').disabled = false;
   }

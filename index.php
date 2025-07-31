@@ -6,6 +6,10 @@
     date_default_timezone_set('America/Guatemala');
     $fecha = date('m-d-Y');
     $hora  = date('H:i');
+
+    header("Access-Control-Allow-Origin: *");
+    header("Access-Control-Allow-Headers: Content-Type");
+    header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 ?>
 
 <!DOCTYPE html>
@@ -48,14 +52,15 @@
       <!-- Select de Área de Escalación -->
           <br>
         <label for="areasxpais" class="form-label">Áreas de Escalación:</label>
-        <select id="areasxpais" name="areasxpais" class="js-example-basic-single">
+        <select id="areasxpais" name="areasxpais" class="js-example-basic-single" 
+        onchange="habilitarBuscar()">
           <option value="">---Seleccione un Pais---</option>
         </select>
         <br>
 
       <!-- Botón de búsqueda -->
         <br>
-        <button type="button" class="btn btn-primary w-100" onclick="buscarDatos_api()">
+        <button type="button" class="btn btn-primary w-100" onclick="buscarDatos_api()" id="btnBuscar"  disabled>
         <i class="bi bi-search me-1"></i> Buscar </button>
       </div>
     </div>
