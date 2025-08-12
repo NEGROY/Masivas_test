@@ -40,11 +40,12 @@
 
       <!-- Input Falla -->
         <label for="falla" class="form-label">HORA DE CIERRE</label>
-        <input type="text" id="CIERRE" class="form-control mb-3"  placeholder="-" disabled>
+        <input type="text" id="CIERRE" class="form-control mb-3"  placeholder="-" disabled autocomplete="off" >
 
       <!-- Select de país -->
         <label for="pais" class="form-label">País:</label>
         <select id="pais" name="pais" class="form-select" onchange="desig(this.value)">
+          <option autocomplete="off" value="0" selected >Busque un Pais</option>
           <?php listarPaises(); ?>
         </select>
         <input type="hidden" id="ids" name="ids">
@@ -52,14 +53,14 @@
       <!-- Select de Área de Escalación -->
           <br>
         <label for="areasxpais" class="form-label">Áreas de Escalación:</label>
-        <select id="areasxpais" name="areasxpais" class="js-example-basic-single">
-          <option value="">---Seleccione un Pais---</option>
+        <select id="areasxpais" name="areasxpais" class="js-example-basic-single" onchange="habilitarBuscar()">
+          <option value="" >---Seleccione un Pais---</option>
         </select>
         <br>
 
       <!-- Botón de búsqueda -->
         <br>
-        <button type="button" class="btn btn-primary w-100" onclick="buscarDatos_api()">
+        <button type="button" class="btn btn-primary w-100" onclick="buscarDatos_api()" id="btnBuscar" disabled>
         <i class="bi bi-search me-1"></i> Buscar </button>
       </div>
     </div>
@@ -107,6 +108,13 @@
     document.getElementById("horaActual").value = horaActual;
     }); */
 
+    window.addEventListener('DOMContentLoaded', () => {
+      const paisSelect = document.getElementById('pais');
+      if (paisSelect) {
+        paisSelect.selectedIndex = 0; // Asegura que "Busque un Pais" esté seleccionado
+      }
+    });
+
     // Select2 
     $(document).ready(function() {
     $('.js-example-basic-single').select2();
@@ -126,7 +134,7 @@ window.onload = function () {
       calcularTiempos(); }); */
     // Aquí podrías llamar tu función AJAX o continuar con el flujo*/
     } else {
-      console.warn("fallaID inválido o no proporcionado");  
+      console.warn("fallaID inválido o no proporcionado "+fallaID);  
       // Ocultar loader global después de la petición
       document.getElementById('global-loader').style.display = 'none';
     }
@@ -139,26 +147,25 @@ function recarga(fallaID){
         url: "./views/crud/escalaciones.php",
         method: "POST",
         data: {fallaID: fallaID, condi:'recargash'},
-        success: function(data) {
+        success: function(data) {        
           console.log("Respuesta del servidor:", data);
           const json = JSON.parse(data);
           //console.log("Objeto JSON:", json);
           const info = json.data[0]; // Primer objeto del array
-           // Asignar valores a inputs o elementos HTML
+            desig(info.id_pais, info.area_id);
+          document.getElementById("pais").value = info.id_pais;
+            // Asignar valores a inputs o elementos HTML
           document.getElementById("falla").value = info.falla_id;
           document.getElementById("horaActual").value = info.hora_apertura;
           document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
           document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
           // select 
-          desig(info.id_pais);
-          document.getElementById("pais").value = info.id_pais;
-          document.getElementById("areasxpais").value = info.area_id;
-
+          //$('#areasxpais').val(info.area_id).trigger('change');
+          // document.getElementById("areasxpais").value = info.area_id;
           calcularTiempos2(info.titulo, info.falla_id, info.hora_apertura, info.tiempo_acumulado, info.area_id);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.error("Error AJAX:", textStatus, errorThrown);
-            
     }
   }) 
 

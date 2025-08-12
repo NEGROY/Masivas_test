@@ -46,6 +46,7 @@ case 'tb_areas': #areas por pais
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
+         echo "<option  value='0'  > - </option>";
     if (mysqli_num_rows($resultado) > 0) {
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<option value='{$row['id_area']}'> {$row['nombre_area']}</option>";
@@ -69,7 +70,7 @@ case 'TB_calculadora':
         FROM tb_escalacion e
         INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
         INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
-        WHERE e.id_area  = 2 ORDER by e.nivel ";
+        WHERE e.id_area  = $areaSlct ORDER by e.nivel ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);    
     # imprime el encabezado de la tabla
@@ -213,8 +214,8 @@ case 'recargash':
     $uniqID = $_POST["fallaID"];
 
     //AGRAGRA LA CONSULTA HACIA LA API E IMPRIMIR // falta  la url 
-    //fetch('http://127.0.0.1:8000/masivas/F6144046?token=masivas2025')
-    $url =('../../src/api_data/busqueda.json');
+    // $url = "http://172.20.97.102:8000/masivas/".$uniqID."?token=masivas2025";    F6252404
+    $url = "http://172.20.97.102:8000/masivas/{$uniqID}?token=masivas2025";
     // Consumir la API con file_get_contents
     $response = file_get_contents($url);
     // se debera de validar con / la concexion el marlon  

@@ -5,31 +5,29 @@
 function safe_escape($general, $value) {
     return mysqli_real_escape_string($general, $value ?? '');
 }
-
     $fallaID = $_POST["fallaID"];
     //echo $fallaID;
     // URL de la API
-    $url = "http://127.0.0.1:8000/masivas/list/{$fallaID}?token=masivas2025"; // ← cambia esto a la URL real
-    //$url =   ('../src/api_data/relacionadas.json');
-    $arkurl= ('../src/api_data/ark.json');
-
-  // Consumir la API con file_get_contents
-  $response = file_get_contents($url);
-
-  /* Verificar si la respuesta es válida
-  if (!isset($data['code']) || $data['code'] !== 200) {
-      echo "Error en la respuesta de la API.";
+    $url = "http://172.20.97.102:8000/masivas/list/{$fallaID}?token=masivas2025"; // ← cambia esto a la URL real
+    // Consumir la API con file_get_contents
+    $response = @file_get_contents($url);
+    // Verificar si no hay respuesta o si el servidor devolvió un error
+    if ($response === FALSE) {
+      echo "<p class='text-muted'>Validar FALLA ID.</p>";
       exit;
-  }*/
-
-// se debera de validar con / la concexion el marlon  
-if ($response === false) {
-    echo "Error al consumir la API.";
-    exit;
-}
-
-// Decodificar el JSON
-$data = json_decode($response, true);
+    }
+    // Decodificar el JSON
+    $data = json_decode($response, true);
+    /* Verificar si la respuesta es válida*/
+    if (is_null($data)) {
+      echo "<p class='text-muted'>Error al decodificar JSON.</p>";
+      exit;
+    }
+    // Verificar si la respuesta es válida y contiene el código 200
+    if (!isset($data['code']) || $data['code'] !== 200) {
+      echo "<p class='text-muted'> Sin respuesta de Base de datos. CONTACTAR CON ADMINISTRADOR. </p>";
+      exit;
+    }
 
 $tickets = $data['data'] ?? [];
 
@@ -44,7 +42,7 @@ foreach ($tickets as $ticket) {
     $tk_masiva  = $ticket['FALLA_MASIVA'] ?? null; 
 
     //aqui se agrega la validacion de los datos de ark
-   /* $arkurl = "http://10.20.10.81/get_network_data/?wan=10.105.66.42";
+    /* $arkurl = "http://10.20.10.81/get_network_data/?wan=10.105.66.42";
       // user: frt_ark_interno        pass: Uf!8$6mMG0qg
       //consumir la API de ark (también puede ser un archivo si está en local)
       $ark_response = file_get_contents($arkurl);
@@ -55,7 +53,7 @@ foreach ($tickets as $ticket) {
         $pe   = $ark_data['pe'] ?? null;
         $vrf  = $ark_data['vrf'] ?? null;
         $wan  = $ark_data['wan'] ?? null;
-      } */ 
+      } */ /////////////// ANTES ESTABA COMENTADO ///////////////
 
     // Generar uniqid como combinación de FALLA_MASIVA y TG_ENLACE
     $uniqid = $tk_masiva . '' . $tk;
@@ -135,6 +133,7 @@ function mostrar_html($general, $fallaID) {
             </small>
           </div>
           <div class="order-2 p-2">
+          <button class="btn btn-outline-info btn-sm" onclick="buscarWan('<?= $uniq ?>')">Buscar WAN</button>
           <button class="btn btn-outline-danger btn-sm" onclick="deletetk('<?= $uniq ?>')">Eliminar</button>
           </div>
         </div>
@@ -146,7 +145,7 @@ function mostrar_html($general, $fallaID) {
     <div class="col-12 col-md-3">
       <div class="input-group input-group-sm">
         <span class="input-group-text">PE</span>
-        <input type="text" class="form-control" id="pe_<?= $uniq ?>" value="<?=$PE?>" name="pe" >
+        <input type="text" class="form-control" id="pee_<?= $uniq ?>" value="<?=$PE?>" name="pe" >
       </div>
     </div>
 
@@ -167,6 +166,8 @@ function mostrar_html($general, $fallaID) {
   <div class="col-12 col-md-3 d-grid">
     <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
   </div>
+
+  <div class="col-12 col-md-3 d-grid" id="btns_<?= $uniq ?>">    </div>
 </form>
       </div>
     </div>

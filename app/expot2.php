@@ -1,13 +1,15 @@
 <?php
+$tkid = $_POST["tkid"] ?? '';
+
 header("Content-Type: application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=fallas_" . date("Ymd") . ".xls");
+header("Content-Disposition: attachment; filename=fallas_" . date("Ymd").$tkid. ".xls");
 
 echo "<table border='1'>";
 echo "<tr><th>TK_id</th><th>ENLACE</th><th>PE</th><th>WAN</th><th>VRF</th></tr>";
 
 include '../includes/BD_con/db_con.php';
 
-$tkid = $_POST["tkid"] ?? '';
+
 if (!$tkid) {
     http_response_code(400);
     exit("No se recibió el TK ID.");

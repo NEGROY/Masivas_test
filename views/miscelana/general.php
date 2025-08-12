@@ -123,23 +123,23 @@ function fila_hras() {
 
       <div class="row g-3 justify-content-center align-items-end">
 
-        <!-- HORA ACTUAL -->
-        <div class="col-md-3">
-          <div class="input-group">
-            <span class="input-group-text">Hora Apertura</span>
-            <input type="text" id="horaActual" class="form-control text-center" step="2" type="time"
-            placeholder="14:00:00" readonly>
-          </div>
-        </div>
+<!-- HORA ACTUAL -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Hora Apertura</span>
+    <input type="time" id="horaActual" class="form-control text-center"
+      step="2" autocomplete="off" placeholder="14:00:00">
+  </div>
+</div>
 
-        <!-- TIEMPO ACUMULADO -->
-        <div class="col-md-3">
-          <div class="input-group">
-            <span class="input-group-text">Tiempo Acumulado</span>
-            <input type="text" id="tiempoAcumulado" class="form-control text-center" 
-            placeholder="00:00:00" data-bs-toggle="tooltip" title="Tiempo acumulado del TK">
-          </div>
-        </div>
+<!-- TIEMPO ACUMULADO -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Tiempo Acumulado</span>
+    <input type="text" id="tiempoAcumulado" class="form-control text-center" 
+      placeholder="00:00:00" data-bs-toggle="tooltip" title="Tiempo acumulado del TK" autocomplete="off">
+  </div>
+</div>
 
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
@@ -173,7 +173,7 @@ function mensajes(){
         <span class="input-group-text bg-light border-end-2">
           <i class="fas fa-comment-dots text-muted"></i>
         </span>
-        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="6" placeholder="Mensaje de escalación..."></textarea>
+        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="9" placeholder="Mensaje de escalación..." autocomplete="off"></textarea>
         <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada')"
         data-bs-toggle="tooltip" title="copialo tu mensaje!">
           <i class="fa-solid fa-copy"></i>
@@ -187,10 +187,9 @@ function mensajes(){
       <span class="input-group-text bg-light border-end-2">
         <i class="fa-brands fa-whatsapp text-muted"></i>
       </span>
-      <textarea id="wasapp" 
+      <textarea id="wasapp"  autocomplete="off"
               class="form-control border-start-0 small auto-ajuste-textarea" 
-              rows="1" 
-              placeholder="Mensaje WhatsApp..."
+              rows="9" placeholder="Mensaje WhatsApp..."
               oninput="ajustarAltura(this)"></textarea>
       <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('wasapp')"
         data-bs-toggle="tooltip" title="¡Copia tu mensaje!">
@@ -211,9 +210,18 @@ function tablero1(){
   include '../includes/BD_con/db_con.php';
 
     $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
-    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
-    FROM tb_escalaciones_registro WHERE estado = 1
-    order by hora_sumada" ;
+          hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro, 
+          CASE 
+        WHEN tiempo % 1 = 0 THEN
+          DATE_ADD(fecha_registro, INTERVAL tiempo HOUR)
+        ELSE
+          DATE_ADD(
+            DATE_ADD(fecha_registro, INTERVAL FLOOR(tiempo) HOUR),
+            INTERVAL ROUND((tiempo - FLOOR(tiempo)) * 60) MINUTE
+          ) end
+          hora_escalacion
+          FROM tb_escalaciones_registro WHERE estado = 1
+          order by hora_sumada;";
 
     $resultado = mysqli_query($general, $query);
 
@@ -235,7 +243,7 @@ function tablero1(){
 
   // Crear tarjetas
   while ($fila = mysqli_fetch_assoc($resultado)) {
-    $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
+    $dif_segundos = calcular_diferencia_segundos($fila['hora_escalacion']);
      $quemado = '';
     // Clasificar por tiempo restante
     if ($dif_segundos > 1200){
@@ -273,7 +281,8 @@ function tablero1(){
 
 // Función para convertir hora_sumada a timestamp
 function calcular_diferencia_segundos($hora_sumada) {
-    $ahora = strtotime(date("H:i:s"));
+    // $ahora = strtotime(date("H:i:s"));
+    $ahora = strtotime(date("Y-m-d H:i:s"));
     $target = strtotime($hora_sumada);
     return $target - $ahora;
 }
@@ -332,6 +341,13 @@ function tablerohueco() {
 
 /*  apara colocar horas aleatorias 
 UPDATE tb_escalaciones_registro
-SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); */
+SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); 
+
+    $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
+    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
+    FROM tb_escalaciones_registro WHERE estado = 1
+    order by hora_sumada" ;
+    
+    */
 
 ?>

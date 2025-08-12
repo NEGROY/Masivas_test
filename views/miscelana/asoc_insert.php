@@ -12,7 +12,9 @@
     $wan = trim($datos["wan"]);
     $vrf = trim($datos["vrf"]);
     // VALIDA
-    if (!preg_match($regexIP, $pe) || !preg_match($regexIP, $wan)) {
+    //if (!preg_match($regexIP, $pe) || !preg_match($regexIP, $wan)) 
+    if ( (!empty($pe) && !preg_match($regexIP, $pe)) ||
+         (!empty($wan) && !preg_match($regexIP, $wan)) ){
         echo "La IP del PE o la IP WAN no es válida.";
         return;
     }

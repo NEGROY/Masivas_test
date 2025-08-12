@@ -1,6 +1,6 @@
 
 <?php
-$ruta = "http://localhost/Masivas_test/includes";
+$ruta = "http://172.20.97.102/Masivas_test/includes";
 
 ?>
 <!-- CSS -->
@@ -26,3 +26,7 @@ $ruta = "http://localhost/Masivas_test/includes";
 <script src="<?=$ruta?>/assets/js/select2.min.js"></script>
 
 <!-- <script src="<?=$ruta?>/assets/js/jszip.min.js"></script> -->
+
+<!-- AGREGAR LOS ICONOS PARA PODER VER EN LA PAGINA  -->
+<script src="https://kit.fontawesome.com/6acb25b06f.js" crossorigin="anonymous"></script>
+

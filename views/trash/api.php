@@ -71,7 +71,7 @@ const tk = valdiaFAlla(tkEntrada);
 if (!tk) return; // Si la validación falla, se detiene la función
 
 // Validar conexión antes de continuar
-fetch('http://127.0.0.1:8000/connection')
+fetch('http://172.20.97.102:8000/connection')
   .then(res => res.json())
   .then(conexion => {
     if (conexion.code === 200) {
