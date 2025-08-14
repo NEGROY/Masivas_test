@@ -84,7 +84,7 @@ function mostrar_html($general, $fallaID) {
     $fallaID = mysqli_real_escape_string($general, $fallaID);
 
     $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, PE, WAN, VRF,  DESCRIPTION, PAIS, fecha_ingreso
-              FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
+              FROM esacalaciones_cnoc.tb_fallas_asociadas
               WHERE tk_masiva = '$fallaID'
               ORDER by PAIS";
 

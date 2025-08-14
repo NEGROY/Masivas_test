@@ -53,8 +53,8 @@ function printtables() {
         $query = "SELECT
             e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo
         FROM tb_escalacion e
-        INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id 
         WHERE e.id_area  = 2 ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);

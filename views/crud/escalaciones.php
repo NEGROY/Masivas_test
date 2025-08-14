@@ -9,8 +9,8 @@ switch ($condi) {
 case 'tb_slct_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
-        $consulta = "SELECT id_area, nombre_area, id_pais
-        FROM pawsoyos_escalaciones_no_eliminar.tb_area_escalacion 
+        $consulta = "SELECT id as id_area, nombre_area, id_pais
+        FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
@@ -41,8 +41,8 @@ break;
 case 'tb_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
-        $consulta = "SELECT id_area, nombre_area, id_pais
-        FROM pawsoyos_escalaciones_no_eliminar.tb_area_escalacion 
+        $consulta = "SELECT id as id_area, nombre_area, id_pais
+        FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
@@ -68,8 +68,8 @@ case 'TB_calculadora':
         $query = "SELECT 
         e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo  
         FROM tb_escalacion e
-        INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id 
         WHERE e.id_area  = $areaSlct ORDER by e.nivel ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);    
@@ -248,8 +248,8 @@ case 'recargash':
     r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
     r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id_pais, p.nombre_pais
     FROM tb_escalaciones_registro r
-    INNER JOIN tb_area_escalacion a ON r.area_id = a.id_area
-    INNER JOIN tb_pais p ON a.id_pais = p.id_pais
+    INNER JOIN tb_area_escalacion a ON r.area_id = a.id
+    INNER JOIN tb_pais p ON a.id_pais = p.id
     WHERE r.falla_id = ? AND  r.estado = 1 ;';
 
     $stmt = $general->prepare($sql);

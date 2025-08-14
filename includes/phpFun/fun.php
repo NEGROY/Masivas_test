@@ -4,7 +4,7 @@
 // MUESTRA TODOS LOS paises para ser elegidos para las tablas  
 function listarPaises() {
     include_once './includes/BD_con/db_con.php';
-    $consulta = "SELECT id_pais, nombre_pais, ext FROM pawsoyos_escalaciones_no_eliminar.tb_pais";
+    $consulta = "SELECT id as id_pais, nombre_pais, ext FROM esacalaciones_cnoc.tb_pais";
     $resultado = mysqli_query($general, $consulta);
 
     if (!$resultado) {

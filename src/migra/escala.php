@@ -4,7 +4,7 @@ $host = "65.109.88.87";
 $port = 3306;
 $user = "pawsoyos_escalaciones";
 $password = "Vmgvx~vgxn[(";
-$database = "pawsoyos_escalaciones_no_eliminar";
+$database = "esacalaciones_cnoc";
 
 try {
     $dsn = "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4";
@@ -26,7 +26,7 @@ $escalaciones = json_decode($jsonData, true);
 
 // Consulta SQL para insertar
 $sql = "INSERT INTO tb_escalacion (
-            id_escalacion, tiempo, Tipo_contacto, comentario,
+            id, tiempo, Tipo_contacto, comentario,
             nivel, id_contacto, id_tipo_escalacion, id_area
         )
         VALUES (
