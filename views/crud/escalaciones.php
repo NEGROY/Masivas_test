@@ -61,7 +61,7 @@ break;
 case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
-    $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"]; 
+    $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"];      $dashboard  = $_POST["dashboard"];  
     // falta titulo, ticket, #AFECTADOS, 
     
     // Consulta Para los contactos  
@@ -77,8 +77,9 @@ case 'TB_calculadora':
     echo '<table class="table table-striped table-hover table-bordered">
         <thead class="table-dark"> <tr>
         <th>#</th><th>Nombre</th> <th>Medio</th> <th>Tiempo</th>
-        <th>Caculadora</th>  <th>Mensaje</th> 
-        </tr> </thead> <tbody>';
+        <th>Caculadora</th>';  
+    echo '<th>Mensaje</th> '; 
+    echo '</tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
@@ -120,20 +121,33 @@ case 'TB_calculadora':
         echo "<td >{$fila['nombre']} {$comentarioBadge}</td>";
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
-        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>";
-        echo "<td>
-                <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
-                onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
-                <i class='fa-regular fa-message'></i> </button> 
-                
-                <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
+        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>  <td> ";
+        if ($dashboard == 1) {
+            echo "<button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
                 onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
-                <i class='fa-solid fa-right-long'></i> </button> 
-                
-                </td>";
+                <i class='fa-solid fa-right-long'></i> </button>  ";
+            }
+        echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
+                <i class='fa-regular fa-message'></i> </button>  </td>";
+       
         echo "</tr>";
-        $contador++;
+        $contador++;  
+        
+        /* $horaLlamada = $fila['tiempo']; 
+        $datosParaJS = [
+        'nivel' => $fila['nivel'],
+        'nombre' => $fila['nombre'],
+        'telefono' => $fila['telefono']  ]; */
+
     }
+     /* validar si se cuenta con 2 horas mas 
+     $horaActual = new DateTime(); $cuenta = 0; // va a contar, cuantas veces se suman 
+     // 
+    while ($horaActual > $horaLlamada) {
+        $horaLlamada->modify('+2 hours');
+        $cuenta++; }*/
+
     echo '</tbody> </table> </div>';
 
 break;

@@ -143,7 +143,7 @@ function fila_hras() {
 
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
-          <button type="button" class="btn btn-secondary" onclick="calcularTiempos()"
+          <button type="button" class="btn btn-secondary" onclick="calcularTiempos(1)"
           data-bs-toggle="tooltip" id="btnCalcular" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
@@ -160,6 +160,43 @@ function fila_hras() {
 <?php
 }
 
+# FILA DE LOS INPUTS PARA LA FUNCION DE TABLAS 
+
+function fila_hras2() {
+  $horaActual = date("H:i:s");
+?>
+  
+  <div class="container-lg ">
+    <div class="card shadow-sm border-0 rounded-3">
+      <div class="card-body">
+
+        <div class="row g-3 justify-content-center align-items-end">
+
+  <!-- HORA ACTUAL -->
+  <div class="col-md-3">
+    <div class="input-group flex-column flex-md-row">
+      <span class="input-group-text w-100 text-center">Hora WO</span>
+      <input type="time" id="horaActual" class="form-control text-center" value="<?=$horaActual; ?>"
+        autocomplete="off" placeholder="14:00:00" step=2>
+    </div>
+  </div>
+
+  <!-- TIEMPO ACUMULADO -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Acumulado</span>
+    <input type="time" id="tiempoAcumulado" class="form-control text-center"
+      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00"
+      data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
+  </div>
+</div>
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+<?php
+}
 
 #imprime los TEXT AREA PARA LOS MENSAJES 
 function mensajes(){

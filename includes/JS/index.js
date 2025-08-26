@@ -115,7 +115,7 @@ async function buscarDatos_api() {
       timer: 1500,
       showConfirmButton: false
     }).then(() => {
-      if (esFallaAbierta) calcularTiempos();
+      if (esFallaAbierta) calcularTiempos(1);
     });
 
   } catch (error) {
@@ -128,15 +128,28 @@ async function buscarDatos_api() {
   }
 }
 
+// Funcion para las vista de solo mensajitos 
+async function buscardatos() {
+  const tkEntrada = document.getElementById('falla').value.trim();
+  const resultadoDiv = document.getElementById('resultado');
+  const botonCalcular = document.getElementById('btnCalcular');
+  const campoCierre = document.getElementById('CIERRE');
+
+   
+
+
+
+}
+
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
-function calcularTiempos() {
-    const hrActual = document.getElementById('horaActual').value.trim();
+async function calcularTiempos(dashboard) {
+    let hrActual = document.getElementById('horaActual').value.trim();
     const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
     const fallaID = document.getElementById('falla').value;
     const titulo = document.getElementById('titulo').textContent;
 
-    const regexHora = /^([01]\d|2[0-3]):([0-5]\d):([0-5]\d)$/; 
+    const regexHora = /^([01]\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
 
     // Validaciones básicas no null 
     if (!hrActual || !tmpAcumu || !areaSlct) {
@@ -157,28 +170,73 @@ function calcularTiempos() {
         Swal.fire({
             icon: 'error',
             title: 'Formato inválido',
-            text: 'La hora actual debe tener el formato HH:MM:SS.',
+            text: `La hora actual ${hrActual} debe tener el formato HH:MM:SS.`,
             timer: 1500
         });
         return;
     }
 
-    /*console.log("Hora actual:", hrActual);
-    console.log("Tiempo acumulado:", tmpAcumu);
-    console.log("areaSeleccionada:", areaSlct);*/
+    // Si dashboard == 0, actualizar el campo
+    if (dashboard === 0 & tmpAcumu != "00:00") {
+        const nuevaHora = await restar_Acumualdo(hrActual, tmpAcumu);
+        //document.getElementById('horaActual').value = nuevaHora;
+        hrActual = nuevaHora ; 
+        console.log( hrActual , nuevaHora)
+      }
+      
 
     // prueba para que imprima la tabla
     condi = "TB_calculadora"; 
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
         success: function(data) {
         $("#TB_calcu").html(data);
     } }) 
     return;
 }
 
+// funcion para calcular la hora restando 
+async  function restar_Acumualdo(hrActual, tmpAcumu) {
+    console.log(hrActual, tmpAcumu);
+    // Validar que tmpAcumu tenga el formato correcto H:MM
+    const regexTiempo = /^\d{1,2}:\d{2}$/;
+    if (!regexTiempo.test(tmpAcumu)) {
+       console.log("El tiempo acumulado debe estar en formato H:MM ");
+       tmpAcumu = "00:00"; 
+       document.getElementById('tmpAcumu').value = tmpAcumu;
+       return hrActual;
+    }
+
+    // Convertir hrActual a minutos
+    const [hrH, hrM] = hrActual.split(':').map(Number);
+    const totalActualMin = hrH * 60 + hrM;
+    
+    // Convertir tmpAcumu a minutos
+    const [acumH, acumM] = tmpAcumu.split(':').map(Number);
+    const totalAcumuMin = acumH * 60 + acumM;
+
+    // Restar minutos
+    let nuevaHoraMin = totalActualMin - totalAcumuMin;
+
+    
+    // Asegurar que no sea negativa
+    if (nuevaHoraMin < 0) {
+        alert("La hora resultante no puede ser negativa.");
+        return;
+    }
+
+    // Convertir de nuevo a HH:MM
+    const nuevaH = String(Math.floor(nuevaHoraMin / 60)).padStart(2, '0');
+    const nuevaM = String(nuevaHoraMin % 60).padStart(2, '0');
+    const nuevaHora = `${nuevaH}:${nuevaM}:00`;
+
+    console.log(nuevaHoraMin, totalActualMin, totalAcumuMin, nuevaHora );
+    return nuevaHora;
+}
+
+ 
 // FUNCION PARA CERRAR LAS FALLAS, ACTUALMENTE MANUAL 
 function cerrarMasiva() {
   const fallaID = document.getElementById('falla').value;
