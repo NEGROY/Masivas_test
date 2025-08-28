@@ -161,9 +161,11 @@ async function calcularTiempos(dashboard) {
         });
         return;
     }
-    const select = document.getElementById('areasxpais');
-    const areaSlct2 = select.options[select.selectedIndex].text;
-    $("#titulos").html(areaSlct2);
+      const select = document.getElementById('areasxpais');
+      const selectedOption = select.options[select.selectedIndex];
+      const areaText = selectedOption.text;
+      const areaValue = selectedOption.value;
+      $("#titulos").html(areaText);
 
     // validamos como esta la HORA PICO
     if (!regexHora.test(hrActual)) {
@@ -183,7 +185,6 @@ async function calcularTiempos(dashboard) {
         hrActual = nuevaHora ; 
         console.log( hrActual , nuevaHora)
       }
-      
 
     // prueba para que imprima la tabla
     condi = "TB_calculadora"; 
@@ -193,9 +194,13 @@ async function calcularTiempos(dashboard) {
         data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
         success: function(data) {
         $("#TB_calcu").html(data);
+        if( dashboard == 0 ){
+            tb_copy(titulo,fallaID,hrActual,tmpAcumu,areaSlct);
+        }
     } }) 
     return;
 }
+
 
 // funcion para calcular la hora restando 
 async  function restar_Acumualdo(hrActual, tmpAcumu) {
@@ -217,15 +222,8 @@ async  function restar_Acumualdo(hrActual, tmpAcumu) {
     const [acumH, acumM] = tmpAcumu.split(':').map(Number);
     const totalAcumuMin = acumH * 60 + acumM;
 
-    // Restar minutos
-    let nuevaHoraMin = totalActualMin - totalAcumuMin;
-
-    
-    // Asegurar que no sea negativa
-    if (nuevaHoraMin < 0) {
-        alert("La hora resultante no puede ser negativa.");
-        return;
-    }
+    // Restar minutos y ajustar en caso de ser negativo (24h clock)
+    let nuevaHoraMin = (totalActualMin - totalAcumuMin + 1440) % 1440;
 
     // Convertir de nuevo a HH:MM
     const nuevaH = String(Math.floor(nuevaHoraMin / 60)).padStart(2, '0');
@@ -308,7 +306,6 @@ function mnsjEscala(data){
 
     console.log("Mensaje generado:\n", data);    
 }
-
 
 // aestas super seguro de que quieres mandar esta falla al tablero 
 // falta validar si la falla ya esta en el tablero y en que escala esta y solo actualizarla 
@@ -435,6 +432,39 @@ function apiasociados() {
             icon: "warning",
             timer: 2500 });
         });
+}
+
+// funcion para imprimir cada dos horas 
+function plusdos(datos) {
+    let output = "";
+    output += "================================================================================\n";
+    output += `  ESCALACIÓN:  ${datos.titulo}  (Falla ID: ${datos.fallaID})\n`;
+    output += "================================================================================\n";
+    output += "| Nivel | Nombre          | Teléfono     | Tiempo | Comentario           | Tipo     | Hr Suma  |\n";
+    output += "--------------------------------------------------------------------------------\n";
+
+      // Primera escalación (nivel 1) con datos originales
+    output += `| 1     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0  | ${datos.hr_suma} |\n`;
+
+    // Usar hrActual como base, sumar 1, 2, 3 horas extra (cada 2h en hrSuma)
+    let [h, m, s] = datos.hr_suma.split(':').map(Number);
+      for (let i = 0; i < 3; i++) {
+      const nivel = i + 2;                    // niveles 2, 3, 4
+      const tiempo = i + 1;                   // tiempos 1, 2, 3
+      const totalMin = h * 60 + m + ((i + 1) * 120);  // suma 2h, 4h, 6h
+
+      const newH = Math.floor(totalMin / 60) % 24;
+      const newM = totalMin % 60;
+      const hrSuma = `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+
+            // Agregar fila
+            output += `| ${nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${tiempo}   |   ${hrSuma} |\n`;
+        }
+      
+    output += "================================================================================";
+
+    // Asignar al textarea
+    document.getElementById('notaGenerada').value = output;
 }
 
 

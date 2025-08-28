@@ -186,7 +186,7 @@ function fila_hras2() {
   <div class="input-group flex-column flex-md-row">
     <span class="input-group-text w-100 text-center">Acumulado</span>
     <input type="time" id="tiempoAcumulado" class="form-control text-center"
-      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00"
+      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0)";
       data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
   </div>
 </div>
@@ -236,11 +236,34 @@ function mensajes(){
   </div>
 
   </div>
-</div>
+ </div>
 
   <?php
 }
 
+#IMPRIMEIR EL ESPACIO PARA LOS MENSAJES DE LAS TABLAS 
+function msj_tb(){
+  ?>
+  <div class="container my-3" style="max-width: inherit;">
+  <div class="row g-3 align-items-start ">
+
+    <!-- Columna izquierda (7/12) -->
+    <div class="col-md-10">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fas fa-comment-dots text-muted"></i>
+        </span>
+        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="12" placeholder="Mensaje de escalación..." autocomplete="off"></textarea>
+        <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada')"
+        data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
+      </div>
+    </div>
+
+  </div> </div>
+  <?php
+}
 
 # - PRUEBAS PARA EL TABLERO  - 
 function tablero1(){

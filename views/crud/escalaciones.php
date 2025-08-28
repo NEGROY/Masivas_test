@@ -78,7 +78,7 @@ case 'TB_calculadora':
         <thead class="table-dark"> <tr>
         <th>#</th><th>Nombre</th> <th>Medio</th> <th>Tiempo</th>
         <th>Caculadora</th>';  
-    echo '<th>Mensaje</th> '; 
+    echo '<th>Opciones</th> '; 
     echo '</tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
@@ -94,9 +94,18 @@ case 'TB_calculadora':
         // Ícono según tipo
             $iconoTipo = obtenerIconoTipo($fila['tipo']);
         // **SUMATORIA DE TIEMPO**
-            $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
+            $tiempo_sumar = (float)$fila['tiempo'];// convertir a entero
+            $horas = floor($tiempo_sumar);  
+            $minutos = round(($tiempo_sumar - $horas) * 60);
+
             $hora_acumulada = new DateTime($hrActual);
-            $hora_acumulada->modify("+{$tiempo_sumar} hours");
+            if ($horas > 0) {
+                $hora_acumulada->modify("+{$horas} hours");
+            }
+            if ($minutos > 0) {
+                $hora_acumulada->modify("+{$minutos} minutes");
+            }
+            //$hora_acumulada->modify("+{$tiempo_sumar} hours");
             $hr_suma    = $hora_acumulada->format("H:i:s");
 
         // Crear objeto de datos
@@ -121,16 +130,20 @@ case 'TB_calculadora':
         echo "<td >{$fila['nombre']} {$comentarioBadge}</td>";
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
-        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>  <td> ";
+        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td> ";
         if ($dashboard == 1) {
-            echo "<button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
+            echo "<td> <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
                 onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
                 <i class='fa-solid fa-right-long'></i> </button>  ";
-            }
-        echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button>  </td>";
-       
+            }
+            else{
+                 echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                onclick='plusdos({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
+                <i class='fa-regular fa-message'></i> </button>  </td>";
+            }
         echo "</tr>";
         $contador++;  
         
@@ -151,6 +164,74 @@ case 'TB_calculadora':
     echo '</tbody> </table> </div>';
 
 break;
+
+case 'msj_tb':
+    // Datos recibidos por POST
+    $hrActual  = $_POST["hrActual"];
+    $tmpAcumu  = $_POST["tmpAcumu"];
+    $areaSlct  = $_POST["areaSlct"];
+    $fallaID   = $_POST["fallaID"];
+    $titulo    = $_POST["titulo"];
+
+    // Consulta de contactos
+    $query = "SELECT 
+        e.nivel, c.nombre, c.telefono, e.tiempo, e.comentario, tte.tipo  
+        FROM tb_escalacion e
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON e.id_tipo_escalacion = tte.id 
+        WHERE e.id_area = $areaSlct 
+        ORDER BY e.nivel";
+
+    $resultado = mysqli_query($general, $query);
+
+    // Encabezado de tabla en texto plano
+    $tablaTxt  = str_repeat("=", 80) . "\n";
+    $tablaTxt .= "  ESCALACIÓN: $titulo (Falla ID: $fallaID)\n";
+    $tablaTxt .= str_repeat("=", 80) . "\n";
+    $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-20s | %-8s | %-8s |\n",
+                        "Nivel", "Nombre", "Teléfono", "Tiempo", "Comentario", "Tipo", "Hr Suma");
+    $tablaTxt .= str_repeat("-", 80) . "\n";
+
+    $contador = 1;
+
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        // Calcular hora acumulada
+        $tiempo_sumar = (float)$fila['tiempo'];
+        $horas = floor($tiempo_sumar);
+        $minutos = round(($tiempo_sumar - $horas) * 60);
+
+        $hora_acumulada = new DateTime($hrActual);
+        if ($horas > 0) {
+            $hora_acumulada->modify("+{$horas} hours");
+        }
+        if ($minutos > 0) {
+            $hora_acumulada->modify("+{$minutos} minutes");
+        }
+
+        $hr_suma = $hora_acumulada->format("H:i:s");
+
+        // Agregar fila a la tabla en texto plano
+        $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-20s | %-8s | %-8s |\n",
+                            $fila['nivel'],
+                            substr($fila['nombre'], 0, 15),
+                            $fila['telefono'],
+                            $fila['tiempo'],
+                            substr($fila['comentario'], 0, 20),
+                            substr($fila['tipo'], 0, 8),
+                            $hr_suma);
+
+        $contador++;
+    }
+
+    $tablaTxt .= str_repeat("=", 80) . "\n";
+
+    // Devolver texto plano al frontend
+    header('Content-Type: text/plain; charset=utf-8');
+    echo $tablaTxt;
+    exit;
+break;
+
+
 
 // PARA INSERTAR EN LA TABLA DEL TABLERO
 case 'insertb':

@@ -85,7 +85,7 @@
 
   <div id="resultado" class="mt-3"></div>
 
-<?php mensajes(); ?>
+<?php msj_tb(); ?>
 
 <div><?php loader()?></div>
 
@@ -93,12 +93,22 @@
 </html>
 
 <script>
-       window.addEventListener('DOMContentLoaded', () => {
-      const paisSelect = document.getElementById('pais');
-      if (paisSelect) {
-        paisSelect.selectedIndex = 0; // Asegura que "Busque un Pais" esté seleccionado
-      }
-    });
+
+    function tb_copy(titulo,fallaID,hrActual,tmpAcumu,areaSlct){ 
+      condi = "msj_tb"; 
+        $.ajax({
+            url: "./views/crud/escalaciones.php",
+            method: "POST",
+            data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
+            success: function(data) {
+            $("#notaGenerada").html(data);
+        } }) 
+    return;
+      } 
+
+
+  //  FUNCION PARA QUE MUESTRE TABLA PARA COPIAR 
+     
 
     // Select2 
     $(document).ready(function() {
