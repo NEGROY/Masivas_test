@@ -136,8 +136,7 @@ function guardarInputs(event) {
   sleep(60000);*/
 }
 
-// funcion para exportar a excel 
- // Exportar Excel
+// funcion para exportar a excel  // Exportar Excel
     function exportarExcel() {
       const tkidActual = document.getElementById("fallaIDInput").value;
         if (!tkidActual) return;
@@ -174,5 +173,102 @@ function deletetk(tk) {
       }); /* ajax fin/*/
     }
   });
+}
+
+// FUNCIOON PARA BUSCAR LA WAN 
+function buscarWan(tk) {
+  const wanInput = document.getElementById('wan_' + tk).value.trim();
+  const regexIP = /^(?:\d{1,3}\.){3}\d{1,3}$/;
+
+  // Validar que no esté vacío
+  if (wanInput === "") {
+    Swal.fire({
+      icon: "warning",
+      title: "Campo vacío",
+      text: "Por favor ingresa una IP WAN.",
+    });
+    return;
+  }
+
+  // Validar que sea una IP válida
+  if (!regexIP.test(wanInput)) {
+    Swal.fire({
+      icon: "error",
+      title: "Formato inválido",
+      text: "La IP WAN no tiene un formato válido.",
+    });
+    return;
+  }
+
+  // Construir URL con la IP ingresada
+  const arkurl = `http://10.20.10.81/get_network_data/?wan=${wanInput}`;
+
+  // Hacer la llamada a la API (fetch es asíncrono)
+  fetch(arkurl, {
+    method: 'GET',
+    headers: {
+      // Si necesitas autenticación básica, por ejemplo:
+      // // user: frt_ark_interno  pass: Uf!8$6mMG0qg
+      'Authorization': 'Basic ' + btoa('frt_ark_interno:Uf!8$6mMG0qg')
+    }
+  })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Error en la respuesta de la API');
+      }
+      return response.json();
+    })
+    .then(data => {
+      //console.log(data);
+      console.log(data);
+      respuesta(data,tk);
+      // Insertar valores en los inputs
+      // logica si mas de uno
+      //console.log(data.pe);
+    })
+    .catch(error => {
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "No se pudo obtener datos de la API: " + error.message,
+      });
+    });
+}
+
+
+function respuesta(data, tk) {
+    console.log("Datos recibidos:", data);
+
+    // Convertir el objeto en un array de sus valores
+    const registros = Object.values(data);
+    const cantidad = registros.length;
+    console.log(`Cantidad de registros: ${cantidad}`);
+
+    if (cantidad === 3) {
+        inputvalue(tk, data.vrf, data.pe);
+    } else {
+        console.log("Múltiples registros recibidos:", registros);
+        //define el div donde imprime
+        const contenedor = document.getElementById("btns_" + tk);
+        contenedor.innerHTML = ""; // Limpiar contenido previo
+        
+          registros.forEach((registro, index) => {
+            // Crear un botón
+            const boton = document.createElement("button");
+            boton.textContent = `VRF: ${registro.vrf}, PE: ${registro.pe}`;
+            boton.classList.add("btn-vrf"); // opcional: clase CSS
+            boton.onclick = () => inputvalue(tk, registro.vrf, registro.pe);
+
+            // Agregar el botón al contenedor
+            contenedor.appendChild(boton);
+        });
+    }
+}
+
+
+
+function inputvalue(tk,vrf,pe){
+   $('#vrf_' + tk).val(vrf ?? '');
+   $('#pee_' + tk).val(pe ?? '');
 }
 </script>

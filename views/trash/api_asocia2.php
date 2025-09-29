@@ -1,7 +1,8 @@
 <?php
-// URL de la API
-    //$url = 'http://127.0.0.1:8000/masivas/F6144046?token=masivas2025'; // ← cambia esto a la URL real
-    $url =('../src/api_data/relacionadas.json');
+    
+    // URL de la API
+      $url = 'http://172.20.97.102:8000/masivas/F6144046?token=masivas2025'; // ← cambia esto a la URL real
+    //$url =('../src/api_data/relacionadas.json');
 
 // Consumir la API con file_get_contents
 $response = file_get_contents($url);

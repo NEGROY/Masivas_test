@@ -10,7 +10,7 @@ $host = "localhost";
 $port = 3306;
 $user = "root";
 $password = "";
-$database = "pawsoyos_escalaciones_no_eliminar";
+$database = "esacalaciones_cnoc";
 
 
 

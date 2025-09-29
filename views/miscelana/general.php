@@ -53,8 +53,8 @@ function printtables() {
         $query = "SELECT
             e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo
         FROM tb_escalacion e
-        INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id 
         WHERE e.id_area  = 2 ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);
@@ -123,27 +123,27 @@ function fila_hras() {
 
       <div class="row g-3 justify-content-center align-items-end">
 
-        <!-- HORA ACTUAL -->
-        <div class="col-md-3">
-          <div class="input-group">
-            <span class="input-group-text">Hora Apertura</span>
-            <input type="text" id="horaActual" class="form-control text-center" step="2" type="time"
-            placeholder="14:00:00" readonly>
-          </div>
-        </div>
+<!-- HORA ACTUAL -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Hora Apertura</span>
+    <input type="time" id="horaActual" class="form-control text-center"
+      step="2" autocomplete="off" placeholder="14:00:00">
+  </div>
+</div>
 
-        <!-- TIEMPO ACUMULADO -->
-        <div class="col-md-3">
-          <div class="input-group">
-            <span class="input-group-text">Tiempo Acumulado</span>
-            <input type="text" id="tiempoAcumulado" class="form-control text-center" 
-            placeholder="00:00:00" data-bs-toggle="tooltip" title="Tiempo acumulado del TK">
-          </div>
-        </div>
+<!-- TIEMPO ACUMULADO -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Tiempo Acumulado</span>
+    <input type="text" id="tiempoAcumulado" class="form-control text-center" 
+      placeholder="00:00:00" data-bs-toggle="tooltip" title="Tiempo acumulado del TK" autocomplete="off">
+  </div>
+</div>
 
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
-          <button type="button" class="btn btn-secondary" onclick="calcularTiempos()"
+          <button type="button" class="btn btn-secondary" onclick="calcularTiempos(1)"
           data-bs-toggle="tooltip" id="btnCalcular" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
@@ -160,6 +160,43 @@ function fila_hras() {
 <?php
 }
 
+# FILA DE LOS INPUTS PARA LA FUNCION DE TABLAS 
+
+function fila_hras2() {
+  $horaActual = date("H:i:s");
+?>
+  
+  <div class="container-lg ">
+    <div class="card shadow-sm border-0 rounded-3">
+      <div class="card-body">
+
+        <div class="row g-3 justify-content-center align-items-end">
+
+  <!-- HORA ACTUAL -->
+  <div class="col-md-3">
+    <div class="input-group flex-column flex-md-row">
+      <span class="input-group-text w-100 text-center">Hora WO</span>
+      <input type="time" id="horaActual" class="form-control text-center" value="<?=$horaActual; ?>"
+        autocomplete="off" placeholder="14:00:00" step=2>
+    </div>
+  </div>
+
+  <!-- TIEMPO ACUMULADO -->
+<div class="col-md-3">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Acumulado</span>
+    <input type="time" id="tiempoAcumulado" class="form-control text-center"
+      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0)";
+      data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
+  </div>
+</div>
+ 
+        </div>
+      </div>
+    </div>
+  </div>
+<?php
+}
 
 #imprime los TEXT AREA PARA LOS MENSAJES 
 function mensajes(){
@@ -173,7 +210,7 @@ function mensajes(){
         <span class="input-group-text bg-light border-end-2">
           <i class="fas fa-comment-dots text-muted"></i>
         </span>
-        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="6" placeholder="Mensaje de escalación..."></textarea>
+        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="9" placeholder="Mensaje de escalación..." autocomplete="off"></textarea>
         <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada')"
         data-bs-toggle="tooltip" title="copialo tu mensaje!">
           <i class="fa-solid fa-copy"></i>
@@ -187,10 +224,9 @@ function mensajes(){
       <span class="input-group-text bg-light border-end-2">
         <i class="fa-brands fa-whatsapp text-muted"></i>
       </span>
-      <textarea id="wasapp" 
+      <textarea id="wasapp"  autocomplete="off"
               class="form-control border-start-0 small auto-ajuste-textarea" 
-              rows="1" 
-              placeholder="Mensaje WhatsApp..."
+              rows="9" placeholder="Mensaje WhatsApp..."
               oninput="ajustarAltura(this)"></textarea>
       <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('wasapp')"
         data-bs-toggle="tooltip" title="¡Copia tu mensaje!">
@@ -200,20 +236,52 @@ function mensajes(){
   </div>
 
   </div>
-</div>
+ </div>
 
   <?php
 }
 
+#IMPRIMEIR EL ESPACIO PARA LOS MENSAJES DE LAS TABLAS 
+function msj_tb(){
+  ?>
+  <div class="container my-3" style="max-width: inherit;">
+  <div class="row g-3 align-items-start ">
+
+    <!-- Columna izquierda (7/12) -->
+    <div class="col-md-10">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fas fa-comment-dots text-muted"></i>
+        </span>
+        <textarea id="notaGenerada" class="form-control border-start-0 small " rows="12" placeholder="Mensaje de escalación..." autocomplete="off"></textarea>
+        <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada')"
+        data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
+      </div>
+    </div>
+
+  </div> </div>
+  <?php
+}
 
 # - PRUEBAS PARA EL TABLERO  - 
 function tablero1(){
   include '../includes/BD_con/db_con.php';
 
     $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
-    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
-    FROM tb_escalaciones_registro WHERE estado = 1
-    order by hora_sumada" ;
+          hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro, 
+          CASE 
+        WHEN tiempo % 1 = 0 THEN
+          DATE_ADD(fecha_registro, INTERVAL tiempo HOUR)
+        ELSE
+          DATE_ADD(
+            DATE_ADD(fecha_registro, INTERVAL FLOOR(tiempo) HOUR),
+            INTERVAL ROUND((tiempo - FLOOR(tiempo)) * 60) MINUTE
+          ) end
+          hora_escalacion
+          FROM tb_escalaciones_registro WHERE estado = 1
+          order by hora_sumada;";
 
     $resultado = mysqli_query($general, $query);
 
@@ -235,7 +303,7 @@ function tablero1(){
 
   // Crear tarjetas
   while ($fila = mysqli_fetch_assoc($resultado)) {
-    $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
+    $dif_segundos = calcular_diferencia_segundos($fila['hora_escalacion']);
      $quemado = '';
     // Clasificar por tiempo restante
     if ($dif_segundos > 1200){
@@ -273,7 +341,8 @@ function tablero1(){
 
 // Función para convertir hora_sumada a timestamp
 function calcular_diferencia_segundos($hora_sumada) {
-    $ahora = strtotime(date("H:i:s"));
+    // $ahora = strtotime(date("H:i:s"));
+    $ahora = strtotime(date("Y-m-d H:i:s"));
     $target = strtotime($hora_sumada);
     return $target - $ahora;
 }
@@ -332,6 +401,13 @@ function tablerohueco() {
 
 /*  apara colocar horas aleatorias 
 UPDATE tb_escalaciones_registro
-SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); */
+SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); 
+
+    $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
+    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
+    FROM tb_escalaciones_registro WHERE estado = 1
+    order by hora_sumada" ;
+    
+    */
 
 ?>

@@ -27,8 +27,7 @@ if ($general->connect_error) {
     die("Error de conexión: " . $general->connect_error);
 }
 
-$sql = "
-SELECT
+$sql = "SELECT
     area_escalacion AS `area`,
     MAX(CASE WHEN nivel = 'N1' THEN tiempo_escalacion END) AS N1,
     MAX(CASE WHEN nivel = 'N2' THEN tiempo_escalacion END) AS N2,
@@ -37,8 +36,7 @@ SELECT
     MAX(CASE WHEN nivel = 'NS' THEN tiempo_escalacion END) AS NS
 FROM tb_tiempos_escalacion
 GROUP BY area_escalacion
-ORDER BY area_escalacion;
-";
+ORDER BY area_escalacion;";
 
 $result = $general->query($sql);
 ?>
@@ -137,8 +135,8 @@ $result = $general->query($sql);
                     ae.nombre_area,
                     p.nombre_pais
                     FROM tb_escalaciones_registro AS er
-                    INNER JOIN tb_area_escalacion AS ae ON er.area_id = ae.id_area
-                    INNER JOIN tb_pais AS p ON ae.id_pais = p.id_pais
+                    INNER JOIN tb_area_escalacion AS ae ON er.area_id = ae.id
+                    INNER JOIN tb_pais AS p ON ae.id_pais = p.id
                     WHERE er.estado = 1";
                 $result = mysqli_query($general, $query); // Asegúrate de tener una conexión $conn
                 while ($row = mysqli_fetch_assoc($result)) {

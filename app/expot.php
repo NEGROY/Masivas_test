@@ -18,7 +18,7 @@ fputcsv($output, ['TK_id', 'ENLACE', 'PE', 'WAN', 'VRF']);
 // Consulta con mysqli
 $sql = "
     SELECT TK_id, ENLACE, PE, WAN, VRF
-    FROM pawsoyos_escalaciones_no_eliminar.tb_fallas_asociadas
+    FROM esacalaciones_cnoc.tb_fallas_asociadas
     WHERE tk_masiva = ? AND PE IS NOT NULL AND WAN IS NOT NULL
 ";
 

@@ -9,8 +9,8 @@ switch ($condi) {
 case 'tb_slct_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
-        $consulta = "SELECT id_area, nombre_area, id_pais
-        FROM pawsoyos_escalaciones_no_eliminar.tb_area_escalacion 
+        $consulta = "SELECT id as id_area, nombre_area, id_pais
+        FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
@@ -41,11 +41,12 @@ break;
 case 'tb_areas': #areas por pais 
     $pais_id = $_POST["id"];
     #consulta general para traer las areas 
-        $consulta = "SELECT id_area, nombre_area, id_pais
-        FROM pawsoyos_escalaciones_no_eliminar.tb_area_escalacion 
+        $consulta = "SELECT id as id_area, nombre_area, id_pais
+        FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);
+         echo "<option  value='0'  > - </option>";
     if (mysqli_num_rows($resultado) > 0) {
         echo "<option selected> - </option>";
         while ($row = mysqli_fetch_assoc($resultado)) {
@@ -61,24 +62,25 @@ break;
 case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
-    $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"]; 
+    $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"];      $dashboard  = $_POST["dashboard"];  
     // falta titulo, ticket, #AFECTADOS, 
     
     // Consulta Para los contactos  
         $query = "SELECT 
         e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo  
         FROM tb_escalacion e
-        INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id_tipo_escalacion 
-        WHERE e.id_area  = 2 ORDER by e.nivel ";
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON  e.id_tipo_escalacion = tte.id 
+        WHERE e.id_area  = $areaSlct ORDER by e.nivel ";
         #realiza la consulta 
         $resultado = mysqli_query($general, $query);    
     # imprime el encabezado de la tabla
     echo '<table class="table table-striped table-hover table-bordered">
         <thead class="table-dark"> <tr>
         <th>#</th><th>Nombre</th> <th>Medio</th> <th>Tiempo</th>
-        <th>Caculadora</th>  <th>Mensaje</th> 
-        </tr> </thead> <tbody>';
+        <th>Caculadora</th>';  
+    echo '<th>Opciones</th> '; 
+    echo '</tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
@@ -93,9 +95,18 @@ case 'TB_calculadora':
         // Ícono según tipo
             $iconoTipo = obtenerIconoTipo($fila['tipo']);
         // **SUMATORIA DE TIEMPO**
-            $tiempo_sumar = (int)$fila['tiempo']; // convertir a entero
+            $tiempo_sumar = (float)$fila['tiempo'];// convertir a entero
+            $horas = floor($tiempo_sumar);  
+            $minutos = round(($tiempo_sumar - $horas) * 60);
+
             $hora_acumulada = new DateTime($hrActual);
-            $hora_acumulada->modify("+{$tiempo_sumar} hours");
+            if ($horas > 0) {
+                $hora_acumulada->modify("+{$horas} hours");
+            }
+            if ($minutos > 0) {
+                $hora_acumulada->modify("+{$minutos} minutes");
+            }
+            //$hora_acumulada->modify("+{$tiempo_sumar} hours");
             $hr_suma    = $hora_acumulada->format("H:i:s");
 
         // Crear objeto de datos
@@ -120,23 +131,108 @@ case 'TB_calculadora':
         echo "<td >{$fila['nombre']} {$comentarioBadge}</td>";
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
-        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td>";
-        echo "<td>
-                <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
-                onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
-                <i class='fa-regular fa-message'></i> </button> 
-                
-                <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
+        echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td> ";
+        if ($dashboard == 1) {
+            echo "<td> <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
                 onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
-                <i class='fa-solid fa-right-long'></i> </button> 
-                
-                </td>";
+                <i class='fa-solid fa-right-long'></i> </button>  ";
+                echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
+                <i class='fa-regular fa-message'></i> </button>  </td>";
+            }
+            else{
+                 echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                onclick='plusdos({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
+                <i class='fa-regular fa-message'></i> </button>  </td>";
+            }
         echo "</tr>";
-        $contador++;
+        $contador++;  
+        
+        /* $horaLlamada = $fila['tiempo']; 
+        $datosParaJS = [
+        'nivel' => $fila['nivel'],
+        'nombre' => $fila['nombre'],
+        'telefono' => $fila['telefono']  ]; */
+
     }
+     /* validar si se cuenta con 2 horas mas 
+     $horaActual = new DateTime(); $cuenta = 0; // va a contar, cuantas veces se suman 
+     // 
+    while ($horaActual > $horaLlamada) {
+        $horaLlamada->modify('+2 hours');
+        $cuenta++; }*/
+
     echo '</tbody> </table> </div>';
 
 break;
+
+case 'msj_tb':
+    // Datos recibidos por POST
+    $hrActual  = $_POST["hrActual"];
+    $tmpAcumu  = $_POST["tmpAcumu"];
+    $areaSlct  = $_POST["areaSlct"];
+    $fallaID   = $_POST["fallaID"];
+    $titulo    = $_POST["titulo"];
+
+    // Consulta de contactos
+    $query = "SELECT 
+        e.nivel, c.nombre, c.telefono, e.tiempo, e.comentario, tte.tipo  
+        FROM tb_escalacion e
+        INNER JOIN tb_contactos c ON e.id_contacto = c.id
+        INNER JOIN tb_tipo_escalacion tte ON e.id_tipo_escalacion = tte.id 
+        WHERE e.id_area = $areaSlct 
+        ORDER BY e.nivel";
+
+    $resultado = mysqli_query($general, $query);
+
+    // Encabezado de tabla en texto plano
+    $tablaTxt  = str_repeat("=", 80) . "\n";
+    $tablaTxt .= "  ESCALACIÓN: $titulo (Falla ID: $fallaID)\n";
+    $tablaTxt .= str_repeat("=", 80) . "\n";
+    $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-20s | %-8s | %-8s |\n",
+                        "Nivel", "Nombre", "Teléfono", "Tiempo", "Comentario", "Tipo", "Hr Suma");
+    $tablaTxt .= str_repeat("-", 80) . "\n";
+
+    $contador = 1;
+
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        // Calcular hora acumulada
+        $tiempo_sumar = (float)$fila['tiempo'];
+        $horas = floor($tiempo_sumar);
+        $minutos = round(($tiempo_sumar - $horas) * 60);
+
+        $hora_acumulada = new DateTime($hrActual);
+        if ($horas > 0) {
+            $hora_acumulada->modify("+{$horas} hours");
+        }
+        if ($minutos > 0) {
+            $hora_acumulada->modify("+{$minutos} minutes");
+        }
+
+        $hr_suma = $hora_acumulada->format("H:i:s");
+
+        // Agregar fila a la tabla en texto plano
+        $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-20s | %-8s | %-8s |\n",
+                            $fila['nivel'],
+                            substr($fila['nombre'], 0, 15),
+                            $fila['telefono'],
+                            $fila['tiempo'],
+                            substr($fila['comentario'], 0, 20),
+                            substr($fila['tipo'], 0, 8),
+                            $hr_suma);
+
+        $contador++;
+    }
+
+    $tablaTxt .= str_repeat("=", 80) . "\n";
+
+    // Devolver texto plano al frontend
+    header('Content-Type: text/plain; charset=utf-8');
+    echo $tablaTxt;
+    exit;
+break;
+
+
 
 // PARA INSERTAR EN LA TABLA DEL TABLERO
 case 'insertb':
@@ -214,8 +310,8 @@ case 'recargash':
     $uniqID = $_POST["fallaID"];
 
     //AGRAGRA LA CONSULTA HACIA LA API E IMPRIMIR // falta  la url 
-    //fetch('http://127.0.0.1:8000/masivas/F6144046?token=masivas2025')
-    $url =('../../src/api_data/busqueda.json');
+    // $url = "http://172.20.97.102:8000/masivas/".$uniqID."?token=masivas2025";    F6252404
+    $url = "http://172.20.97.102:8000/masivas/{$uniqID}?token=masivas2025";
     // Consumir la API con file_get_contents
     $response = file_get_contents($url);
     // se debera de validar con / la concexion el marlon  
@@ -248,8 +344,8 @@ case 'recargash':
     r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
     r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id_pais, p.nombre_pais
     FROM tb_escalaciones_registro r
-    INNER JOIN tb_area_escalacion a ON r.area_id = a.id_area
-    INNER JOIN tb_pais p ON a.id_pais = p.id_pais
+    INNER JOIN tb_area_escalacion a ON r.area_id = a.id
+    INNER JOIN tb_pais p ON a.id_pais = p.id
     WHERE r.falla_id = ? AND  r.estado = 1 ;';
 
     $stmt = $general->prepare($sql);
