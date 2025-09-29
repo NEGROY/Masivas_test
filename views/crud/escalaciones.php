@@ -85,6 +85,10 @@ case 'TB_calculadora':
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
 
+    // PARA VALIDAR SI ES LA ULTIMA FILA 
+    $totalFilas = mysqli_num_rows($resultado);
+    $contador   = 0;
+    // INICIO DEL CICLO QUE IMPRIME CADA LINEA 
     while ($fila = mysqli_fetch_assoc($resultado)) {
         // Alternar clases de color || MODIFICAR PARA VER EL HORARIO 
             $claseFila = ($contador % 2 == 0) ? 'bg-light' : 'bg-white';
@@ -144,6 +148,10 @@ case 'TB_calculadora':
                  echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='plusdos({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button>  </td>";
+            }
+                if ($contador == $totalFilas) {
+                echo " <button type='button' class='btn btn-outline-primary btn-sm rounded-pill shadow-sm px-3'
+                onclick='extraDos({$jsonDatos})' data-bs-toggle='tooltip' title='Extra'> +2 </button>";
             }
         echo "</tr>";
         $contador++;  

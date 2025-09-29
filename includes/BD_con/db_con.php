@@ -9,7 +9,7 @@ $database = "pawsoyos_escalaciones_no_eliminar"; */
 $host = "172.20.97.102";
 $port = 3306;
 $user = "root";
-$password = "";
+$password = "KDM3HS1$6;cnoc";
 $database = "esacalaciones_cnoc";
 
 
