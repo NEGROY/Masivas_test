@@ -142,25 +142,20 @@ case 'TB_calculadora':
                 <i class='fa-solid fa-right-long'></i> </button>  ";
                 echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
-                <i class='fa-regular fa-message'></i> </button>  </td>";
+                <i class='fa-regular fa-message'></i> </button>  ";
+
+                echo " <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
+                onclick='toggleTable({$jsonDatos})' data-bs-toggle='tooltip' title='+2 horas'>
+                <i class='fa-solid fa-square-plus'></i></i> </button> "; 
             }
             else{
                  echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='plusdos({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
-                <i class='fa-regular fa-message'></i> </button>  </td>";
+                <i class='fa-regular fa-message'></i> </button> ";
             }
-                if ($contador == $totalFilas) {
-                echo " <button type='button' class='btn btn-outline-primary btn-sm rounded-pill shadow-sm px-3'
-                onclick='extraDos({$jsonDatos})' data-bs-toggle='tooltip' title='Extra'> +2 </button>";
-            }
-        echo "</tr>";
+            echo "</td>";
+
         $contador++;  
-        
-        /* $horaLlamada = $fila['tiempo']; 
-        $datosParaJS = [
-        'nivel' => $fila['nivel'],
-        'nombre' => $fila['nombre'],
-        'telefono' => $fila['telefono']  ]; */
 
     }
      /* validar si se cuenta con 2 horas mas 
@@ -170,7 +165,9 @@ case 'TB_calculadora':
         $horaLlamada->modify('+2 hours');
         $cuenta++; }*/
 
-    echo '</tbody> </table> </div>';
+    echo '</tbody> </table> </div>
+    <div id="tableContainer"></div>
+    ';
 
 break;
 

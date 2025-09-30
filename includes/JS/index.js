@@ -470,11 +470,82 @@ function plusdos(datos) {
     elemento.style.height = (elemento.scrollHeight) + 'px';
   }
 
-
   // PARA HABILITAR LOS BTN 
   function habilitarBuscar() {
     const select = document.getElementById('areasxpais');
     const boton = document.getElementById('btnBuscar');
     boton.disabled = (select.value === '');
     //document.getElementById('btnBuscar').disabled = false;
+  }
+
+// PARA IMPRIMIR LA TABLA DE REGISTROS EXTRA +2 HORAS 
+function toggleTable(datos) {
+  let registrosTabla = []; // GLOBAL
+  const tableContainer = document.getElementById('tableContainer'); // <--- aquí
+
+  registrosTabla.push(datos);
+
+  // Crear tabla si no existe
+  if (!document.getElementById('tablaExtra')) {
+    tableContainer.innerHTML = `
+      <table id="tablaExtra" class="table table-sm table-bordered mt-2">
+        <thead class="table-secondary">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Teléfono</th>
+            <th>Tiempo</th>
+            <th>Hora Suma</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    `;
+  }
+
+    const tbody = document.querySelector("#tablaExtra tbody");
+
+    // --- Fila original ---
+    const rowOriginal = document.createElement("tr");
+    rowOriginal.innerHTML = `
+      <td>1</td>
+      <td>${datos.nombre}</td>
+      <td>${datos.telefono}</td>
+      <td>${datos.tiempo} hrs</td>
+      <td>${datos.hr_suma}</td>`;
+    tbody.appendChild(rowOriginal);
+
+    // --- Generar 5 niveles extra sumando 2 horas cada vez ---
+    let [h, m, s] = datos.hr_suma.split(':').map(Number);
+    for (let i = 0; i < 5; i++) {
+      const nivel = i; // 2,3,4,5,6
+      const tiempo = i + 2; // Tiempo relativo
+      const totalMin = h * 60 + m + ((i + 1) * 120); // +2h, 4h, 6h...
+
+      const newH = Math.floor(totalMin / 60) % 24;
+      const newM = totalMin % 60;
+      const hrSuma = `${String(newH).padStart(2,'0')}:${String(newM).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+
+        // Sustituir hr_suma en el objeto datos
+        datos.hr_suma = hrSuma;
+
+      const rowExtra = document.createElement("tr");
+      rowExtra.innerHTML = `
+        <td>${nivel}</td>
+        <td>${datos.nombre}</td>
+        <td>${datos.telefono}</td>
+        <td>${tiempo} hrs</td>
+        <td>${hrSuma}</td>
+               <td>
+      <button class="btn btn-outline-success btn-sm rounded-pill px-2" onclick='tablerosave(${JSON.stringify(datos)})'>
+        <i class="fa-solid fa-right-long"></i>
+      </button>
+      <button class="btn btn-outline-secondary btn-sm rounded-pill px-2" onclick='mnsjEscala(${JSON.stringify(datos)})'>
+        <i class="fa-regular fa-message"></i>
+      </button>
+    </td> 
+      `;
+      tbody.appendChild(rowExtra);
+    }
   }
