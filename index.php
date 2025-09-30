@@ -143,6 +143,7 @@ window.onload = function () {
     document.getElementById('global-loader').style.display = 'none';
 };
 
+/// PARA QUE AL MOMENTO DE ENVIAR EL ID DE FALLA, SE RELLENE LOS CAMPOS
 function recarga(fallaID){
     $.ajax({
         url: "./views/crud/escalaciones.php",
@@ -153,7 +154,8 @@ function recarga(fallaID){
           const json = JSON.parse(data);
           //console.log("Objeto JSON:", json);
           const info = json.data[0]; // Primer objeto del array
-            desig(info.id_pais, info.area_id);
+          console.log("Información de la falla:", info); // para imprimir toda la info
+          desig(info.id, info.area_id);
           document.getElementById("pais").value = info.id_pais;
             // Asignar valores a inputs o elementos HTML
           document.getElementById("falla").value = info.falla_id;
@@ -174,24 +176,16 @@ function recarga(fallaID){
 
 function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
 condi = "TB_calculadora"; 
+dashboard = 1;
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
         success: function(data) {
             $("#TB_calcu").html(data);
     } })
 }
 
-
-    /* Inicializar DataTable
-    $(document).ready(function () {
-        $('#tablaContactos').DataTable({
-            language: {
-                url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-            }
-        });
-    });
-    */
+ 
 
 </script>

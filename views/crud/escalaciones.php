@@ -347,7 +347,7 @@ case 'recargash':
     $sql = 'SELECT 
     r.id_registro,  r.falla_id,  r.area_id, r.titulo, r.nivel,
     r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
-    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id_pais, p.nombre_pais
+    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id, p.nombre_pais
     FROM tb_escalaciones_registro r
     INNER JOIN tb_area_escalacion a ON r.area_id = a.id
     INNER JOIN tb_pais p ON a.id_pais = p.id
@@ -412,18 +412,6 @@ break;
 }
 
 
-
-
-    /* CONSULTA PARA QUE SE TRAIGAN LA TABLA DE ESCALACION SELECCIONADA 
-    SELECT 
-    e.nivel,
-    c.nombre,
-    c.telefono,
-    e.tiempo
-FROM tb_escalacion e
-INNER JOIN tb_contactos c ON e.id_contacto = c.id_contacto
-WHERE e.id_tipo_escalacion = 2;
-         */
-
+ 
 
 ?>

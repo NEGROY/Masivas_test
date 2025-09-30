@@ -229,7 +229,6 @@ async  function restar_Acumualdo(hrActual, tmpAcumu) {
     console.log(nuevaHoraMin, totalActualMin, totalAcumuMin, nuevaHora );
     return nuevaHora;
 }
-
  
 // FUNCION PARA CERRAR LAS FALLAS, ACTUALMENTE MANUAL 
 function cerrarMasiva() {
@@ -500,8 +499,7 @@ function toggleTable(datos) {
           </tr>
         </thead>
         <tbody></tbody>
-      </table>
-    `;
+      </table> `;
   }
 
     const tbody = document.querySelector("#tablaExtra tbody");
@@ -518,9 +516,11 @@ function toggleTable(datos) {
 
     // --- Generar 5 niveles extra sumando 2 horas cada vez ---
     let [h, m, s] = datos.hr_suma.split(':').map(Number);
+    const a = 2; // horas a sumar
+
     for (let i = 0; i < 5; i++) {
-      const nivel = i; // 2,3,4,5,6
-      const tiempo = i + 2; // Tiempo relativo
+      const nivel = i+1; // 2,3,4,5,6
+      const tiempo = a+ 2; // Tiempo relativo
       const totalMin = h * 60 + m + ((i + 1) * 120); // +2h, 4h, 6h...
 
       const newH = Math.floor(totalMin / 60) % 24;
