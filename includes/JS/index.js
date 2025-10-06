@@ -101,14 +101,8 @@ async function buscarDatos_api() {
 
     const esFallaAbierta = !encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "";
 
-    if (esFallaAbierta) {
-      botonCalcular.disabled = false;
-      campoCierre.value = "FALLA ABIERTA";
-    } else {
-      botonCalcular.disabled = true;
-      campoCierre.value = encontrado.CLOSE_TIME;
-    }
-
+    validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular); // Actualiza el estado del botón y campo de cierre
+    
     Swal.fire({
       text: "TK encontrado.",
       icon: "success",
@@ -126,6 +120,17 @@ async function buscarDatos_api() {
       timer: 2500
     });
   }
+}
+
+// Funcion para validar si la falla esta abierta o cerrada
+function validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular) {
+      if (esFallaAbierta) {
+      botonCalcular.disabled = false;
+      campoCierre.value = "FALLA ABIERTA";
+    } else {
+      botonCalcular.disabled = true;
+      campoCierre.value = encontrado.CLOSE_TIME;
+    }
 }
 
 // Funcion para las vista de solo mensajitos 
@@ -507,7 +512,7 @@ function toggleTable(datos) {
     // --- Fila original ---
     const rowOriginal = document.createElement("tr");
     rowOriginal.innerHTML = `
-      <td>1</td>
+      <td>0</td>
       <td>${datos.nombre}</td>
       <td>${datos.telefono}</td>
       <td>${datos.tiempo} hrs</td>
@@ -520,7 +525,7 @@ function toggleTable(datos) {
 
     for (let i = 0; i < 5; i++) {
       const nivel = i+1; // 2,3,4,5,6
-      const tiempo = a+ 2; // Tiempo relativo
+      const tiempo = a; // Tiempo relativo
       const totalMin = h * 60 + m + ((i + 1) * 120); // +2h, 4h, 6h...
 
       const newH = Math.floor(totalMin / 60) % 24;
@@ -535,7 +540,7 @@ function toggleTable(datos) {
         <td>${nivel}</td>
         <td>${datos.nombre}</td>
         <td>${datos.telefono}</td>
-        <td>${tiempo} hrs</td>
+        <td>2 hrs</td>
         <td>${hrSuma}</td>
                <td>
       <button class="btn btn-outline-success btn-sm rounded-pill px-2" onclick='tablerosave(${JSON.stringify(datos)})'>
@@ -549,3 +554,18 @@ function toggleTable(datos) {
       tbody.appendChild(rowExtra);
     }
   }
+
+
+function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
+condi = "TB_calculadora"; 
+dashboard = 1;
+    $.ajax({
+        url: "./views/crud/escalaciones.php",
+        method: "POST",
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
+        success: function(data) {
+            $("#TB_calcu").html(data);
+    } })
+}
+
+ 

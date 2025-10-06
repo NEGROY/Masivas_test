@@ -338,6 +338,7 @@ function tablero1(){
       data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'
       data-titulo='".htmlspecialchars($fila['titulo'])." '>
       
+      <p> {$fila['hora_escalacion']} </p>  
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
       <p><strong>Título:</strong> {$fila['titulo']} </p> </div>";
 

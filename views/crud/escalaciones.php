@@ -315,7 +315,6 @@ case 'recargash':
     $uniqID = $_POST["fallaID"];
 
     //AGRAGRA LA CONSULTA HACIA LA API E IMPRIMIR // falta  la url 
-    // $url = "http://172.20.97.102:8000/masivas/".$uniqID."?token=masivas2025";    F6252404
     $url = "http://172.20.97.102:8000/masivas/{$uniqID}?token=masivas2025";
     // Consumir la API con file_get_contents
     $response = file_get_contents($url);
@@ -334,20 +333,21 @@ case 'recargash':
     $tk         = mysqli_real_escape_string($general, $ticket['TK'] ?? '');
     $titulo     = mysqli_real_escape_string($general, $ticket['TITULO'] ?? '');
     $horaSumada = mysqli_real_escape_string($general, $ticket['HH_MM_SS'] ?? '');
+    $hora_cierre = !empty($ticket['CLOSE_TIME']) ? mysqli_real_escape_string($general, $ticket['CLOSE_TIME']) : '';
+
 
     if (!empty($tk)) {
         $query = "UPDATE tb_escalaciones_registro 
-                  SET titulo = '$titulo', tiempo_acumulado = '$horaSumada' 
+                  SET titulo = '$titulo', tiempo_acumulado = '$horaSumada', CLOSE_TIME = '$hora_cierre' 
                   WHERE falla_id = '$tk' AND estado = 1";
         mysqli_query($general, $query);
-    }
-    }
-    
+    }}
+
     //--- CONSULTA SQL 
     $sql = 'SELECT 
     r.id_registro,  r.falla_id,  r.area_id, r.titulo, r.nivel,
     r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
-    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id, p.nombre_pais
+    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id, p.nombre_pais, r.CLOSE_TIME
     FROM tb_escalaciones_registro r
     INNER JOIN tb_area_escalacion a ON r.area_id = a.id
     INNER JOIN tb_pais p ON a.id_pais = p.id

@@ -41,20 +41,6 @@ foreach ($tickets as $ticket) {
     $pais       = $ticket['PAIS'] ?? null;
     $tk_masiva  = $ticket['FALLA_MASIVA'] ?? null; 
 
-    //aqui se agrega la validacion de los datos de ark
-    /* $arkurl = "http://10.20.10.81/get_network_data/?wan=10.105.66.42";
-      // user: frt_ark_interno        pass: Uf!8$6mMG0qg
-      //consumir la API de ark (también puede ser un archivo si está en local)
-      $ark_response = file_get_contents($arkurl);
-      // Verificar si la respuesta es válida
-      if ($ark_response !== false) {
-        $ark_data = json_decode($ark_response, true);
-        // Procesar los datos de ark (ejemplo de valores)
-        $pe   = $ark_data['pe'] ?? null;
-        $vrf  = $ark_data['vrf'] ?? null;
-        $wan  = $ark_data['wan'] ?? null;
-      } */ /////////////// ANTES ESTABA COMENTADO ///////////////
-
     // Generar uniqid como combinación de FALLA_MASIVA y TG_ENLACE
     $uniqid = $tk_masiva . '' . $tk;
 

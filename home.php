@@ -8,7 +8,6 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-
   require_once 'includes/phpFun/fun.php';
   require_once './includes/2incl.php';
   require_once './views/miscelana/general.php';
@@ -20,6 +19,8 @@ if (!isset($_SESSION['usuario'])) {
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: Content-Type");
     header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+
+    loader();
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +47,7 @@ if (!isset($_SESSION['usuario'])) {
       <div class="p-3 border rounded-3 shadow-sm bg-light ">
       <!-- Input Falla -->
         <label for="falla" class="form-label">Falla ID:</label>
-        <input type="text" id="falla" name="falla" class="form-control mb-3" value='F6144046' placeholder="Fxxxx">
+        <input type="text" id="falla" name="falla" class="form-control mb-3"   placeholder="F6144046">
 
       <!-- Input Falla -->
         <label for="falla" class="form-label">HORA DE CIERRE</label>
@@ -98,8 +99,6 @@ if (!isset($_SESSION['usuario'])) {
 
 <?php mensajes(); ?>
 
-<div><?php loader()?></div>
-
 </body>
 </html>
 
@@ -112,12 +111,6 @@ if (!isset($_SESSION['usuario'])) {
         });
       });
     });
-
-    /* FUNCION PARA QUE RELLENE LA HORA ACTUAL DE FORMA AUTOMATICA 
-    document.addEventListener("DOMContentLoaded", () => {
-    const horaActual = new Date().toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
-    document.getElementById("horaActual").value = horaActual;
-    }); */
 
     window.addEventListener('DOMContentLoaded', () => {
       const paisSelect = document.getElementById('pais');
@@ -141,61 +134,68 @@ window.onload = function () {
     document.getElementById('global-loader').style.display = 'flex';
     // console.log(`ID: ${fallaID} | Área: ${areaSlct} | Hora apertura: ${hrActual} | Tiempo acumulado: ${tmpAcumu}`);
     recarga(fallaID);
-    /* recarga(fallaID).then(() => {
-      calcularTiempos(); }); */
-    // Aquí podrías llamar tu función AJAX o continuar con el flujo*/
     } else {
       console.warn("fallaID inválido o no proporcionado "+fallaID);  
-      // Ocultar loader global después de la petición
-      document.getElementById('global-loader').style.display = 'none';
+      // Ocultar loader global después de la petición // document.getElementById('global-loader').style.display = 'none';
     }
-    // Ocultar loader global después de la petición
-    document.getElementById('global-loader').style.display = 'none';
 };
 
-/// PARA QUE AL MOMENTO DE ENVIAR EL ID DE FALLA, SE RELLENE LOS CAMPOS
-function recarga(fallaID){
-    $.ajax({
-        url: "./views/crud/escalaciones.php",
-        method: "POST",
-        data: {fallaID: fallaID, condi:'recargash'},
-        success: function(data) {        
-          console.log("Respuesta del servidor:", data);
-          const json = JSON.parse(data);
-          //console.log("Objeto JSON:", json);
-          const info = json.data[0]; // Primer objeto del array
-          console.log("Información de la falla:", info); // para imprimir toda la info
-          desig(info.id, info.area_id);
-          document.getElementById("pais").value = info.id_pais;
-            // Asignar valores a inputs o elementos HTML
-          document.getElementById("falla").value = info.falla_id;
-          document.getElementById("horaActual").value = info.hora_apertura;
-          document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
-          document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
-          // select 
-          //$('#areasxpais').val(info.area_id).trigger('change');
-          // document.getElementById("areasxpais").value = info.area_id;
-          calcularTiempos2(info.titulo, info.falla_id, info.hora_apertura, info.tiempo_acumulado, info.area_id);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.error("Error AJAX:", textStatus, errorThrown);
+  
+// Función que carga la información de la falla y muestra un loader mientras tanto
+function recarga(fallaID) {
+
+  console.log("Cargando datos para falla ID:", fallaID);
+    const loader = document.getElementById('global-loader');
+    loader.style.display = 'flex'; // Mostrar loader
+
+  $.ajax({
+    url: "./views/crud/escalaciones.php",
+    method: "POST",
+    data: { fallaID: fallaID, condi: 'recargash' },
+    dataType: "json", // 👈 hace que jQuery lo parsee automáticamente
+    success: function (json) {
+      console.log("Respuesta del servidor:", json);
+
+      if (!json || !json.data || !json.data.length) {
+        console.warn("No se encontraron datos válidos");
+        return;
+      }
+
+      const info = json.data[0];
+      console.log("Información de la falla:", info);
+
+      // Llamadas a otras funciones o asignaciones
+      desig(info.id, info.area_id);
+      document.getElementById("pais").value = info.id_pais;
+      document.getElementById("falla").value = info.falla_id;
+      document.getElementById("horaActual").value = info.hora_apertura;
+      document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
+      document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
+
+        const esFallaAbierta = !info.CLOSE_TIME || info.CLOSE_TIME.trim() === "";
+        const botonCalcular = document.getElementById('btnCalcular');
+        const campoCierre = document.getElementById('CIERRE');
+        validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular); // Actualiza el estado del botón y campo de cierre
+
+      calcularTiempos2(
+        info.titulo,
+        info.falla_id,
+        info.hora_apertura,
+        info.tiempo_acumulado,
+        info.area_id
+      );
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+      console.error("Error AJAX:", textStatus, errorThrown);
+      alert("Ocurrió un error al cargar los datos. Intente nuevamente.");
+    },
+    complete: function () {
+      // ✅ Se ejecuta tanto si fue éxito como error
+      loader.style.display = 'none';
+      console.log("Carga de datos completada");
     }
-  }) 
-
+  });
 }
 
-function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
-condi = "TB_calculadora"; 
-dashboard = 1;
-    $.ajax({
-        url: "./views/crud/escalaciones.php",
-        method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
-        success: function(data) {
-            $("#TB_calcu").html(data);
-    } })
-}
-
- 
 
 </script>

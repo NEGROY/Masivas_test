@@ -23,7 +23,7 @@ if (!isset($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>tablero test </title>
+    <title>Tablero Masivas </title>
     <link rel="stylesheet" href="../includes/CSS/tablero.css">
 </head>
 <body>
