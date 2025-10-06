@@ -16,7 +16,7 @@ function listarHeader($url) {
             <ul class="nav justify-content-start py-2">
               
               <li class="nav-item">
-                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./index.php">
+                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./home.php">
                   <i class="bi bi-upload me-1"></i> Ingreso de Masiva
                 </a>
               </li>
@@ -32,6 +32,12 @@ function listarHeader($url) {
                   <i class="bi bi-exclamation-triangle me-1"></i> Fallas Asociadas
                 </a>
               </li>
+
+              <li class="nav-item">
+                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./logout.php">
+                  <i class="bi bi-exclamation-triangle me-1"></i> Cerrar Sesión
+                </a>
+              </li>>
 
             </ul>
           </div>
@@ -319,7 +325,7 @@ function tablero1(){
         $columna = "rojo";
     } 
 
-      $url = 'index.php?fallaID=' . urlencode($fila['falla_id']) .
+      $url = 'home.php?fallaID=' . urlencode($fila['falla_id']) .
       '&areaSlct=' . urlencode($fila['area_id']) .
       '&horaAper=' . urlencode($fila['hora_apertura']) .
       '&tmpAcumu=' . urlencode($fila['tiempo_acumulado']).

@@ -1,4 +1,14 @@
 <?php
+session_start();
+require_once("../config.php");
+
+if (!isset($_SESSION['usuario'])) {
+    echo $_SESSION['usuario'] . " No has iniciado sesión. Redirigiendo al login...";  
+    header('Location: ' . urlsite . 'index.php');
+    exit();
+}
+
+
   require_once '../includes/phpFun/fun.php';
   require_once '../includes/2incl.php';
   require_once '../views/miscelana/general.php';
@@ -43,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       if (fallaID && areaSlct && horaAper && tmpAcumu) {
         // const url = `../index.php?Fid=${encodeURIComponent(fallaID)}&slct=${encodeURIComponent(areaSlct)}&horaAper=${encodeURIComponent(horaAper)}&tmpAcumu=${encodeURIComponent(tmpAcumu)}&titulo=${encodeURIComponent(titulo)}`;
-        const url = `../index.php?Fid=${encodeURIComponent(fallaID)}`;
+        const url = `../home.php?Fid=${encodeURIComponent(fallaID)}`;
         window.location.href = url;
       } else {
         console.warn("Alguno de los datos no está definido");

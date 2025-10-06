@@ -1,4 +1,15 @@
 <?php
+session_start();
+require_once("../config.php");
+
+if (!isset($_SESSION['usuario'])) {
+    echo $_SESSION['usuario'] . " No has iniciado sesión. Redirigiendo al login...";  
+    header('Location: ' . urlsite . 'index.php');
+    exit();
+}
+
+
+
   require_once '../includes/phpFun/fun.php';
   require_once '../includes/2incl.php';
   require_once '../views/miscelana/general.php';
