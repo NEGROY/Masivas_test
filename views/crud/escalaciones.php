@@ -110,8 +110,9 @@ case 'TB_calculadora':
             if ($minutos > 0) {
                 $hora_acumulada->modify("+{$minutos} minutes");
             }
-            //$hora_acumulada->modify("+{$tiempo_sumar} hours");
-            $hr_suma    = $hora_acumulada->format("H:i:s");
+            //$hora_acumulada->modify("+{$tiempo_sumar} hours"); ||  $hr_suma    = $hora_acumulada->format("H:i:s");
+            $hr_suma = $hora_acumulada->format("Y-m-d H:i:s");
+
 
         // Crear objeto de datos
             $datos = [

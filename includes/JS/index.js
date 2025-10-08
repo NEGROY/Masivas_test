@@ -519,42 +519,48 @@ function toggleTable(datos) {
       <td>${datos.hr_suma}</td>`;
     tbody.appendChild(rowOriginal);
 
-    // --- Generar 5 niveles extra sumando 2 horas cada vez ---
-    let [h, m, s] = datos.hr_suma.split(':').map(Number);
-    const a = 2; // horas a sumar
+        // Convertir la fecha inicial a objeto Date
+        let fecha = new Date(datos.hr_suma);
 
-    for (let i = 0; i < 5; i++) {
-      const nivel = i+1; // 2,3,4,5,6
-      const tiempo = a; // Tiempo relativo
-      const totalMin = h * 60 + m + ((i + 1) * 120); // +2h, 4h, 6h...
+      // --- Generar 5 niveles extra sumando 2 horas acumulativamente ---
+        for (let i = 0; i < 5; i++) {
+            const nivel = i + 1;
+          
+          // Sumar 2 horas
+          fecha.setHours(fecha.getHours() + 2);
+          // Formatear la fecha a "YYYY-MM-DD HH:mm:ss"
+          const fechaStr = formatearFechaLocal(fecha);
+          // Sustituir hr_suma en el objeto datos
+          datos.hr_suma = fechaStr;
 
-      const newH = Math.floor(totalMin / 60) % 24;
-      const newM = totalMin % 60;
-      const hrSuma = `${String(newH).padStart(2,'0')}:${String(newM).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-
-        // Sustituir hr_suma en el objeto datos
-        datos.hr_suma = hrSuma;
-
-      const rowExtra = document.createElement("tr");
-      rowExtra.innerHTML = `
-        <td>${nivel}</td>
-        <td>${datos.nombre}</td>
-        <td>${datos.telefono}</td>
-        <td>2 hrs</td>
-        <td>${hrSuma}</td>
-               <td>
-      <button class="btn btn-outline-success btn-sm rounded-pill px-2" onclick='tablerosave(${JSON.stringify(datos)})'>
-        <i class="fa-solid fa-right-long"></i>
-      </button>
-      <button class="btn btn-outline-secondary btn-sm rounded-pill px-2" onclick='mnsjEscala(${JSON.stringify(datos)})'>
-        <i class="fa-regular fa-message"></i>
-      </button>
-    </td> 
-      `;
+        // Crear fila
+        const rowExtra = document.createElement("tr");
+        rowExtra.innerHTML = `
+          <td>${nivel}</td>
+          <td>${datos.nombre}</td>
+          <td>${datos.telefono}</td>
+          <td>+2 hrs</td>
+          <td>${fechaStr}</td>
+          <td>
+            <button class="btn btn-outline-success btn-sm rounded-pill px-2" onclick='tablerosave(${JSON.stringify(datos)})'>
+            <i class="fa-solid fa-right-long"> </i> </button>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill px-2" onclick='mnsjEscala(${JSON.stringify(datos)})'>
+            <i class="fa-regular fa-message"> </i> </button>
+          </td> `;
       tbody.appendChild(rowExtra);
     }
   }
 
+
+  function formatearFechaLocal(fecha) {
+  const anio = fecha.getFullYear();
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const horas = String(fecha.getHours()).padStart(2, '0');
+  const minutos = String(fecha.getMinutes()).padStart(2, '0');
+  const segundos = String(fecha.getSeconds()).padStart(2, '0');
+  return `${anio}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
+}
 
 function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
 condi = "TB_calculadora"; 
