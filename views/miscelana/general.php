@@ -309,7 +309,7 @@ function tablero1(){
 
   // Crear tarjetas
   while ($fila = mysqli_fetch_assoc($resultado)) {
-    $dif_segundos = calcular_diferencia_segundos($fila['hora_escalacion']);
+    $dif_segundos = calcular_diferencia_segundos($fila['hora_sumada']);
      $quemado = '';
     // Clasificar por tiempo restante
     if ($dif_segundos > 1200){
@@ -338,7 +338,7 @@ function tablero1(){
       data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'
       data-titulo='".htmlspecialchars($fila['titulo'])." '>
       
-      <p> {$fila['hora_escalacion']} </p>  
+      <p> *Eliminar esto: * {$fila['hora_escalacion']} </p>  
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
       <p><strong>Título:</strong> {$fila['titulo']} </p> </div>";
 
