@@ -191,6 +191,7 @@ function buscarWan(tk) {
   const wanInput = document.getElementById('wan_' + tk).value.trim();
   const regexIP = /^(?:\d{1,3}\.){3}\d{1,3}$/;
 
+  
   // Validar que no esté vacío
   if (wanInput === "") {
     Swal.fire({
