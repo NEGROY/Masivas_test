@@ -338,12 +338,13 @@ function tablero1(){
       data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'
       data-titulo='".htmlspecialchars($fila['titulo'])." '>
       
-      <p> *Eliminar esto: * {$fila['hora_escalacion']} </p>  
+
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
       <p><strong>Título:</strong> {$fila['titulo']} </p> </div>";
 
     echo "<script>document.getElementById('$columna').innerHTML += `" . $card . "`;</script>";
   }
+  /*      <p> *Eliminar esto: * {$fila['hora_escalacion']} </p>  */
 }
 
 // Función para convertir hora_sumada a timestamp
