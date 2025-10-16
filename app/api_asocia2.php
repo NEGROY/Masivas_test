@@ -37,18 +37,20 @@ foreach ($tickets as $ticket) {
     $enlace     = $ticket['TG_ENLACE'] ?? null;
     $company    = $ticket['COMPANY'] ?? null;
     $close_time = $ticket['CLOSE_TIME'] ?? null;
+    $OPEN_TIME = $ticket['OPEN_TIME'] ?? null;
     $desc       = $ticket['BRIEF_DESCRIPTION'] ?? null;
     $pais       = $ticket['PAIS'] ?? null;
     $tk_masiva  = $ticket['FALLA_MASIVA'] ?? null; 
-
+    
     // Generar uniqid como combinación de FALLA_MASIVA y TG_ENLACE
     $uniqid = $tk_masiva . '' . $tk;
-
+    //echo $OPEN_TIME . "<br>". $tk;
+    
     // Ejecutar el insert con ON DUPLICATE KEY UPDATE
     $sql = "
         INSERT INTO tb_fallas_asociadas 
-        (uniqid, tk_id, tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso)
-        VALUES ('$uniqid', '$tk', '$tk_masiva', '$enlace', '$company', '$close_time', '$desc', '$pais', current_timestamp())
+        (uniqid, tk_id, tk_masiva, ENLACE, COMPANY, CLOSE_TIME, DESCRIPTION, PAIS, fecha_ingreso, OPEN_TIME)
+        VALUES ('$uniqid', '$tk', '$tk_masiva', '$enlace', '$company', '$close_time', '$desc', '$pais', current_timestamp(), '$OPEN_TIME')
         ON DUPLICATE KEY UPDATE
             COMPANY = '$company',
             CLOSE_TIME = '$close_time',
@@ -59,33 +61,81 @@ foreach ($tickets as $ticket) {
     //echo $sql;
 }
 
-
 // le pidio favor que imprimas 
 mostrar_html($general, $fallaID);
+// vamos a AGREGAR UN TITULO CON LA FECHA DE APERTURA 
+// tituloFalla($general, $fallaID);
+
 
 $general->close();
 
+// FUNCION PARA MOSTRAR EL TITULO DE LA FALLA
+function tituloFalla($general, $fallaID) {
+    $fallaID = mysqli_real_escape_string($general, $fallaID);
 
+    $url = "http://172.20.97.102:8000/masivas/{$fallaID}?token=masivas2025";
+    $response = @file_get_contents($url);
+
+    if ($response === false) {
+        echo "<script>document.getElementById('tituloFalla').innerText = 'Error al obtener datos de la API';</script>";
+        return;
+    }
+
+    $data = json_decode($response, true);
+    $ticket = $data['data'][0] ?? null;
+
+    if ($ticket) {
+        $desc = $ticket['TITULO'] ?? 'Descripción no disponible';
+        $fecha_apertura = $ticket['OPEN_TIME'] ?? 'Fecha no disponible';
+        echo "<script>
+                document.getElementById('tituloFalla').innerText = " . json_encode("Falla: {$desc} | Apertura: {$fecha_apertura}") . ";
+              </script>";
+    } else {
+        echo "<script>
+                document.getElementById('tituloFalla').innerText = 'Falla no encontrada';
+              </script>";
+    }
+}
 function mostrar_html($general, $fallaID) {
     $fallaID = mysqli_real_escape_string($general, $fallaID);
 
-    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, PE, WAN, VRF,  DESCRIPTION, PAIS, fecha_ingreso
+    /* ==========================================================
+       1. OBTENER OPEN_TIME DE LA FALLA MASIVA DESDE API
+    ========================================================== */
+    $url = "http://172.20.97.102:8000/masivas/{$fallaID}?token=masivas2025";
+    $response = @file_get_contents($url);
+
+    $open_time_masiva = null;
+    if ($response !== false) {
+        $dataMasiva = json_decode($response, true);
+        $ticketMasiva = $dataMasiva['data'][0] ?? null;
+        $open_time_masiva = $ticketMasiva['OPEN_TIME'] ?? null;
+    }
+
+    /* ==========================================================
+       2. CONSULTAR FALLAS ASOCIADAS DESDE BD
+    ========================================================== */
+    $query = "SELECT id, uniqID, tk_masiva, TK_id, ENLACE, COMPANY, CLOSE_TIME, OPEN_TIME,
+                     PE, WAN, VRF, DESCRIPTION, PAIS, fecha_ingreso
               FROM esacalaciones_cnoc.tb_fallas_asociadas
               WHERE tk_masiva = '$fallaID'
-              ORDER by PAIS";
+              ORDER BY PAIS";
 
     $result = mysqli_query($general, $query);
 
     if (mysqli_num_rows($result) === 0) {
-      echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
-      return;
+        echo "<p class='text-muted'>No hay fallas asociadas registradas.</p>";
+        return;
     }
 
     echo '<div class="card shadow-sm p-4">';
     echo '<h5 class="mb-4">Fallas asociadas</h5>';
+    echo '<h1 id="tituloFalla"></h1>';
     echo '<div class="row g-3">';
 
-    $contador = 1;
+    /* ==========================================================
+       3. RECORRER CADA FALLA ASOCIADA
+    ========================================================== */
     while ($row = mysqli_fetch_assoc($result)) {
         $borderClass = match ($row['PAIS']) {
             'GT' => 'border-primary',
@@ -97,95 +147,83 @@ function mostrar_html($general, $fallaID) {
 
         $descripcion = $row['DESCRIPTION'] ?: 'Sin descripción';
         $area = $row['COMPANY'] ?: 'Sin empresa';
-        $tiempo = date('d/m/Y H:i', strtotime($row['CLOSE_TIME'] ?? 'now'));
-        $uniq = htmlspecialchars($row['uniqID']); // identificador único
+        $tiempo_cierre = $row['CLOSE_TIME'] ? date('d/m/Y H:i', strtotime($row['CLOSE_TIME'])) : 'Sin cierre';
+        $uniq = htmlspecialchars($row['uniqID']);
+        $PE = $row['PE'] ?: '';
+        $WAN = $row['WAN'] ?: '';
+        $VRF = $row['VRF'] ?: '';
 
-        //datos PARA EL ARK 
-        $PE = $row['PE'] ?: ' ';
-        $WAN = $row['WAN'] ?: ' ';
-        $VRF = $row['VRF'] ?: ' ';
+        // --- VALIDAR SI ESTÁ DESFASADA ---
+        $mensajeDesfase = '';
+        if ($open_time_masiva && $row['OPEN_TIME']) {
+            $masiva_date = strtotime($open_time_masiva);
+            $ticket_date = strtotime($row['OPEN_TIME']);
+            $horasresta = $ticket_date - $masiva_date; 
+            // Convertir a horas
+            $horasresta = round($horasresta / 3600);
+
+
+            if ($ticket_date < $masiva_date) {
+                $mensajeDesfase = "<span class='badge bg-warning text-dark ms-2'>⚠ Falla desfasada</span> $horasresta hrs diferencia";
+            }
+        }
 ?>
+
     <div class="col-12 mb-3">
       <div class="border-start border-4 <?= $borderClass; ?> ps-3 py-3 px-3 bg-white rounded shadow-sm">
         <div class="d-flex justify-content-between align-items-start">
           <div class="flex-grow-1">
-            <p class="mb-1 fw-semibold text-dark">Falla #<?= htmlspecialchars($row['TK_id']) ?>: <?= htmlspecialchars($descripcion); ?></p>
+            <p class="mb-1 fw-semibold text-dark">
+              Falla #<?= htmlspecialchars($row['TK_id']) ?>: <?= htmlspecialchars($descripcion); ?>
+              <?= $mensajeDesfase ?>
+            </p>
             <small class="text-muted">
               TK: <?= $row['TK_id']; ?> |
               Enlace: <?= htmlspecialchars($row['ENLACE'] ?: 'Sin enlace'); ?> |
               Área: <?= $area; ?> |
               País: <?= $row['PAIS']; ?> |
-              Cierre: <?= $tiempo; ?>
+              Apertura: <?= date('d/m/Y H:i', strtotime($row['OPEN_TIME'] ?? 'now')); ?> |
+              Cierre: <?= $tiempo_cierre; ?>
             </small>
           </div>
           <div class="order-2 p-2">
-          <button class="btn btn-outline-info btn-sm" onclick="buscarWan('<?= $uniq ?>')">Buscar WAN</button>
-          <button class="btn btn-outline-danger btn-sm" onclick="deletetk('<?= $uniq ?>')">Eliminar</button>
+            <button class="btn btn-outline-info btn-sm" onclick="buscarWan('<?= $uniq ?>')">Buscar WAN</button>
+            <button class="btn btn-outline-danger btn-sm" onclick="deletetk('<?= $uniq ?>')">Eliminar</button>
           </div>
         </div>
 
   <form class="mt-3 row gx-2 gy-1 align-items-end" id="<?= $uniq ?>" onsubmit="guardarInputs(event)">
-  
-    <input hidden id="pe_<?= $uniq ?>" value="<?=$uniq?>" name="pe" >
-
+    <input hidden id="pe_<?= $uniq ?>" value="<?=$uniq?>" name="pe">
     <div class="col-12 col-md-3">
       <div class="input-group input-group-sm">
         <span class="input-group-text">PE</span>
-        <input type="text" class="form-control" id="pee_<?= $uniq ?>" value="<?=$PE?>" name="pe" >
+        <input type="text" class="form-control" id="pee_<?= $uniq ?>" value="<?=$PE?>" name="pe">
       </div>
     </div>
-
     <div class="col-12 col-md-3">
       <div class="input-group input-group-sm">
         <span class="input-group-text">VRF</span>
-        <input type="text" class="form-control" id="vrf_<?= $uniq ?>" value="<?=$VRF?>" name="vrf" >
+        <input type="text" class="form-control" id="vrf_<?= $uniq ?>" value="<?=$VRF?>" name="vrf">
       </div>
     </div>
-
     <div class="col-12 col-md-3">
       <div class="input-group input-group-sm">
         <span class="input-group-text">WAN</span>
-        <input type="text" class="form-control" id="wan_<?= $uniq ?>" value="<?=$WAN?>" name="wan" >
+        <input type="text" class="form-control" id="wan_<?= $uniq ?>" value="<?=$WAN?>" name="wan">
       </div>
     </div>
-
-  <div class="col-12 col-md-3 d-grid">
-    <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
-  </div>
-
-  <div class="col-12 col-md-3 d-grid" id="btns_<?= $uniq ?>">    </div>
-</form>
+    <div class="col-12 col-md-3 d-grid">
+      <button type="submit" class="btn btn-outline-dark btn-sm">Guardar</button>
+    </div>
+    <div class="col-12 col-md-3 d-grid" id="btns_<?= $uniq ?>"></div>
+  </form>
       </div>
     </div>
 <?php
-        $contador++;
     }
 
-    echo '</div></div>'; // Cierra .row y .card
+    echo '</div></div>'; // cierre de row y card
 }
 
-
-/*/ Extraer los tickets/*
-$tickets = $data['data'];
-$total = $data['total'];
-*/
-
-/* CREATE TABLE TB_fallas_asociadas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    tk_masiva VARCHAR(20) NOT NULL,
-    tk_id     VARCHAR(20) NOT NULL,
-    ENLACE VARCHAR(50),
-    COMPANY VARCHAR(100),
-    CLOSE_TIME DATETIME,
-    DESCRIPTION TEXT,
-    PAIS VARCHAR(5),
-    fecha_ingreso TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
-        // Escapar todos los valores
-    //$tk         = safe_escape($general, $tk);
-    $enlace     = safe_escape($general, $enlace);
-    $company    = safe_escape($general, $company);
-    $desc       = safe_escape($general, $desc);
-
-); */
+ 
 ?>

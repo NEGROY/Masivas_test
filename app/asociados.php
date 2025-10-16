@@ -77,6 +77,9 @@ if (!isset($_SESSION['usuario'])) {
 </html>
 
 <script>
+// variable para validar si hay error en los campos
+  let fallaValida = false;
+
 // BOTON PARA MBUSCAR LOS DATOS DE LA FALLA 
 function fallamasiva(){
     const fallaID = document.getElementById('fallaIDInput').value.trim();
@@ -110,6 +113,7 @@ function fallamasiva(){
         complete: function() {
             // Ocultar loader global después de la petición
             document.getElementById('global-loader').style.display = 'none';
+            fallaValida = true;
         }
     });
 }
@@ -148,10 +152,12 @@ function guardarInputs(event) {
 }
 
 // funcion para exportar a excel  // Exportar Excel
-    function exportarExcel() {
-      const tkidActual = document.getElementById("fallaIDInput").value;
-        if (!tkidActual) return;
-      document.getElementById("formExport").submit();
+function exportarExcel() {
+  if (!fallaValida) {
+    alert("Debes buscar una falla válida antes de exportar.");
+    return;
+  }
+  document.getElementById("formExport").submit();
 }
 
 // elimanar un registro 
