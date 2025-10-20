@@ -101,8 +101,9 @@ async function buscarDatos_api() {
     document.getElementById('open_time').value = encontrado.OPEN_TIME;
 
     const esFallaAbierta = !encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "";
+    console.log(esFallaAbierta );
 
-    validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular); // Actualiza el estado del botón y campo de cierre
+    validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular, encontrado.CLOSE_TIME); // Actualiza el estado del botón y campo de cierre
     
     Swal.fire({
       text: "TK encontrado.",
@@ -124,13 +125,13 @@ async function buscarDatos_api() {
 }
 
 // Funcion para validar si la falla esta abierta o cerrada
-function validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular) {
+function validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular, CLOSE_TIME) {
       if (esFallaAbierta) {
       botonCalcular.disabled = false;
       campoCierre.value = "FALLA ABIERTA";
     } else {
       botonCalcular.disabled = true;
-      campoCierre.value = encontrado.CLOSE_TIME;
+      campoCierre.value = CLOSE_TIME;
     }
 }
 
