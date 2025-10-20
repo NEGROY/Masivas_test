@@ -92,12 +92,13 @@ async function buscarDatos_api() {
       });
     }
 
-    console.log(`TK encontrado: ${encontrado.TK}, Horas sin cliente: ${encontrado.total_menos_cliente_horas}, HH:MM:SS: ${encontrado.HH_MM_SS}`);
+    console.log(`TK encontrado: ${encontrado.TK}, Hora open: ${encontrado.OPEN_TIME}, HH:MM:SS: ${encontrado.HH_MM_SS}`);
 
     const hora = encontrado.OPEN_TIME.split('T')[1] || '';
     document.getElementById('horaActual').value = hora;
     document.getElementById('tiempoAcumulado').value = encontrado.HH_MM_SS;
     document.getElementById('titulo').textContent = encontrado.TITULO;
+    document.getElementById('open_time').value = encontrado.OPEN_TIME;
 
     const esFallaAbierta = !encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "";
 
@@ -109,7 +110,7 @@ async function buscarDatos_api() {
       timer: 1500,
       showConfirmButton: false
     }).then(() => {
-      if (esFallaAbierta) calcularTiempos(1);
+      if (esFallaAbierta) calcularTiempos(1, 'notaGenerada');
     });
 
   } catch (error) {
@@ -143,9 +144,9 @@ async function buscardatos() {
       }
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
-async function calcularTiempos(dashboard) {
+async function calcularTiempos(dashboard,txtarea) {
     let hrActual = document.getElementById('horaActual').value.trim();
-    const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
+    const tmpAcumu = document.getElementById('tiempoAcumulado2').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
     const fallaID = document.getElementById('falla').value;
     const titulo = document.getElementById('titulo').textContent;
@@ -192,7 +193,7 @@ async function calcularTiempos(dashboard) {
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea},
         success: function(data) {
         $("#TB_calcu").html(data);
         if( dashboard == 0 ){
@@ -201,6 +202,21 @@ async function calcularTiempos(dashboard) {
     } }) 
     return;
 }
+
+// IMPRIME PARA COPIAR la tabla de escalacion 
+    function tb_copy(titulo,fallaID,hrActual,tmpAcumu,areaSlct){ 
+      condi = "msj_tb"; 
+        $.ajax({
+            url: "./views/crud/escalaciones.php",
+            method: "POST",
+            data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
+            success: function(data) {
+            $("#notaGenerada2").html(data);
+            console.log("tabla generada",titulo,fallaID,hrActual,tmpAcumu,areaSlct);  
+        } }) 
+    return;
+      } 
+
 
 
 // funcion para calcular la hora restando 
@@ -285,7 +301,6 @@ function mnsjEscala(data){
     *${data.titulo}*
     SE INDICA TIEMPO Y CLIENTES  `;
 
-
     const wasapp = 
     `*DETALLES DE LA ESCALACIÓN DE FALLA MASIVA*
     Se escala con ${data.nombre}
@@ -304,6 +319,7 @@ function mnsjEscala(data){
     document.getElementById('notaGenerada').value = mensaje;
     document.getElementById('wasapp').value = wasapp;
 
+    tb_copy(data.titulo,data.fallaID,data.hrActual,data.tmpAcumu,data.areaSlct);
     console.log("Mensaje generado:\n", data);    
 }
 
@@ -435,37 +451,40 @@ function apiasociados() {
 }
 
 // funcion para imprimir cada dos horas 
-function plusdos(datos) {
-    let output = "";
-    output += "================================================================================\n";
-    output += `  ESCALACIÓN:  ${datos.titulo}  (Falla ID: ${datos.fallaID})\n`;
-    output += "================================================================================\n";
-    output += "| Nivel | Nombre          | Teléfono     | Tiempo | Comentario           | Tipo     | Hr Suma  |\n";
-    output += "--------------------------------------------------------------------------------\n";
+function plusdos(datos, txtarea) {
+  let output = "";
+  output += "================================================================================\n";
+  output += `  ESCALACIÓN:  ${datos.titulo}  (Falla ID: ${datos.fallaID})\n`;
+  output += "================================================================================\n";
+  output += "| Nivel | Nombre          | Teléfono     | Tiempo | Comentario           | Tipo     | Hr Suma  |\n";
+  output += "--------------------------------------------------------------------------------\n";
 
-      // Primera escalación (nivel 1) con datos originales
-    output += `| 1     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0  | ${datos.hr_suma} |\n`;
+  // Primera escalación (nivel 1) con datos originales
+  output += `| 1     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0     | ${datos.hr_suma} |\n`;
 
-    // Usar hrActual como base, sumar 1, 2, 3 horas extra (cada 2h en hrSuma)
-    let [h, m, s] = datos.hr_suma.split(':').map(Number);
-      for (let i = 0; i < 3; i++) {
-      const nivel = i + 2;                    // niveles 2, 3, 4
-      const tiempo = i + 1;                   // tiempos 1, 2, 3
-      const totalMin = h * 60 + m + ((i + 1) * 120);  // suma 2h, 4h, 6h
+  // Crear objeto Date a partir de hr_suma
+  let fecha = new Date(datos.hr_suma);
 
-      const newH = Math.floor(totalMin / 60) % 24;
-      const newM = totalMin % 60;
-      const hrSuma = `${String(newH).padStart(2, '0')}:${String(newM).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+  for (let i = 0; i < 3; i++) {
+    const nivel = i + 2;   // niveles 2, 3, 4
+    const tiempo = i + 1;  // tiempos 1, 2, 3
 
-            // Agregar fila
-            output += `| ${nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${tiempo}   |   ${hrSuma} |\n`;
-        }
-      
-    output += "================================================================================";
+    // Sumar 2 horas (sin reasignar)
+    fecha.setHours(fecha.getHours() + 2);
 
-    // Asignar al textarea
-    document.getElementById('notaGenerada').value = output;
+    // Formatear la fecha en YYYY-MM-DD HH:mm:ss
+    const hrSuma = fecha.toISOString().replace('T', ' ').substring(0, 19);
+
+    // Agregar fila
+    output += `| ${nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${tiempo}     | ${hrSuma} |\n`;
+  }
+
+  output += "================================================================================";
+
+  // Asignar al textarea
+  document.getElementById(txtarea).value = output;
 }
+
 
 
 // -----
@@ -546,6 +565,8 @@ function toggleTable(datos) {
             <i class="fa-solid fa-right-long"> </i> </button>
             <button class="btn btn-outline-secondary btn-sm rounded-pill px-2" onclick='mnsjEscala(${JSON.stringify(datos)})'>
             <i class="fa-regular fa-message"> </i> </button>
+            <button class="btn btn-outline-secondary btn-sm rounded-pill px-2" onclick='plusdos(${JSON.stringify(datos)} , "notaGenerada")' >
+            <i class="fa-regular fa-message"> </i> </button>
           </td> `;
       tbody.appendChild(rowExtra);
     }
@@ -562,13 +583,15 @@ function toggleTable(datos) {
   return `${anio}-${mes}-${dia} ${horas}:${minutos}:${segundos}`;
 }
 
-function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct) {
+
+// FUNCION DE Calcular para la RECARFA 
+function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct,txtarea) {
 condi = "TB_calculadora"; 
 dashboard = 1;
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea},
         success: function(data) {
             $("#TB_calcu").html(data);
     } })

@@ -63,6 +63,7 @@ case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
     $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"];      $dashboard  = $_POST["dashboard"];  
+    $txtarea = $_POST["txtarea"];
     // falta titulo, ticket, #AFECTADOS, 
     
     // Consulta Para los contactos  
@@ -84,7 +85,7 @@ case 'TB_calculadora':
         
     $contador = 1; // Asegúrate de inicializar el contador
     $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
-
+    
     // PARA VALIDAR SI ES LA ULTIMA FILA 
     $totalFilas = mysqli_num_rows($resultado);
     $contador   = 0;
@@ -151,8 +152,9 @@ case 'TB_calculadora':
             }
             else{
                  echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
-                onclick='plusdos({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
+                onclick='plusdos({$jsonDatos}, &quot;$txtarea&quot; )' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button> ";
+                
             }
             echo "</td>";
 
@@ -223,7 +225,7 @@ case 'msj_tb':
                             substr($fila['nombre'], 0, 15),
                             $fila['telefono'],
                             $fila['tiempo'],
-                            substr($fila['comentario'], 0, 20),
+                            substr($fila['comentario'] ?? '', 0, 20),
                             substr($fila['tipo'], 0, 8),
                             $hr_suma);
 
@@ -334,12 +336,13 @@ case 'recargash':
     $tk         = mysqli_real_escape_string($general, $ticket['TK'] ?? '');
     $titulo     = mysqli_real_escape_string($general, $ticket['TITULO'] ?? '');
     $horaSumada = mysqli_real_escape_string($general, $ticket['HH_MM_SS'] ?? '');
+    $OPEN_TIME  = mysqli_real_escape_string($general, $ticket['OPEN_TIME'] ?? '');
     $hora_cierre = !empty($ticket['CLOSE_TIME']) ? mysqli_real_escape_string($general, $ticket['CLOSE_TIME']) : '';
 
 
     if (!empty($tk)) {
         $query = "UPDATE tb_escalaciones_registro 
-                  SET titulo = '$titulo', tiempo_acumulado = '$horaSumada', CLOSE_TIME = '$hora_cierre' 
+                  SET titulo = '$titulo', tiempo_acumulado = '$horaSumada', CLOSE_TIME = '$hora_cierre',  OPEN_TIME = '$OPEN_TIME'
                   WHERE falla_id = '$tk' AND estado = 1";
         mysqli_query($general, $query);
     }}
@@ -348,7 +351,7 @@ case 'recargash':
     $sql = 'SELECT 
     r.id_registro,  r.falla_id,  r.area_id, r.titulo, r.nivel,
     r.nombre, r.telefono, r.tiempo, r.hora_apertura, r.hora_sumada,
-    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id, p.nombre_pais, r.CLOSE_TIME
+    r.tiempo_acumulado, r.comentario, r.estado,  r.fecha_registro, p.id, p.nombre_pais, r.CLOSE_TIME, r.OPEN_TIME
     FROM tb_escalaciones_registro r
     INNER JOIN tb_area_escalacion a ON r.area_id = a.id
     INNER JOIN tb_pais p ON a.id_pais = p.id
@@ -356,7 +359,6 @@ case 'recargash':
 
     $stmt = $general->prepare($sql);
     $stmt->bind_param("s", $uniqID);
-
     
     if ($stmt->execute()) {
         $result = $stmt->get_result();

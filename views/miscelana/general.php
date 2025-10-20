@@ -129,8 +129,17 @@ function fila_hras() {
 
       <div class="row g-3 justify-content-center align-items-end">
 
+      <!-- TIEMPO ACUMULADO -->
+      <div class="col-md-2">
+        <div class="input-group flex-column flex-md-row">
+          <span class="input-group-text w-100 text-center">OPEN</span>
+          <input type="datetime-local" id="open_time" class="form-control text-center" 
+            placeholder="00:00:00" data-bs-toggle="tooltip" title="open_time" autocomplete="off" >
+        </div>
+      </div>
+
 <!-- HORA ACTUAL -->
-<div class="col-md-3">
+<div class="col-md-2">
   <div class="input-group flex-column flex-md-row">
     <span class="input-group-text w-100 text-center">Hora Apertura</span>
     <input type="time" id="horaActual" class="form-control text-center"
@@ -139,7 +148,7 @@ function fila_hras() {
 </div>
 
 <!-- TIEMPO ACUMULADO -->
-<div class="col-md-3">
+<div class="col-md-2">
   <div class="input-group flex-column flex-md-row">
     <span class="input-group-text w-100 text-center">Tiempo Acumulado</span>
     <input type="text" id="tiempoAcumulado" class="form-control text-center" 
@@ -147,9 +156,21 @@ function fila_hras() {
   </div>
 </div>
 
+  <!-- TIEMPO ACUMULADO -->
+<div class="col-md-2">
+  <div class="input-group flex-column flex-md-row">
+    <span class="input-group-text w-100 text-center">Restar Horas</span>
+    <input type="time" id="tiempoAcumulado2" class="form-control text-center"
+      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0, 'notaGenerada')";
+      data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
+  </div>
+</div>
+ 
+
+
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
-          <button type="button" class="btn btn-secondary" onclick="calcularTiempos(1)"
+          <button type="button" class="btn btn-secondary" onclick=""
           data-bs-toggle="tooltip" id="btnCalcular" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 
@@ -190,9 +211,9 @@ function fila_hras2() {
   <!-- TIEMPO ACUMULADO -->
 <div class="col-md-3">
   <div class="input-group flex-column flex-md-row">
-    <span class="input-group-text w-100 text-center">Acumulado</span>
+    <span class="input-group-text w-100 text-center">Restar Horas</span>
     <input type="time" id="tiempoAcumulado" class="form-control text-center"
-      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0)";
+      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0, 'notaGenerada')";
       data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
   </div>
 </div>
@@ -244,6 +265,20 @@ function mensajes(){
   </div>
  </div>
 
+ <!-- Columna izquierda (7/12) -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fas fa-comment-dots text-muted"></i>
+        </span>
+        <textarea id="notaGenerada2" class="form-control border-start-0 small " rows="9" placeholder="tabla de escalación..." autocomplete="off"></textarea>
+        <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada2')"
+        data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
+      </div>
+    </div>
+
   <?php
 }
 
@@ -266,6 +301,21 @@ function msj_tb(){
           </button>
       </div>
     </div>
+
+     <!-- Columna derecha  (7/12) -->
+    <div class="col-md-6">
+      <div class="input-group">
+        <span class="input-group-text bg-light border-end-2">
+          <i class="fas fa-comment-dots text-muted"></i>
+        </span>
+        <textarea id="notaGenerada2" class="form-control border-start-0 small " rows="9" placeholder="tabla de escalación..." autocomplete="off"></textarea>
+        <button class="btn btn-outline-secondary" type="button" onclick="copiarTextoWhatsApp('notaGenerada2')"
+        data-bs-toggle="tooltip" title="copialo tu mensaje!">
+          <i class="fa-solid fa-copy"></i>
+          </button>
+      </div>
+    </div>
+
 
   </div> </div>
   <?php
@@ -407,15 +457,5 @@ function tablerohueco() {
   <?php
 }
 
-/*  apara colocar horas aleatorias 
-UPDATE tb_escalaciones_registro
-SET hora_sumada  = SEC_TO_TIME(FLOOR(3600 * (11 + RAND() * 10))); 
-
-    $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
-    hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
-    FROM tb_escalaciones_registro WHERE estado = 1
-    order by hora_sumada" ;
-    
-    */
-
+ 
 ?>

@@ -79,13 +79,12 @@ if (!isset($_SESSION['usuario'])) {
 
   <!-- Columna de  TB escalación  -->
   <div class="col-9">
-    <small class="text-muted d-block pr-2" id='titulo'> - </small>  
+    <b><small class="text-muted d-block pr-2" id='titulo'  > - </small></b>
     
     <?php fila_hras(); ?>
     <div class="container">
-      <small class="text-muted d-block pr-2" id='titulos'> - </small>
+      <h3 class="text-muted d-block pr-2" id='titulos'> - </h3>
     </div>
-    
     <div class="container TB_calcu mt-9" id='TB_calcu'>
       <br>
       
@@ -171,7 +170,9 @@ function recarga(fallaID) {
       document.getElementById("horaActual").value = info.hora_apertura;
       document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
       document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
-
+      // OPEN TIME, PARA INGRESAR LOS VALORES 
+      document.getElementById("open_time").value = decodeURIComponent(info.OPEN_TIME);
+      
         const esFallaAbierta = !info.CLOSE_TIME || info.CLOSE_TIME.trim() === "";
         const botonCalcular = document.getElementById('btnCalcular');
         const campoCierre = document.getElementById('CIERRE');
@@ -182,7 +183,8 @@ function recarga(fallaID) {
         info.falla_id,
         info.hora_apertura,
         info.tiempo_acumulado,
-        info.area_id
+        info.area_id,
+        "notaGenerada"
       );
     },
     error: function (jqXHR, textStatus, errorThrown) {

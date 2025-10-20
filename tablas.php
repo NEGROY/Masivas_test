@@ -60,7 +60,7 @@
 
       <!-- Botón de búsqueda -->
         <br>
-        <button type="button" class="btn btn-primary w-100" onclick="calcularTiempos(0)" id="btnBuscar"  >
+        <button type="button" class="btn btn-primary w-100" onclick="calcularTiempos(0, 'notaGenerada')" id="btnBuscar"  >
         <i class="bi bi-search me-1"></i> Calcular </button>
       </div>
     </div>
@@ -94,17 +94,6 @@
 
 <script>
 
-    function tb_copy(titulo,fallaID,hrActual,tmpAcumu,areaSlct){ 
-      condi = "msj_tb"; 
-        $.ajax({
-            url: "./views/crud/escalaciones.php",
-            method: "POST",
-            data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi},
-            success: function(data) {
-            $("#notaGenerada").html(data);
-        } }) 
-    return;
-      } 
 
 
   //  FUNCION PARA QUE MUESTRE TABLA PARA COPIAR 
