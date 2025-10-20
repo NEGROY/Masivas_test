@@ -134,15 +134,15 @@ function fila_hras() {
         <div class="input-group flex-column flex-md-row">
           <span class="input-group-text w-100 text-center">OPEN</span>
           <input type="datetime-local" id="open_time" class="form-control text-center" 
-            placeholder="00:00:00" data-bs-toggle="tooltip" title="open_time" autocomplete="off" >
+            aceholder="aaaa-mm-ddThh:mm" data-bs-toggle="tooltip" title="open_time" autocomplete="off" >
         </div>
       </div>
 
-<!-- HORA ACTUAL -->
-<div class="col-md-2">
+<!-- HORA ACTUAL col-md-2 -->
+<div class="" style="display: none;">
   <div class="input-group flex-column flex-md-row">
     <span class="input-group-text w-100 text-center">Hora Apertura</span>
-    <input type="time" id="horaActual" class="form-control text-center"
+    <input type="time" id="horaActual" class="form-control text-center" 
       step="2" autocomplete="off" placeholder="14:00:00">
   </div>
 </div>
@@ -159,18 +159,15 @@ function fila_hras() {
   <!-- TIEMPO ACUMULADO -->
 <div class="col-md-2">
   <div class="input-group flex-column flex-md-row">
-    <span class="input-group-text w-100 text-center">Restar Horas</span>
-    <input type="time" id="tiempoAcumulado2" class="form-control text-center"
-      placeholder="1:30 hr" pattern="^\d{1,2}:\d{2}$" value="00:00" onchange="calcularTiempos(0, 'notaGenerada')";
-      data-bs-toggle="tooltip" title="Formato: H:MM hr" autocomplete="off">
+    <span class="input-group-text w-100 text-center">Escalacion</span>
+    <input type="number" id="acumulado" class="form-control text-center" placeholder="1" value="1" 
+      data-bs-toggle="tooltip" title="Nivel Escalacion" autocomplete="off" min="1" max="9">
   </div>
 </div>
- 
-
 
         <!-- BOTÓN -->
         <div class="col-md-2 d-grid">
-          <button type="button" class="btn btn-secondary" onclick=""
+          <button type="button" class="btn btn-secondary" onclick="calcularTiempos(1, 'notaGenerada')"
           data-bs-toggle="tooltip" id="btnCalcular" title="Muestra la tabla de escalación." >Calcular</button>
         </div>
 

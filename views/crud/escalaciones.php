@@ -63,9 +63,12 @@ case 'TB_calculadora':
     // datos desde el AJAX
     $hrActual = $_POST["hrActual"];  $tmpAcumu = $_POST["tmpAcumu"];   $areaSlct = $_POST["areaSlct"];
     $fallaID  = $_POST["fallaID"];   $titulo  = $_POST["titulo"];      $dashboard  = $_POST["dashboard"];  
-    $txtarea = $_POST["txtarea"];
+    $txtarea = $_POST["txtarea"];    $nivel   = $_POST["nivel"];
     // falta titulo, ticket, #AFECTADOS, 
-    
+
+    /// validamos el nivel 
+    $nivel  = validarNivel($nivel);
+
     // Consulta Para los contactos  
         $query = "SELECT 
         e.nivel,c.nombre,c.telefono,e.tiempo,e.comentario,tte.tipo  
@@ -84,7 +87,6 @@ case 'TB_calculadora':
     echo '</tr> </thead> <tbody>';
         
     $contador = 1; // Asegúrate de inicializar el contador
-    $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
     
     // PARA VALIDAR SI ES LA ULTIMA FILA 
     $totalFilas = mysqli_num_rows($resultado);
@@ -99,21 +101,26 @@ case 'TB_calculadora':
             : "";
         // Ícono según tipo
             $iconoTipo = obtenerIconoTipo($fila['tipo']);
-        // **SUMATORIA DE TIEMPO**
-            $tiempo_sumar = (float)$fila['tiempo'];// convertir a entero
-            $horas = floor($tiempo_sumar);  
-            $minutos = round(($tiempo_sumar - $horas) * 60);
 
-            $hora_acumulada = new DateTime($hrActual);
-            if ($horas > 0) {
-                $hora_acumulada->modify("+{$horas} hours");
-            }
-            if ($minutos > 0) {
-                $hora_acumulada->modify("+{$minutos} minutes");
-            }
-            //$hora_acumulada->modify("+{$tiempo_sumar} hours"); ||  $hr_suma    = $hora_acumulada->format("H:i:s");
-            $hr_suma = $hora_acumulada->format("Y-m-d H:i:s");
+            // === VALIDACIÓN DE NIVEL ===
+             if ( $fila['nivel'] >= $nivel) {
+                // **SUMATORIA DE TIEMPO**
+                 $tiempo_sumar = (float)$fila['tiempo']; // convertir a número decimal
+                 $horas = floor($tiempo_sumar);  
+                 $minutos = round(($tiempo_sumar - $horas) * 60);
 
+                 $hora_acumulada = new DateTime($hrActual); // Objeto DateTime para hora acumulada
+                 if ($horas > 0) $hora_acumulada->modify("+{$horas} hours");
+                 if ($minutos > 0) $hora_acumulada->modify("+{$minutos} minutes");
+                 
+                 $hr_suma = $hora_acumulada->format("Y-m-d H:i:s");
+                 
+             } else {
+                     // Si el nivel actual es menor o igual al nivel del registro,
+                 // imprimir valores vacíos o en cero sin calcular tiempo
+                 $hr_suma = "00:00:00";
+                 $tiempo_sumar = 0;
+             }
 
         // Crear objeto de datos
             $datos = [
@@ -154,7 +161,6 @@ case 'TB_calculadora':
                  echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='plusdos({$jsonDatos}, &quot;$txtarea&quot; )' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button> ";
-                
             }
             echo "</td>";
 
@@ -239,8 +245,6 @@ case 'msj_tb':
     echo $tablaTxt;
     exit;
 break;
-
-
 
 // PARA INSERTAR EN LA TABLA DEL TABLERO
 case 'insertb':
@@ -414,7 +418,21 @@ break;
     }
 }
 
+// funcion para validar el nivel que sea entero y no negativo 
 
+function validarNivel($nivel) {
+    // Verifica si no es un número
+    if (!is_numeric($nivel)) {
+        return 1;
+    }
+    // Convierte a entero
+    $nivel = (int)$nivel;
+    // Verifica que esté en el rango permitido
+    if ($nivel < 0 || $nivel >= 10) {
+        return 1;
+    }
+    return $nivel; 
+}
  
 
 ?>

@@ -145,16 +145,21 @@ async function buscardatos() {
 
 // PARA CAPTURAR LOS DATOS DE LA CALCULADA DE TIMEPO 
 async function calcularTiempos(dashboard,txtarea) {
-    let hrActual = document.getElementById('horaActual').value.trim();
-    const tmpAcumu = document.getElementById('tiempoAcumulado2').value.trim();
+  // esta valiable solo funcional when dashboard  0 
+  const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
+    
+
+    let hrActual = document.getElementById('open_time').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
     const fallaID = document.getElementById('falla').value;
     const titulo = document.getElementById('titulo').textContent;
 
+    const nivel = document.getElementById('acumulado').value.trim();
+
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
 
     // Validaciones básicas no null 
-    if (!hrActual || !tmpAcumu || !areaSlct) {
+    if (!hrActual || !nivel || !areaSlct) {
         Swal.fire({
             icon: 'warning',
             title: 'Campos vacíos',
@@ -169,7 +174,7 @@ async function calcularTiempos(dashboard,txtarea) {
       const areaValue = selectedOption.value;
       $("#titulos").html(areaText);
 
-    // validamos como esta la HORA PICO
+    /* validamos como esta la HORA PICO
     if (!regexHora.test(hrActual)) {
         Swal.fire({
             icon: 'error',
@@ -178,7 +183,7 @@ async function calcularTiempos(dashboard,txtarea) {
             timer: 1500
         });
         return;
-    }
+    } */
 
     // Si dashboard == 0, actualizar el campo
     if (dashboard === 0 & tmpAcumu != "00:00") {
@@ -193,7 +198,7 @@ async function calcularTiempos(dashboard,txtarea) {
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea, nivel},
         success: function(data) {
         $("#TB_calcu").html(data);
         if( dashboard == 0 ){
