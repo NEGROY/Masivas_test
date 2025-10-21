@@ -54,6 +54,7 @@ function valdiaFAlla(falla) {
             icon: "warning",
             timer: 1500
         });
+        toggleLoader(0);
         return null;
     }
     falla = falla.replace(/\s+/g, '').toUpperCase();
@@ -68,6 +69,9 @@ function valdiaFAlla(falla) {
 
 // **************** PSEUDO API PARA LA BUSQUEDA 
 async function buscarDatos_api() {
+
+  toggleLoader(1);
+
   const tkEntrada = document.getElementById('falla').value.trim();
   const resultadoDiv = document.getElementById('resultado');
   const botonCalcular = document.getElementById('btnCalcular');
@@ -76,7 +80,7 @@ async function buscarDatos_api() {
   const TK = valdiaFAlla(tkEntrada);
   if (!TK) return;
 
-  const url = `http://172.20.97.102:8000/masivas/${tkEntrada}?token=masivas2025`;
+  const url = `http://172.20.97.102:8503/masivas/${tkEntrada}?token=masivas2025`;
   console.log(`Consultando API: ${url}`);
 
   try {
@@ -113,6 +117,7 @@ async function buscarDatos_api() {
       showConfirmButton: false
     }).then(() => {
       if (esFallaAbierta) calcularTiempos(1, 'notaGenerada');
+      toggleLoader(0);
     });
 
   } catch (error) {
@@ -421,8 +426,8 @@ function apiasociados() {
     const TK = valdiaFAlla(tkEntrada);
     if (!TK) return; // Si la validación falla, se detiene la función
 
-    let url = `http://172.20.97.102:8000/masivas/list/${tkEntrada}?token=masivas2025`;
-    fetch('http://172.20.97.102:8000/masivas/list/F5875158?token=masivas2025') 
+    let url = `http://172.20.97.102:8503/masivas/list/${tkEntrada}?token=masivas2025`;
+    fetch('http://172.20.97.102:8503/masivas/list/F5875158?token=masivas2025') 
       .then(response => response.json())
       .then(data => {
         const encontrado = data.data.find(item => item.TK === TK);
@@ -604,4 +609,14 @@ dashboard = 1;
     } })
 }
 
- 
+// funcion para el loader enviar 1 o 0 || 
+ function toggleLoader(state) {
+    const loader = document.getElementById('global-loader');
+    if (!loader) return; // Evita error si el elemento no existe
+
+    if (state === 1) {
+        loader.style.display = 'flex'; // Mostrar loader
+    } else if (state === 0) {
+        loader.style.display = 'none'; // Ocultar loader
+    }
+}

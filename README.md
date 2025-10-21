@@ -43,11 +43,11 @@ https://select2.org/getting-started/installation
 - ----------------------------------------------------
 
  ESTE ES PARA LISTAR
-http://172.20.97.102:8000/masivas?token=masivas2025
+http://172.20.97.102:8503/masivas?token=masivas2025
 BUSCAR INFORMACION MASIVA
-http://172.20.97.102:8000/masivas/F6144046?token=masivas2025
-http://172.20.97.102:8000/masivas/list/F5875158?token=masivas2025
-http://172.20.97.102:8000/connection
+http://172.20.97.102:8503/masivas/F6144046?token=masivas2025
+http://172.20.97.102:8503/masivas/list/F5875158?token=masivas2025
+http://172.20.97.102:8503/connection
 VALIDAR CONECXION
 
 23/06/24

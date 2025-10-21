@@ -321,7 +321,7 @@ case 'recargash':
     $uniqID = $_POST["fallaID"];
 
     //AGRAGRA LA CONSULTA HACIA LA API E IMPRIMIR // falta  la url 
-    $url = "http://172.20.97.102:8000/masivas/{$uniqID}?token=masivas2025";
+    $url = "http://172.20.97.102:8503/masivas/{$uniqID}?token=masivas2025";
     // Consumir la API con file_get_contents
     $response = file_get_contents($url);
     // se debera de validar con / la concexion el marlon  
@@ -412,6 +412,8 @@ break;
             return "<i class='fab fa-whatsapp fa-s text-success'></i>";
         case 'correo':
             return "<i class='fas fa-envelope fa-s text-danger'></i>";
+        case 'teams':
+            return "<i class='fa fa-address-card text-primary'></i>";
         default:
             return ""; // Sin ícono si no hay coincidencia
     }

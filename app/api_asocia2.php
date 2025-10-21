@@ -8,7 +8,7 @@ function safe_escape($general, $value) {
     $fallaID = $_POST["fallaID"];
     //echo $fallaID;
     // URL de la API
-    $url = "http://172.20.97.102:8000/masivas/list/{$fallaID}?token=masivas2025"; // ← cambia esto a la URL real
+    $url = "http://172.20.97.102:8503/masivas/list/{$fallaID}?token=masivas2025"; // ← cambia esto a la URL real
     // Consumir la API con file_get_contents
     $response = @file_get_contents($url);
     // Verificar si no hay respuesta o si el servidor devolvió un error
@@ -73,7 +73,7 @@ $general->close();
 function tituloFalla($general, $fallaID) {
     $fallaID = mysqli_real_escape_string($general, $fallaID);
 
-    $url = "http://172.20.97.102:8000/masivas/{$fallaID}?token=masivas2025";
+    $url = "http://172.20.97.102:8503/masivas/{$fallaID}?token=masivas2025";
     $response = @file_get_contents($url);
 
     if ($response === false) {
@@ -93,7 +93,9 @@ function tituloFalla($general, $fallaID) {
     } else {
         echo "<script>
                 document.getElementById('tituloFalla').innerText = 'Falla no encontrada';
-              </script>";
+              toggleLoader(0);
+                </script>";
+              
     }
 }
 function mostrar_html($general, $fallaID) {
@@ -102,7 +104,7 @@ function mostrar_html($general, $fallaID) {
     /* ==========================================================
        1. OBTENER OPEN_TIME DE LA FALLA MASIVA DESDE API
     ========================================================== */
-    $url = "http://172.20.97.102:8000/masivas/{$fallaID}?token=masivas2025";
+    $url = "http://172.20.97.102:8503/masivas/{$fallaID}?token=masivas2025";
     $response = @file_get_contents($url);
 
     $open_time_masiva = null;
