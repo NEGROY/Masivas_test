@@ -39,7 +39,8 @@ function desig(id, area) {
             $('#areasxpais').val(area).trigger('change');
 
             const select = document.getElementById('areasxpais');
-            const areaSlct2 = select.options[select.selectedIndex].text;
+            const areaSlct2 = $("#areasxpais option:selected").text() || "";
+            //const areaSlct2 = select.options[select.selectedIndex].text;
             $("#titulos").html(areaSlct2);
         }
     });

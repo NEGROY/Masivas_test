@@ -45,10 +45,9 @@ case 'tb_areas': #areas por pais
         FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
         #se realiza la consulta 
-        $resultado = mysqli_query($general, $consulta);
-         echo "<option  value='0'  > - </option>";
+        $resultado = mysqli_query($general, $consulta);  
     if (mysqli_num_rows($resultado) > 0) {
-        echo "<option selected> - </option>";
+        echo "<option > - </option>";
         while ($row = mysqli_fetch_assoc($resultado)) {
             echo "<option value='{$row['id_area']}'> {$row['nombre_area']}</option>";
             }
