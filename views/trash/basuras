@@ -141,7 +141,9 @@ Seguimiento : SE ENCONTRÓ  PUNTO DE CORTE, ACTUALMENTE  ESTÁ CORRIENDO RESERVA
         </tr>
       </thead>
       <?php 
-        include '../includes/BD_con/db_con.php';
+               
+      // BD VARIABLES DE ENTORNO 
+      require_once __DIR__ . '/includes/BD_con/db_con.php';
         $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
           hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
           FROM tb_escalaciones_registro  limit 6";

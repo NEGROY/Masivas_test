@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once("config.php");
+require_once("config.php"); 
 include './includes/BD_con/db_con.php';
 
 // Si se envía el formulario
