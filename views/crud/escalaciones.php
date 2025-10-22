@@ -263,6 +263,10 @@ case 'insertb':
                                 SET estado = 0 
                                 WHERE falla_id = '$fallaID' AND estado = 1";
             mysqli_query($general, $queryUpdateEstado);
+            
+            // aqui mismo agregar la funcion para enviar los mensajes,
+            // enviarsmj($general, $datos), si existe se cambia a cero e insertar uno nuevo en 1 
+
         }
     // Armar la consulta SQL de inserción (modo string)
         $query_preview = "INSERT INTO tb_escalaciones_registro (
@@ -435,5 +439,8 @@ function validarNivel($nivel) {
     return $nivel; 
 }
  
+
+// funcion para realizar ENVIO DE MENSAJES AL WAHA CONSUMO DE API 
+
 
 ?>

@@ -472,13 +472,12 @@ function plusdos(datos, txtarea) {
   output += "--------------------------------------------------------------------------------\n";
 
   // Primera escalación (nivel 1) con datos originales
-  output += `| 1     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0     | ${datos.hr_suma} |\n`;
+  output += `| ${datos.nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0     | ${datos.hr_suma} |\n`;
 
   // Crear objeto Date a partir de hr_suma
   let fecha = new Date(datos.hr_suma);
 
   for (let i = 0; i < 3; i++) {
-    const nivel = i + 2;   // niveles 2, 3, 4
     const tiempo = i + 1;  // tiempos 1, 2, 3
 
     // Sumar 2 horas (sin reasignar)
@@ -488,7 +487,7 @@ function plusdos(datos, txtarea) {
     const hrSuma = fecha.toISOString().replace('T', ' ').substring(0, 19);
 
     // Agregar fila
-    output += `| ${nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${tiempo}     | ${hrSuma} |\n`;
+    output += `| ${datos.nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${tiempo}     | ${hrSuma} |\n`;
   }
 
   output += "================================================================================";
@@ -515,8 +514,12 @@ function plusdos(datos, txtarea) {
 
 // PARA IMPRIMIR LA TABLA DE REGISTROS EXTRA +2 HORAS 
 function toggleTable(datos) {
+ // toggleLoader(1);
+
   let registrosTabla = []; // GLOBAL
   const tableContainer = document.getElementById('tableContainer'); // <--- aquí
+  // Limpiar el contenedor antes de crear la tabla
+  //tableContainer.innerHTML = "";
 
   registrosTabla.push(datos);
 
@@ -543,7 +546,7 @@ function toggleTable(datos) {
     // --- Fila original ---
     const rowOriginal = document.createElement("tr");
     rowOriginal.innerHTML = `
-      <td>0</td>
+      <td>${datos.nivel}</td>
       <td>${datos.nombre}</td>
       <td>${datos.telefono}</td>
       <td>${datos.tiempo} hrs</td>
@@ -567,7 +570,7 @@ function toggleTable(datos) {
         // Crear fila
         const rowExtra = document.createElement("tr");
         rowExtra.innerHTML = `
-          <td>${nivel}</td>
+          <td>${datos.nivel}</td>
           <td>${datos.nombre}</td>
           <td>${datos.telefono}</td>
           <td>+2 hrs</td>
@@ -582,9 +585,11 @@ function toggleTable(datos) {
           </td> `;
       tbody.appendChild(rowExtra);
     }
+
+   // toggleLoader(0);
   }
 
-
+// FUNCION DE FORAMTO DE FECHAS LOCAL 
   function formatearFechaLocal(fecha) {
   const anio = fecha.getFullYear();
   const mes = String(fecha.getMonth() + 1).padStart(2, '0');
