@@ -67,6 +67,10 @@ case 'TB_calculadora':
 
     /// validamos el nivel 
     $nivel  = validarNivel($nivel);
+    // se obtiene el esatdo del tb usuario
+    // si el estado es 1 es admin si es 5 solo puede generar mensajes y no muestra nada en el navbar
+        session_start();
+        $permiso = $_SESSION['estado'];
 
     // Consulta Para los contactos  
         $query = "SELECT 
@@ -144,24 +148,20 @@ case 'TB_calculadora':
         echo "<td>{$fila['telefono']} {$iconoTipo}</td>";
         echo "<td>{$fila['tiempo']} Horas</td>";
         echo "<td><label class='form-label'>" . $hr_suma . " Hrs</label></td> ";
-        if ($dashboard == 1) {
-            echo "<td> <button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
-                onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
-                <i class='fa-solid fa-right-long'></i> </button>  ";
+        echo "<td> ";
                 echo "<button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='mnsjEscala({$jsonDatos})' data-bs-toggle='tooltip' title='Genera Mesajes'>
                 <i class='fa-regular fa-message'></i> </button>  ";
-
                 echo " <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
                 onclick='toggleTable({$jsonDatos})' data-bs-toggle='tooltip' title='+2 horas'>
                 <i class='fa-solid fa-square-plus'></i></i> </button> "; 
+
+            if ($permiso == 1) {
+                echo "<button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
+                onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
+                <i class='fa-solid fa-right-long'></i> </button> ";
             }
-            else{
-                 echo "<td> <button type='button' class='btn btn-outline-secondary btn-sm rounded-pill shadow-sm px-3'
-                onclick='plusdos({$jsonDatos}, &quot;$txtarea&quot; )' data-bs-toggle='tooltip' title='Genera Mesajes'>
-                <i class='fa-regular fa-message'></i> </button> ";
-            }
-            echo "</td>";
+        echo "</td>";
 
         $contador++;  
 
@@ -464,6 +464,7 @@ function mensajeswaha($pdo, $datos, $estado) {
     $numero = "120363405171657332@g.us";
 
     // Preparar datos para insertar
+    session_start();
     $datosInsert = [
         'nombre'      => $datos['fallaID'],
         'telefono'    => $numero,

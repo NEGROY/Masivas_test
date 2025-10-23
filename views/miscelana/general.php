@@ -3,6 +3,7 @@
 
 #HEADER GENERICO PARA QUE SE VEA MAS BONITO 
 function listarHeader($url) {
+    $permiso = $_SESSION['estado'];
     ?>
   <header class="shadow-sm mb-4">
     <!-- Top Bar -->
@@ -14,7 +15,9 @@ function listarHeader($url) {
         <nav class="bg-light border-top border-bottom" style="border-radius: 20px;">
           <div class="container">
             <ul class="nav justify-content-start py-2">
-              
+              <?php 
+                   if ($permiso == 1) {
+              ?>
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./home.php">
                   <i class="bi bi-upload me-1"></i> Ingreso de Masiva
@@ -32,7 +35,9 @@ function listarHeader($url) {
                   <i class="bi bi-exclamation-triangle me-1"></i> Fallas Asociadas
                 </a>
               </li>
-
+              <?php 
+                   };
+              ?>
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./logout.php">
                   <i class="bi bi-exclamation-triangle me-1"></i> Cerrar Sesión

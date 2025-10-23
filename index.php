@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (md5($clave) === $user['pass']) {
             $_SESSION['usuario'] = $user['nombre'];
             $_SESSION['id'] = $user['id'];
+            $_SESSION['estado'] = $user['estado'];
             header('Location: ' . urlsite.'home.php'); // Redirige correctamente header("Location: home.php");
             exit();
         } else {

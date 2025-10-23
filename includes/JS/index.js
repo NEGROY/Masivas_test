@@ -154,13 +154,11 @@ async function buscardatos() {
 async function calcularTiempos(dashboard,txtarea) {
   // esta valiable solo funcional when dashboard  0 
   const tmpAcumu = document.getElementById('tiempoAcumulado').value.trim();
-    
 
     let hrActual = document.getElementById('open_time').value.trim();
     const areaSlct = document.getElementById('areasxpais').value;
     const fallaID = document.getElementById('falla').value;
     const titulo = document.getElementById('titulo').textContent;
-
     const nivel = document.getElementById('acumulado').value.trim();
 
     const regexHora = /^([01]\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/;
