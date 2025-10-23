@@ -170,6 +170,7 @@ function recarga(fallaID) {
       document.getElementById("horaActual").value = info.hora_apertura;
       document.getElementById("tiempoAcumulado").value = info.tiempo_acumulado;
       document.getElementById("titulo").textContent = decodeURIComponent(info.titulo);
+      document.getElementById('acumulado').value =  info.nivel;
       // OPEN TIME, PARA INGRESAR LOS VALORES 
       document.getElementById("open_time").value = decodeURIComponent(info.OPEN_TIME);
       
@@ -184,7 +185,8 @@ function recarga(fallaID) {
         info.hora_apertura,
         info.tiempo_acumulado,
         info.area_id,
-        "notaGenerada"
+        "notaGenerada",
+        info.nivel
       );
     },
     error: function (jqXHR, textStatus, errorThrown) {

@@ -602,13 +602,13 @@ function toggleTable(datos) {
 
 
 // FUNCION DE Calcular para la RECARFA 
-function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct,txtarea) {
+function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct,txtarea,nivel) {
 condi = "TB_calculadora"; 
 dashboard = 1;
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",
-        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea},
+        data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea, nivel },
         success: function(data) {
             $("#TB_calcu").html(data);
     } })

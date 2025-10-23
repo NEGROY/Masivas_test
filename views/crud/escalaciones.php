@@ -265,9 +265,10 @@ case 'insertb':
             mysqli_query($general, $queryUpdateEstado);
             
             // aqui mismo agregar la funcion para enviar los mensajes,
-            // enviarsmj($general, $datos), si existe se cambia a cero e insertar uno nuevo en 1 
-
+            mensajeswaha($pdo, $data_falla, 1); // si existe se cambia a cero e insertar uno nuevo en 1 
         }
+        // enviarsmj($general,  $data_falla, 0), si existe se cambia a cero e insertar uno nuevo en 0
+
     // Armar la consulta SQL de inserción (modo string)
         $query_preview = "INSERT INTO tb_escalaciones_registro (
             area_id, nivel, nombre, telefono, tiempo, 
@@ -440,7 +441,50 @@ function validarNivel($nivel) {
 }
  
 
-// funcion para realizar ENVIO DE MENSAJES AL WAHA CONSUMO DE API 
+function mensajeswaha($pdo, $datos, $estado) {
+    // Si estado = 1, actualizar a 1 los mensajes existentes
+    if ($estado == 1) {
+        $sqlUpdate = "UPDATE mensajes SET estado = 1 WHERE nombre = :fallaID AND estado = 0";
+        $stmtUpdate = $pdo->prepare($sqlUpdate);
+        $stmtUpdate->execute(['fallaID' => $datos['fallaID']]);
+    }
+
+    // Restar 15 minutos a hr_suma
+    $fechaEnvio = new DateTime($datos['hr_suma']);
+    $fechaEnvio->modify('-15 minutes');
+    $fechaEnvioStr = $fechaEnvio->format('Y-m-d H:i:s');
+
+    // Construir el mensaje
+    $mensaje  = "*RECORDATORIO DE ESCALACIÓN DE INCIDENTE*\n\n";
+    $mensaje .= "*Falla ID*: {$datos['fallaID']}\n";
+    $mensaje .= "*Fecha/Hora de Escalación*: {$datos['hr_suma']}\n";
+    $mensaje .= "\n{$datos['titulo']}";
+
+    // Número de destino (grupo STATUS WAHA)
+    $numero = "120363405171657332@g.us";
+
+    // Preparar datos para insertar
+    $datosInsert = [
+        'nombre'      => $datos['fallaID'],
+        'telefono'    => $numero,
+        'mensaje'     => $mensaje,
+        'fecha_envio' => $fechaEnvioStr,
+        'estado'      => 0,
+        'tipo'        => "@g.us",
+        'today'       => date('Y-m-d H:i:s'),
+        'user'        => $_SESSION['usuario'] ?? 'ESCALA'
+    ];
+
+    // Insertar en la base
+    $sqlInsert = "INSERT INTO mensajes (nombre, telefono, mensaje, fecha_envio, estado, tipo, today, user)
+                  VALUES (:nombre, :telefono, :mensaje, :fecha_envio, :estado, :tipo, :today, :user)";
+
+    $stmtInsert = $pdo->prepare($sqlInsert);
+    $stmtInsert->execute($datosInsert);
+
+    return true;
+}
+
 
 
 ?>
