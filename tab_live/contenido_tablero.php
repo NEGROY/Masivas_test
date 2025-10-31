@@ -21,7 +21,7 @@ $tarjetas = [
 $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
 hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro 
 FROM tb_escalaciones_registro 
-WHERE estado = 1 
+WHERE estado = 1 and Gestor = 'MASIVAS'
 ORDER BY hora_sumada";
 
 $resultado = mysqli_query($general, $query);

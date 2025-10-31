@@ -177,7 +177,10 @@ function recarga(fallaID) {
         const esFallaAbierta = !info.CLOSE_TIME || info.CLOSE_TIME.trim() === "";
         const botonCalcular = document.getElementById('btnCalcular');
         const campoCierre = document.getElementById('CIERRE');
-        validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular); // Actualiza el estado del botón y campo de cierre
+        
+        console.log(`TK encontrado: ${esFallaAbierta}`);
+
+        validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular, info.CLOSE_TIME); // Actualiza el estado del botón y campo de cierre
 
       calcularTiempos2(
         info.titulo,

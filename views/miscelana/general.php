@@ -338,7 +338,7 @@ function tablero1(){
             INTERVAL ROUND((tiempo - FLOOR(tiempo)) * 60) MINUTE
           ) end
           hora_escalacion
-          FROM tb_escalaciones_registro WHERE estado = 1
+          FROM tb_escalaciones_registro WHERE estado = 1  AND Gestor = 'MASIVAS' 
           order by hora_sumada;";
 
     $resultado = mysqli_query($general, $query);

@@ -261,7 +261,7 @@ case 'insertb':
         if (!empty($fallaID)) {
             $queryUpdateEstado = "UPDATE tb_escalaciones_registro 
                                 SET estado = 0 
-                                WHERE falla_id = '$fallaID' AND estado = 1";
+                                WHERE falla_id = '$fallaID' AND estado = 1 AND Gestor = 'MASIVAS'";
             mysqli_query($general, $queryUpdateEstado);
             
             // aqui mismo agregar la funcion para enviar los mensajes,
@@ -273,7 +273,7 @@ case 'insertb':
         $query_preview = "INSERT INTO tb_escalaciones_registro (
             area_id, nivel, nombre, telefono, tiempo, 
             hora_apertura, hora_sumada, tiempo_acumulado,
-            titulo, comentario, falla_id, estado
+            titulo, comentario, falla_id, estado, gestor 
             ) VALUES (
             {$valores['areaSlct']},
             '{$valores['nivel']}',
@@ -286,7 +286,7 @@ case 'insertb':
             '{$valores['titulo']}',
             '{$valores['comentario']}',
             '{$valores['fallaID']}',
-            1 );";
+            1, 'MASIVAS' );";
 
     // HOLAS 
         $ok = mysqli_query($general, $query_preview);
@@ -351,7 +351,7 @@ case 'recargash':
     if (!empty($tk)) {
         $query = "UPDATE tb_escalaciones_registro 
                   SET titulo = '$titulo', tiempo_acumulado = '$horaSumada', CLOSE_TIME = '$hora_cierre',  OPEN_TIME = '$OPEN_TIME'
-                  WHERE falla_id = '$tk' AND estado = 1";
+                  WHERE falla_id = '$tk' AND estado = 1 AND Gestor = 'MASIVAS' ";
         mysqli_query($general, $query);
     }}
 
@@ -363,7 +363,7 @@ case 'recargash':
     FROM tb_escalaciones_registro r
     INNER JOIN tb_area_escalacion a ON r.area_id = a.id
     INNER JOIN tb_pais p ON a.id_pais = p.id
-    WHERE r.falla_id = ? AND  r.estado = 1 ;';
+    WHERE r.falla_id = ? AND  r.estado = 1  AND r.Gestor = "MASIVAS" ;';
 
     $stmt = $general->prepare($sql);
     $stmt->bind_param("s", $uniqID);
@@ -390,7 +390,7 @@ case 'cerrarmasiva':
     $uniqID = $_POST["fallaID"];
 
     if (!empty($uniqID)) {
-        $sql = "UPDATE tb_escalaciones_registro SET estado = 0 WHERE falla_id = ?";
+        $sql = "UPDATE tb_escalaciones_registro SET estado = 0 WHERE falla_id = ?  AND Gestor = 'MASIVAS' ";
         $stmt = $general->prepare($sql);
         
         $stmt->bind_param("s", $uniqID);
