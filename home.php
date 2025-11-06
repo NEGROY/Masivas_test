@@ -174,11 +174,10 @@ function recarga(fallaID) {
       // OPEN TIME, PARA INGRESAR LOS VALORES 
       document.getElementById("open_time").value = decodeURIComponent(info.OPEN_TIME);
       
-        const esFallaAbierta = !info.CLOSE_TIME || info.CLOSE_TIME.trim() === "";
+        const esFallaAbierta = !info.CLOSE_TIME || info.CLOSE_TIME.trim() === ""; //        console.log(`TK encontrado: ${esFallaAbierta}`);
         const botonCalcular = document.getElementById('btnCalcular');
         const campoCierre = document.getElementById('CIERRE');
         
-        console.log(`TK encontrado: ${esFallaAbierta}`);
 
         validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular, info.CLOSE_TIME); // Actualiza el estado del botón y campo de cierre
 
@@ -189,7 +188,8 @@ function recarga(fallaID) {
         info.tiempo_acumulado,
         info.area_id,
         "notaGenerada",
-        info.nivel
+        info.nivel, 
+        esFallaAbierta
       );
     },
     error: function (jqXHR, textStatus, errorThrown) {

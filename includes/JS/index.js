@@ -105,8 +105,7 @@ async function buscarDatos_api() {
     document.getElementById('titulo').textContent = encontrado.TITULO;
     document.getElementById('open_time').value = encontrado.OPEN_TIME;
 
-    const esFallaAbierta = !encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "";
-    console.log(esFallaAbierta );
+    const esFallaAbierta = !encontrado.CLOSE_TIME || encontrado.CLOSE_TIME.trim() === "";  // console.log(esFallaAbierta );
 
     validarFallaOpen(esFallaAbierta, campoCierre, botonCalcular, encontrado.CLOSE_TIME); // Actualiza el estado del botón y campo de cierre
     
@@ -116,7 +115,7 @@ async function buscarDatos_api() {
       timer: 1500,
       showConfirmButton: false
     }).then(() => {
-      if (esFallaAbierta) calcularTiempos(1, 'notaGenerada');
+      if (esFallaAbierta) calcularTiempos(esFallaAbierta, 'notaGenerada'); // se envia true o false para el dashboar // activa escalacion
       toggleLoader(0);
     });
 
@@ -188,15 +187,14 @@ async function calcularTiempos(dashboard,txtarea) {
             timer: 1500
         });
         return;
-    } */
-
+    }
     // Si dashboard == 0, actualizar el campo
     if (dashboard === 0 & tmpAcumu != "00:00") {
         const nuevaHora = await restar_Acumualdo(hrActual, tmpAcumu);
         //document.getElementById('horaActual').value = nuevaHora;
         hrActual = nuevaHora ; 
         console.log( hrActual , nuevaHora)
-      }
+      } */
 
     // prueba para que imprima la tabla
     condi = "TB_calculadora"; 
@@ -206,7 +204,7 @@ async function calcularTiempos(dashboard,txtarea) {
         data: {titulo,fallaID,hrActual,tmpAcumu,areaSlct,condi, dashboard, txtarea, nivel},
         success: function(data) {
         $("#TB_calcu").html(data);
-        if( dashboard == 0 ){
+        if( dashboard == true ){
             tb_copy(titulo,fallaID,hrActual,tmpAcumu,areaSlct);
         }
     } }) 
@@ -464,13 +462,13 @@ function apiasociados() {
 function plusdos(datos, txtarea) {
   let output = "";
   output += "================================================================================\n";
-  output += `  ESCALACIÓN:  ${datos.titulo}  (Falla ID: ${datos.fallaID})\n`;
+  output += ` TABLA DE ESCALACIÓN:  ${datos.titulo}  (Falla ID: ${datos.fallaID})\n`;
   output += "================================================================================\n";
-  output += "| Nivel | Nombre          | Teléfono     | Tiempo | Comentario           | Tipo     | Hr Suma  |\n";
+  output += "| Nivel | Nombre          | Teléfono     | Tiempo | Hr Suma    | Tipo     | Comentario |\n";
   output += "--------------------------------------------------------------------------------\n";
 
   // Primera escalación (nivel 1) con datos originales
-  output += `| ${datos.nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | 0     | ${datos.hr_suma} |\n`;
+  output += `| ${datos.nivel}     | ${datos.nombre.padEnd(15)} | ${datos.telefono}  | ${datos.hr_suma} | 0    |  |\n`;
 
   // Crear objeto Date a partir de hr_suma
   let fecha = new Date(datos.hr_suma);
@@ -600,9 +598,8 @@ function toggleTable(datos) {
 
 
 // FUNCION DE Calcular para la RECARFA 
-function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct,txtarea,nivel) {
+function  calcularTiempos2(titulo,fallaID,hrActual,tmpAcumu,areaSlct,txtarea,nivel,dashboard ) {
 condi = "TB_calculadora"; 
-dashboard = 1;
     $.ajax({
         url: "./views/crud/escalaciones.php",
         method: "POST",

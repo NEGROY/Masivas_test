@@ -44,6 +44,7 @@ case 'tb_areas': #areas por pais
         $consulta = "SELECT id as id_area, nombre_area, id_pais
         FROM esacalaciones_cnoc.tb_area_escalacion 
         WHERE id_pais = $pais_id";
+        #AQUI SE DEBED DE AGREGAR SESSION ID[]| si es 5 es de masivas entonces agregar un where nombre_Area != '% MASIVAS || WO  %'
         #se realiza la consulta 
         $resultado = mysqli_query($general, $consulta);  
     if (mysqli_num_rows($resultado) > 0) {
@@ -156,7 +157,7 @@ case 'TB_calculadora':
                 onclick='toggleTable({$jsonDatos})' data-bs-toggle='tooltip' title='+2 horas'>
                 <i class='fa-solid fa-square-plus'></i></i> </button> "; 
 
-            if ($permiso == 1) {
+            if ($permiso == 1  ) {
                 echo "<button type='button' class='btn btn-outline-success btn-sm rounded-pill shadow-sm px-3' 
                 onclick='tablerosave({$jsonDatos})' data-bs-toggle='tooltip' title='Escalacion'>
                 <i class='fa-solid fa-right-long'></i> </button> ";
@@ -200,10 +201,10 @@ case 'msj_tb':
 
     // Encabezado de tabla en texto plano
     $tablaTxt  = str_repeat("=", 80) . "\n";
-    $tablaTxt .= "  ESCALACIÓN: $titulo (Falla ID: $fallaID)\n";
+    $tablaTxt .= " TABLA DE ESCALACIÓN: $titulo (Falla ID: $fallaID)\n";
     $tablaTxt .= str_repeat("=", 80) . "\n";
-    $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-20s | %-8s | %-8s |\n",
-                        "Nivel", "Nombre", "Teléfono", "Tiempo", "Comentario", "Tipo", "Hr Suma");
+    $tablaTxt .= sprintf("| %-5s | %-15s | %-10s | %-6s | %-8s | %-8s | %-20s |\n",
+                        "Nivel", "Nombre", "Teléfono", "Tiempo", "Hr Suma", "Tipo", "Comentario");
     $tablaTxt .= str_repeat("-", 80) . "\n";
 
     $contador = 1;
@@ -230,9 +231,9 @@ case 'msj_tb':
                             substr($fila['nombre'], 0, 15),
                             $fila['telefono'],
                             $fila['tiempo'],
-                            substr($fila['comentario'] ?? '', 0, 20),
+                            $hr_suma ,
                             substr($fila['tipo'], 0, 8),
-                            $hr_suma);
+                            substr($fila['comentario'] ?? '', 0, 20));
 
         $contador++;
     }
@@ -460,8 +461,12 @@ function mensajeswaha($pdo, $datos, $estado) {
     $mensaje .= "*Fecha/Hora de Escalación*: {$datos['hr_suma']}\n";
     $mensaje .= "\n{$datos['titulo']}";
 
-    // Número de destino (grupo STATUS WAHA)
-    $numero = "120363405171657332@g.us";
+    # AQUI AGREGAR UNA VALIDACION SI LA SESION ES 5 MANDAR AL GRUPO DE 
+    # Alerta Escalacion Masiva  ||  120363422775468086@g.us
+    # grupo STATUS WAHA         ||  120363405171657332@g.us
+    // Número de destino ()
+    $numero = "120363422775468086@g.us";
+    // NUMERO DE GRUPOS 
 
     // Preparar datos para insertar
     session_start();
