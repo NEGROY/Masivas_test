@@ -2,7 +2,8 @@
     include_once '../../includes/BD_con/db_con.php';
     $condi = $_POST["condi"];
     date_default_timezone_set('America/Guatemala');
-
+    session_start();
+    
 switch ($condi) {
 
 // FUNCION PARA IMPRIMIR LAS AREAS DENTRO DE LA tablas 
@@ -70,7 +71,6 @@ case 'TB_calculadora':
     $nivel  = validarNivel($nivel);
     // se obtiene el esatdo del tb usuario
     // si el estado es 1 es admin si es 5 solo puede generar mensajes y no muestra nada en el navbar
-        session_start();
         $permiso = $_SESSION['estado'];
 
     // Consulta Para los contactos  
@@ -248,6 +248,22 @@ break;
 
 // PARA INSERTAR EN LA TABLA DEL TABLERO
 case 'insertb':
+    #AQUI AGREGAR LO DE LOS GRUPOS,SI ES MASIVAS (1) Y OTROS (5) CON  LA VARIABLE DE 
+        $permiso = $_SESSION['estado'];
+        $gestor = "";
+        // --- SWITCH PARA LOS ROLES  ---
+        switch ($permiso) {
+        case 1:
+            $gestor = "MASIVAS";
+        break;
+        case 5:
+            $gestor = "WO";
+        break;
+        default:
+            $gestor = "DESCONOCIDO";
+        break;
+    }
+    # variables 
         $data_falla = $_POST["datos"];
         $campos = [
         'areaSlct', 'nivel', 'nombre', 'telefono', 'tiempo',
@@ -262,7 +278,7 @@ case 'insertb':
         if (!empty($fallaID)) {
             $queryUpdateEstado = "UPDATE tb_escalaciones_registro 
                                 SET estado = 0 
-                                WHERE falla_id = '$fallaID' AND estado = 1 AND Gestor = 'MASIVAS'";
+                                WHERE falla_id = '$fallaID' AND estado = 1 AND Gestor = '$gestor' ";
             mysqli_query($general, $queryUpdateEstado);
             
             // aqui mismo agregar la funcion para enviar los mensajes,
@@ -287,7 +303,7 @@ case 'insertb':
             '{$valores['titulo']}',
             '{$valores['comentario']}',
             '{$valores['fallaID']}',
-            1, 'MASIVAS' );";
+            1, '$gestor' );";
 
     // HOLAS 
         $ok = mysqli_query($general, $query_preview);

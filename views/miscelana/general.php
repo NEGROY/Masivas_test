@@ -4,6 +4,15 @@
 #HEADER GENERICO PARA QUE SE VEA MAS BONITO 
 function listarHeader($url) {
     $permiso = $_SESSION['estado'];
+
+        // ✅ Validar si la sesión o el valor 'estado' no existen
+    if (!isset($_SESSION['estado']) || empty($_SESSION['estado'])) {
+        session_unset();  // Elimina todas las variables de sesión
+        session_destroy(); // Destruye la sesión
+        header("Location: /Masivas_test/");
+        exit(); // Importante: detener ejecución
+    }
+
     ?>
   <header class="shadow-sm mb-4">
     <!-- Top Bar -->
