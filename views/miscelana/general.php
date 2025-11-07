@@ -9,18 +9,16 @@ function listarHeader($url) {
     <!-- Top Bar -->
     <div class="bg-dark text-white py-3">
       <div class="container d-flex justify-content-between align-items-center">
-        <h1 class="h4 fw-bold m-0">Masivas Escalaciones</h1>
+        <h1 class="h4 fw-bold m-0">Escalaciones</h1>
         <div>
         <!-- Navigation Bar -->
         <nav class="bg-light border-top border-bottom" style="border-radius: 20px;">
           <div class="container">
             <ul class="nav justify-content-start py-2">
-              <?php 
-                   if ($permiso == 1) {
-              ?>
+
               <li class="nav-item">
                 <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./home.php">
-                  <i class="bi bi-upload me-1"></i> Ingreso de Masiva
+                  <i class="bi bi-upload me-1"></i> Tablas de Escalacion 
                 </a>
               </li>
 
@@ -31,18 +29,22 @@ function listarHeader($url) {
               </li>
 
               <li class="nav-item">
-                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./app/asociados.php">
+                <a class="nav-link text-danger fw-semibold px-3" href="<?= $url ?>./logout.php" >
+                  <i class="bi bi-exclamation-triangle me-1" ></i> Cerrar Sesión
+                </a>
+              </li>
+
+              <?php 
+                   if ($permiso == 1) {
+              ?>
+              <li class="nav-item">
+                <a class="nav-link fw-semibold px-3" href="<?= $url ?>./app/asociados.php">
                   <i class="bi bi-exclamation-triangle me-1"></i> Fallas Asociadas
                 </a>
               </li>
               <?php 
                    };
               ?>
-              <li class="nav-item">
-                <a class="nav-link text-dark fw-semibold px-3" href="<?= $url ?>./logout.php">
-                  <i class="bi bi-exclamation-triangle me-1"></i> Cerrar Sesión
-                </a>
-              </li>>
 
             </ul>
           </div>

@@ -4,7 +4,7 @@
 // MUESTRA TODOS LOS paises para ser elegidos para las tablas  
 function listarPaises() {
     include_once './includes/BD_con/db_con.php';
-    $consulta = "SELECT id as id_pais, nombre_pais, ext FROM esacalaciones_cnoc.tb_pais";
+    $consulta = "SELECT id as id_pais, nombre_pais, ext FROM esacalaciones_cnoc.tb_pais WHERE id != 1";
     $resultado = mysqli_query($general, $consulta);
 
     if (!$resultado) {
@@ -29,7 +29,6 @@ function calcu_hrs() {
         $dt->modify("+{$hrs} hours");
         echo "Hora +$hrs hrs: " . $dt->format("H:i:s") . "<br>";
     }
-
 }
 
 

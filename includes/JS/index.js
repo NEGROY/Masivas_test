@@ -85,11 +85,31 @@ async function buscarDatos_api() {
 
   try {
     const response = await fetch(url);
-    const data = await response.json();
+      // 🔎 Verifica si la respuesta es 200 OK
+    if (!response.ok) {
+      throw new Error(`Error HTTP ${response.status}`);
+    }
+
+      const data = await response.json();
+      console.log("Respuesta completa API:", data);
+    
+    // ⚠️ Maneja el caso cuando la API devuelve {"detail":"Ticket no encontrado"}
+    if (data.detail) {
+      console.warn(data.detail);
+      toggleLoader(0);
+      return Swal.fire({
+        text: data.detail,
+        icon: "warning",
+        timer: 2500
+      });
+    }
+
+    // ✅ Busca el TK
     const encontrado = data.data.find(item => item.TK === TK);
 
     if (!encontrado) {
       console.warn("No se encontró el TK solicitado.");
+      toggleLoader(0);
       return Swal.fire({
         text: "No se encontró el TK solicitado.",
         icon: "warning",
@@ -97,6 +117,7 @@ async function buscarDatos_api() {
       });
     }
 
+    // ✅ Si se encuentra, llena los campos
     console.log(`TK encontrado: ${encontrado.TK}, Hora open: ${encontrado.OPEN_TIME}, HH:MM:SS: ${encontrado.HH_MM_SS}`);
 
     const hora = encontrado.OPEN_TIME.split('T')[1] || '';
@@ -125,6 +146,8 @@ async function buscarDatos_api() {
       text: "Error al consumir API.",
       icon: "warning",
       timer: 2500
+    }).then(() => {
+      toggleLoader(0);
     });
   }
 }

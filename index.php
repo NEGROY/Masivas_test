@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['usuario'] = $user['nombre'];
             $_SESSION['id'] = $user['id'];
             $_SESSION['estado'] = $user['estado'];
-            header('Location: ' . urlsite.'home.php'); // Redirige correctamente header("Location: home.php");
+            header('Location: ' . urlsite.'home.php');      //Redirige correctamente header("Location: home.php");
             exit();
         } else {
              header('Location: ' . urlsite.'index.php?error=1'); // Redirige correctamente

@@ -28,7 +28,7 @@ if (!isset($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>masivas Prueba</title>
+    <title>Tablas de Escalación</title>
     <script src="./includes/JS/index.js"></script>
     <link rel="stylesheet" href="./includes/CSS/index.css">
 </head>
