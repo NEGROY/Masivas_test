@@ -1,5 +1,6 @@
 <?php
   #  include_once './includes/BD_con/db_con.php';
+ 
 
 #HEADER GENERICO PARA QUE SE VEA MAS BONITO 
 function listarHeader($url) {
@@ -337,6 +338,9 @@ function msj_tb(){
 # - PRUEBAS PARA EL TABLERO  - 
 function tablero1(){
   include '../includes/BD_con/db_con.php';
+  //
+   $permiso = $_SESSION['estado'];
+    $gestor = obtenerGestorPorPermiso($permiso);
 
     $query = "SELECT id_registro, falla_id, area_id, titulo, nivel, nombre, telefono, tiempo, 
           hora_apertura, hora_sumada, tiempo_acumulado, comentario, estado, fecha_registro, 
@@ -349,7 +353,7 @@ function tablero1(){
             INTERVAL ROUND((tiempo - FLOOR(tiempo)) * 60) MINUTE
           ) end
           hora_escalacion
-          FROM tb_escalaciones_registro WHERE estado = 1  AND Gestor = 'MASIVAS' 
+          FROM tb_escalaciones_registro WHERE estado = 1  AND Gestor = '$gestor' 
           order by hora_sumada;";
 
     $resultado = mysqli_query($general, $query);
@@ -401,7 +405,6 @@ function tablero1(){
       data-tiempo-acumulado='" . htmlspecialchars($fila['tiempo_acumulado']) . "'
       data-titulo='".htmlspecialchars($fila['titulo'])." '>
       
-
       <p><strong>ID:</strong> {$fila['falla_id']} || <strong>Hora:</strong> {$fila['hora_sumada']} Hrs </p>
       <p><strong>Título:</strong> {$fila['titulo']} </p> </div>";
 
@@ -470,5 +473,18 @@ function tablerohueco() {
   <?php
 }
 
- 
+
+// VALIDAR PERMISOS 
+function obtenerGestorPorPermiso($permiso) {
+    switch ($permiso) {
+        case 1:
+            return "MASIVAS";
+        case 5:
+            return "WO";
+        default:
+            return "DESCONOCIDO";
+    }
+}
+
+
 ?>

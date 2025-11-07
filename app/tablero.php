@@ -1,18 +1,23 @@
 <?php
 session_start();
-require_once("../config.php");
+  require_once("../config.php");
+           
+  require_once '../includes/phpFun/fun.php';
+  require_once '../includes/2incl.php';
+  require_once '../views/miscelana/general.php';
+  
 
 if (!isset($_SESSION['usuario'])) {
     echo $_SESSION['usuario'] . " No has iniciado sesión. Redirigiendo al login...";  
     header('Location: ' . urlsite . 'index.php');
     exit();
 }
+  // se debe de AGREGAR UNA FUNCION QUE SEA COMPARTIDA O VARIABLES DE .ENV PARA QUE LLENE EL SWICTH   
+      #AQUI AGREGAR LO DE LOS GRUPOS,SI ES MASIVAS (1) Y OTROS (5) CON  LA VARIABLE DE 
+        $permiso = $_SESSION['estado'];
+        $gestor = "";
+        // --- SWITCH PARA LOS ROLES  ---
 
-
-  require_once '../includes/phpFun/fun.php';
-  require_once '../includes/2incl.php';
-  require_once '../views/miscelana/general.php';
-  
     date_default_timezone_set('America/Guatemala');
     $fecha = date('m-d-Y');
     $hora  = date('H:i');
@@ -23,7 +28,7 @@ if (!isset($_SESSION['usuario'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tablero Masivas </title>
+    <title>Tablero <?= $permiso ?> </title>
     <link rel="stylesheet" href="../includes/CSS/tablero.css">
 </head>
 <body>

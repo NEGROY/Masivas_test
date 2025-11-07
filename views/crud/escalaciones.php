@@ -1,8 +1,11 @@
 <?php
     include_once '../../includes/BD_con/db_con.php';
+    require_once '../miscelana/general.php';
     $condi = $_POST["condi"];
     date_default_timezone_set('America/Guatemala');
     session_start();
+
+
     
 switch ($condi) {
 
@@ -250,19 +253,9 @@ break;
 case 'insertb':
     #AQUI AGREGAR LO DE LOS GRUPOS,SI ES MASIVAS (1) Y OTROS (5) CON  LA VARIABLE DE 
         $permiso = $_SESSION['estado'];
-        $gestor = "";
+        $gestor = "CNOC";
         // --- SWITCH PARA LOS ROLES  ---
-        switch ($permiso) {
-        case 1:
-            $gestor = "MASIVAS";
-        break;
-        case 5:
-            $gestor = "WO";
-        break;
-        default:
-            $gestor = "DESCONOCIDO";
-        break;
-    }
+        $gestor = obtenerGestorPorPermiso($permiso);
     # variables 
         $data_falla = $_POST["datos"];
         $campos = [
@@ -282,7 +275,7 @@ case 'insertb':
             mysqli_query($general, $queryUpdateEstado);
             
             // aqui mismo agregar la funcion para enviar los mensajes,
-            mensajeswaha($pdo, $data_falla, 1); // si existe se cambia a cero e insertar uno nuevo en 1 
+           //  mensajeswaha($pdo, $data_falla, 1); // si existe se cambia a cero e insertar uno nuevo en 1 
         }
         // enviarsmj($general,  $data_falla, 0), si existe se cambia a cero e insertar uno nuevo en 0
 
@@ -308,15 +301,10 @@ case 'insertb':
     // HOLAS 
         $ok = mysqli_query($general, $query_preview);
         echo json_encode($ok
-            ? ['status'=>'success','message'=>'Escalación registrada']
+            ? ['status'=>'success','message'=>'Escalación registrada' ]
             : ['status'=>'error','message'=>'Error en INSERT','error'=>mysqli_error($general)]
         );
-        
-    /*  echo json_encode([
-        "status" => "preview",
-        "sql" => $query_preview
-        ]);
-        // $resultado = mysqli_query($general, $query); */
+
 break;
 
 // eliminar un registro relacionado 
@@ -481,7 +469,7 @@ function mensajeswaha($pdo, $datos, $estado) {
     # Alerta Escalacion Masiva  ||  120363422775468086@g.us
     # grupo STATUS WAHA         ||  120363405171657332@g.us
     // Número de destino ()
-    $numero = "120363422775468086@g.us";
+    $numero = "120363405171657332@g.us";
     // NUMERO DE GRUPOS 
 
     // Preparar datos para insertar
