@@ -474,17 +474,4 @@ function tablerohueco() {
 }
 
 
-// VALIDAR PERMISOS 
-function obtenerGestorPorPermiso($permiso) {
-    switch ($permiso) {
-        case 1:
-            return "MASIVAS";
-        case 5:
-            return "WO";
-        default:
-            return "DESCONOCIDO";
-    }
-}
-
-
 ?>

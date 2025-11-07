@@ -1,6 +1,5 @@
 <?php
     include_once '../../includes/BD_con/db_con.php';
-    require_once '../miscelana/general.php';
     $condi = $_POST["condi"];
     date_default_timezone_set('America/Guatemala');
     session_start();
@@ -251,11 +250,18 @@ break;
 
 // PARA INSERTAR EN LA TABLA DEL TABLERO
 case 'insertb':
+
     #AQUI AGREGAR LO DE LOS GRUPOS,SI ES MASIVAS (1) Y OTROS (5) CON  LA VARIABLE DE 
         $permiso = $_SESSION['estado'];
         $gestor = "CNOC";
         // --- SWITCH PARA LOS ROLES  ---
-        $gestor = obtenerGestorPorPermiso($permiso);
+        // VALIDAR PERMISOS 
+        switch ($permiso) {
+        case 1: $gestor = "MASIVAS";        break;
+        case 5: $gestor = "WO";             break;
+        default: $gestor = "DESCONOCIDO";   break;
+}
+
     # variables 
         $data_falla = $_POST["datos"];
         $campos = [
@@ -275,28 +281,27 @@ case 'insertb':
             mysqli_query($general, $queryUpdateEstado);
             
             // aqui mismo agregar la funcion para enviar los mensajes,
-           //  mensajeswaha($pdo, $data_falla, 1); // si existe se cambia a cero e insertar uno nuevo en 1 
+           // mensajeswaha($pdo, $data_falla, 1); // si existe se cambia a cero e insertar uno nuevo en 1 
         }
-        // enviarsmj($general,  $data_falla, 0), si existe se cambia a cero e insertar uno nuevo en 0
 
     // Armar la consulta SQL de inserción (modo string)
-        $query_preview = "INSERT INTO tb_escalaciones_registro (
+        $query_preview = " INSERT INTO tb_escalaciones_registro (
             area_id, nivel, nombre, telefono, tiempo, 
             hora_apertura, hora_sumada, tiempo_acumulado,
-            titulo, comentario, falla_id, estado, gestor 
-            ) VALUES (
-            {$valores['areaSlct']},
+            titulo, comentario, falla_id, estado, gestor
+        ) VALUES (
+            '{$valores['areaSlct']}',
             '{$valores['nivel']}',
             '{$valores['nombre']}',
             '{$valores['telefono']}',
-            {$valores['tiempo']},
+            '{$valores['tiempo']}',
             '{$valores['hrActual']}',
             '{$valores['hr_suma']}',
             '{$valores['tmpAcumu']}',
             '{$valores['titulo']}',
             '{$valores['comentario']}',
             '{$valores['fallaID']}',
-            1, '$gestor' );";
+            1, '$gestor' ); ";
 
     // HOLAS 
         $ok = mysqli_query($general, $query_preview);
@@ -479,7 +484,7 @@ function mensajeswaha($pdo, $datos, $estado) {
         'telefono'    => $numero,
         'mensaje'     => $mensaje,
         'fecha_envio' => $fechaEnvioStr,
-        'estado'      => 0,
+        'estado'      => 1,   //  CAMBIAR LOS ESTAODS DE 0 => 1  (cero no enviado ) 
         'tipo'        => "@g.us",
         'today'       => date('Y-m-d H:i:s'),
         'user'        => $_SESSION['usuario'] ?? 'ESCALA'
